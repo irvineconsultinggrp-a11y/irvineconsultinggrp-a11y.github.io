@@ -101,6 +101,9 @@ function Home() {
             <button className="border border-white border-2 w-fit px-4 py-2 mt-6 text-base sm:text-2xl font-bold hover:bg-icgblue hover:text-white">
               <Link to="contact">Contact Us</Link>
             </button>
+            <button className="border border-white border-2 w-fit px-4 py-2 mt-6 ml-6 text-base sm:text-2xl font-bold hover:bg-icgblue hover:text-white">
+              <Link to="apply.irvineconsultinggroup.com">Apply Now</Link>
+            </button>
           </div>
         </div>
       </div>

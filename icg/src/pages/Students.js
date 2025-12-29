@@ -29,7 +29,7 @@ function Students() {
 
   const timelineData = [
     {
-      date: 'September 22, 2025',
+      date: 'December 29, 2025',
       heading: 'Applications Open',
       content: (
         <>
@@ -53,7 +53,7 @@ function Students() {
           </a>
           {", and our website for updates."}<br /><br />
           <a
-            href="https://forms.gle/CjEGDBWi4g5Gj1yM6"
+            href="https://apply.irvineconsultinggroup.com"
             target="_blank"
             rel="noopener noreferrer"
             className="text-icgblue font-semibold hover:opacity-80 border-2 p-2 rounded-md border-black bg-blue-100"
@@ -64,34 +64,29 @@ function Students() {
       ),
     },
     {
-      date: 'September 26, 2025',
-      heading: 'In-Person Info Session',
-      content: 'Meet the team, learn about ICG, and ask questions at SB1 2200, Friday at 3:00 PM.',
+      date: 'January 5th-8th, 2026',
+      heading: 'Coffee Chats',
+      content: 'Schedule a coffee chat with someone from the ICG team to learn more about the application process and get your questions answered.',
     },
     {
       date: 'Week 1',
-      heading: 'Online Info Session',
-      content: 'Couldn’t make it in person? Join us virtually to learn more. (Details to be announced soon.)',
+      heading: 'In-Person Info Session',
+      content: 'Meet the team, learn about ICG, and ask questions at Location: TBA, Time: TBA',
     },
     {
-      date: 'October 2, 2025',
-      heading: 'Applications Close',
-      content: 'Don’t miss the deadline, applications must be submitted by 12:00 PM.',
+      date: 'Jan 8, 2026',
+      heading: 'Application Deadline',
+      content: 'Applications must be submitted by 11:59 PM on January 8th!',
     },
     {
-      date: 'October 4-5, 2025',
-      heading: 'Case Interview (Invite Only)',
-      content: 'Work with other candidates in a group case interview.',
+      date: 'Jan 10, 2026',
+      heading: 'First Round Group Interviews',
+      content: 'Group interviews will be held on January 10th. You will be paired with other candidates and will have a chance to share your skills in a group setting.',
     },
     {
-      date: 'October 6-8, 2025',
-      heading: 'Behavioral Interview (Invite Only)',
-      content: 'Share your story, experiences, and fit for ICG.',
-    },
-    {
-      date: 'October 9, 2025',
-      heading: 'Welcome to ICG!',
-      content: 'Successful candidates will be invited to join as Fall ‘25 Junior Associates.',
+      date: 'Jan 11, 2026',
+      heading: 'Second Round Individual Interviews',
+      content: 'Individual interviews will be held on January 11th. You will have a chance to share your skills and learn more about the ICG team in a one-on-one setting.',
     },
   ];
 
@@ -135,8 +130,8 @@ function Students() {
             experience and event timeline.
           </p>
           <button
-            className="mt-4 bg-icgblue text-white px-4 py-2 sm:px-6 sm:py-3 text-base sm:text-xl font-bold rounded-md hover:bg-[#001f54] border"
-            onClick={() => window.open('https://forms.gle/CjEGDBWi4g5Gj1yM6')}
+            className="mt-4 bg-white text-black px-4 py-2 sm:px-6 sm:py-3 text-base sm:text-xl font-bold rounded-md hover:bg-[#001f54] border"
+            onClick={() => window.open('https://apply.irvineconsultinggroup.com')}
           >
             Apply Now
           </button>
@@ -190,7 +185,7 @@ function Students() {
                 </h3>
                 <p className="text-gray-600 mb-4 text-sm sm:text-base flex-grow">{testimonial.quote}</p>
                 <div className="mt-auto pt-4">
-                  <span className="text-5xl md:text-6xl text-icgblue font-extrabold leading-none">"</span>
+                  
                 </div>
               </div>
             ))}
