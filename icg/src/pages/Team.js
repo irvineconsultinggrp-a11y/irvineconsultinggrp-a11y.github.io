@@ -175,7 +175,7 @@ export default function Team() {
     <div>
       {/* ===== Hero ===== */}
       <div
-        className="h-[45vh] md:h-[55vh] bg-cover bg-center text-white relative"
+        className="h-[38vh] md:h-[48vh] bg-cover bg-center text-white relative"
         style={{ backgroundImage: `url('/ICG Team pic.png')` }}
       >
         <div className="absolute inset-0 bg-icgblue/30" />
