@@ -1,7 +1,13 @@
 import {
+    Search,
+    BarChart2,
+    Target,
+    Heart,
     ChevronLeft,
     ChevronRight,
     Mail,
+    ChartNoAxesCombined,
+    Merge,
     Linkedin,
   } from "lucide-react";
   import { useState } from "react";
@@ -112,7 +118,49 @@ import {
             <div className="w-48 md:w-80 h-0.5 bg-white/50 mx-auto"></div>
           </div>
         </div>
-  
+          {/* Services Section */}
+        <div className="container mx-auto px-4 py-16">
+          <h2 className="text-xl md:text-2xl font-bold text-[#005d97]">
+            Our Services.
+          </h2>
+          <p className="text-icgblue font-bold mt-4 mb-12 max-w-6xl text-5xl md:text-6xl">
+            Capabilities and Specialties
+          </p>
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <ServiceCard
+              icon={<Search className="w-12 h-12 text-blue-500" />}
+              title="Market Research"
+              description="Comprehensive and critical analysis to uncover industry trends, customer behavior, and competitive dynamics shaping strategic decisions."
+            />
+            <ServiceCard
+              icon={<BarChart2 className="w-12 h-12 text-teal-500" />}
+              title="Product Development"
+              description="Identification of new product opportunities and development of value-driven pricing strategies informed by market and client-specific data."
+            />
+            <ServiceCard
+              icon={<Target className="w-12 h-12 text-orange-500" />}
+              title="Go-To-Market Strategy"
+              description="Design and implementation of targeted strategies to successfully launch products or services into specific markets with measurable outcomes."
+            />
+            <ServiceCard
+              icon={<ChartNoAxesCombined className="w-12 h-12 text-green-500" />}
+              title="Growth Strategy"
+              description="Evaluation and optimization of opportunities for market expansion, operational efficiency, and revenue acceleration."
+            />
+            <ServiceCard
+              icon={<Heart className="w-12 h-12 text-red-500" />}
+              title="Branding Strategy"
+              description="Development of innovative branding approaches to establish compelling brand identity and strengthen market presence."
+            />
+            <ServiceCard
+              icon={<Merge className="w-12 h-12 text-purple-500" />}
+              title="Merger and Acquisition Advisory"
+              description="Strategic guidance throughout the M&A process, including opportunity assessment, market research, due diligence, and post-merger integration planning."
+            />
+          </div>
+        </div>
+
         {/* Clients Section */}
         <div className="container mx-auto px-4 py-12">
           <h2 className="text-xl md:text-2xl font-bold text-[#005d97]">
@@ -134,6 +182,7 @@ import {
               <img src="/clientlogo/knowt logoo.png" alt="Knowt" />
               <img src="/clientlogo/Kura sushi logo.png" alt="Kura Sushi" />
               <img src="/clientlogo/TC logo.png" alt="ToughCutie" />
+              <img src="/clientlogo/datedrop.jpg" alt="Date Drop" />
               {/* Duplicate set for seamless loop */}
               <img src="/clientlogo/7 Leaves logo.avif" alt="7 Leaves" />
               <img src="/clientlogo/ABD logo.png" alt="ABD" />
@@ -143,10 +192,13 @@ import {
               <img src="/clientlogo/knowt logoo.png" alt="Knowt" />
               <img src="/clientlogo/Kura sushi logo.png" alt="Kura Sushi" />
               <img src="/clientlogo/TC logo.png" alt="ToughCutie" />
+              <img src="/clientlogo/datedrop.jpg" alt="Date Drop" />
               </div>
             </div>
           </div>
         </div>
+
+        
   
         {/* Testimonials Section */}
         <div className="relative bg-icgblue text-white py-8 md:py-12 mt-16">
@@ -362,5 +414,15 @@ import {
           </div>
         </div>
       </div>
+  );
+}
+    
+function ServiceCard({ icon, title, description }) {
+  return (
+    <div className="border rounded-lg p-8 flex flex-col items-center text-center hover:shadow-md transition-shadow">
+      <div className="mb-4">{icon}</div>
+      <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
+      <p className="text-gray-600 text-sm">{description}</p>
+    </div>
   );
 }

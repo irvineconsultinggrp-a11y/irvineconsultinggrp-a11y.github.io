@@ -69,7 +69,7 @@ function Students() {
       content: 'Schedule a coffee chat with someone from the ICG team to learn more about the application process and get your questions answered.',
     },
     {
-      date: 'Jan 6, 2026',
+      date: 'Jan 7, 2026',
       heading: 'In-Person Info Session',
       content: 'Meet the team, learn about ICG, and ask questions. Location: TBA, Time: TBA.',
     },
