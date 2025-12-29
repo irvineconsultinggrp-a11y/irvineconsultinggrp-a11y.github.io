@@ -96,7 +96,7 @@ export default function DevelopmentCarousel() {
       </div>
 
       {/* Navigation Controls */}
-      <div className="flex justify-between items-center mt-8">
+      <div className="flex justify-center items-center mt-8 gap-4">
         <button
           onClick={prevSlide}
           className="p-2 rounded-full hover:bg-gray-100"

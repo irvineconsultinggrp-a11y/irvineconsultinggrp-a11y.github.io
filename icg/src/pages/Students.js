@@ -69,9 +69,9 @@ function Students() {
       content: 'Schedule a coffee chat with someone from the ICG team to learn more about the application process and get your questions answered.',
     },
     {
-      date: 'Week 1',
+      date: 'Jan 6, 2026',
       heading: 'In-Person Info Session',
-      content: 'Meet the team, learn about ICG, and ask questions at Location: TBA, Time: TBA',
+      content: 'Meet the team, learn about ICG, and ask questions. Location: TBA, Time: TBA.',
     },
     {
       date: 'Jan 8, 2026',
@@ -102,12 +102,6 @@ function Students() {
       name: "Zach Bosa",
       quote: "ICG gave me the rare opportunity to work directly with real clients, pitch data-driven solutions, and lead parts of the presentation process. I've grown more confident in my ability to communicate insights clearly and professionally under pressure. If you're curious or serious about consulting and want to accelerate your growth, ICG is the best place to start.",
       imageUrl: "/zach.png",
-    },
-    {
-      id: 3,
-      name: "Tiffany Bian",
-      quote: "As someone who wants to pursue a career in consulting, ICG has been such an incredible learning experience. I never thought I'd be able to interact directly with CEOs on client projects or learn so much about consulting in such a small amount of time. If you're thinking about pursuing consulting, ICG is the way to do it :))",
-      imageUrl: "/tiffany.png",
     },
   ];
 
@@ -169,7 +163,7 @@ function Students() {
         <div className="absolute inset-0 bg-white bg-opacity-90"></div>
         {/* Actual content */}
         <div className="relative container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {testimonials.map((testimonial) => (
               <div key={testimonial.id} className="flex flex-col items-center text-center p-4 min-h-[600px]">
                 {/* Responsive circular avatar */}
@@ -180,7 +174,7 @@ function Students() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <h3 className="text-lg sm:text-xl font-medium text-[#005d97] mb-2">
+                <h3 className="text-lg sm:text-xl font-bold text-black mb-2">
                   {testimonial.name}
                 </h3>
                 <p className="text-gray-600 mb-4 text-sm sm:text-base flex-grow">{testimonial.quote}</p>

@@ -21,3 +21,42 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Client Logo Carousel */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.logo-carousel-wrapper {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  overflow: hidden;
+}
+
+.logo-carousel {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.logo-carousel-track {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4rem;
+  animation: scroll-left 40s linear infinite;
+  width: max-content;
+}
+
+.logo-carousel-track img {
+  height: 200px;
+  width: auto;
+  max-width: 400px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
