@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { GrLinkedin } from "react-icons/gr";
+import {
+  getAllMembers,
+  getMembersByCategory,
+  getMembersGroupedByCommittee,
+  COMMITTEES,
+} from "../data/teamMembers";
 
-/** Reusable card */
-function MemberCard({ name, role, image, hoverImage, linkedin }) {
+/** Reusable member card */
+function MemberCard({ name, role, image, hoverImage, linkedin, showRole = true }) {
   return (
     <div className="group flex flex-col items-center">
       <div className="relative w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 mb-3 rounded-full overflow-hidden hover:cursor-pointer shadow-sm">
@@ -22,7 +28,7 @@ function MemberCard({ name, role, image, hoverImage, linkedin }) {
 
       <div className="text-center">
         <h3 className="text-lg md:text-xl font-semibold text-white">{name}</h3>
-        {role && (
+        {showRole && role && (
           <p className="text-xs md:text-sm text-gray-300 max-w-[220px] mx-auto">
             {role}
           </p>
@@ -43,133 +49,142 @@ function MemberCard({ name, role, image, hoverImage, linkedin }) {
   );
 }
 
+/** Tab button component */
+function TabButton({ label, isActive, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`
+        px-4 py-2 md:px-6 md:py-3 
+        text-sm md:text-base font-medium
+        rounded-full transition-all duration-200
+        ${
+          isActive
+            ? "bg-white text-icgblue shadow-lg"
+            : "bg-icgblue text-white border border-white/30 hover:bg-white/10 hover:border-white/50"
+        }
+      `}
+    >
+      {label}
+    </button>
+  );
+}
+
+/** Tab definitions */
+const TABS = [
+  { key: "all", label: "All Members" },
+  { key: "executives", label: "Executives" },
+  { key: "directors", label: "Directors" },
+  { key: "committee", label: "Committee" },
+  { key: "projectManagers", label: "Project Managers" },
+];
+
 export default function Team() {
-  /** Source-of-truth people map so we can place folks in multiple sections */
-  const people = {
-    khang: {
-      name: "Khang Nguyen",
-      image: "/khang.png",
-      hoverImage: "/khang_silly.png",
-      linkedin: "https://www.linkedin.com/in/khangtoannguyen/",
-    },
-    mohan: {
-      name: "Mohan Krishnan",
-      image: "/mohan.png",
-      hoverImage: "/mohan_silly.jpg",
-      linkedin: "https://www.linkedin.com/in/mohan-krishnan1/",
-    },
-    kim: {
-      name: "Kim Vuong",
-      image: "/kim.png",
-      hoverImage: "/kimmy_silly.jpg",
-      linkedin: "https://www.linkedin.com/in/kimvuong-vntk/",
-    },
-    michelle: {
-      name: "Michelle Choy",
-      image: "/michelle.png",
-      hoverImage: "/IMG_4479.jpg",
-      linkedin: "https://www.linkedin.com/in/michelle-choy0/",
-    },
-    patrick: {
-      name: "Patrick Lee",
-      image: "/patrick.png",
-      hoverImage: "/IMG_8758.jpg",
-      linkedin: "https://www.linkedin.com/in/leepatricks/",
-    },
-    zach: {
-      name: "Zach Bosa",
-      image: "/zach.png",
-      hoverImage: "/IMG_7408.JPG",
-      linkedin: "https://www.linkedin.com/in/zachbosa/",
-    },
-    justin: {
-      name: "Justin Park",
-      image: "/justin.png",
-      hoverImage: "/IMG_8757.jpg",
-      linkedin: "https://www.linkedin.com/in/justin-park-bba724334/",
-    },
-    nishant: {
-      name: "Nishant Nuthalapati",
-      image: "/nishant.png",
-      hoverImage: "/IMG_6177.jpeg",
-      linkedin: "https://www.linkedin.com/in/nishant-nuthalapati/",
-    },
-    tiffany: {
-      name: "Tiffany Bian",
-      image: "/tiffany.png",
-      hoverImage: "/Tiffany_Silly.PNG",
-      linkedin: "https://www.linkedin.com/in/tiffany-bian/",
-    },
-    brian: {
-      name: "Brian Lee",
-      image: "/brian_pfp.png",
-      hoverImage: "/brian_silly.jpg",
-      linkedin: "https://www.linkedin.com/in/brianhanlee/",
-    },
-    andrew: {
-      name: "Andrew Wagner",
-      image: "/andrew.png",
-      hoverImage: "/andrew_silly.jpeg",
-      linkedin: "https://www.linkedin.com/in/andrew-wagner-31370329b/",
-    },
-    advisorEdward: {
-      name: "Edward Li",
-      image: "/edward.png",
-      hoverImage: null,
-      linkedin: "https://www.linkedin.com/in/edwardhanli/",
-    },
+  const [activeTab, setActiveTab] = useState("all");
+
+  /** Get members for current tab */
+  const getDisplayMembers = () => {
+    switch (activeTab) {
+      case "all":
+        // Exclude advisors from "All Members" view
+        return getAllMembers().filter(
+          (m) => !m.categories.includes("advisors")
+        );
+      case "executives":
+        return getMembersByCategory("executives");
+      case "directors":
+        return getMembersByCategory("directors");
+      case "projectManagers":
+        return getMembersByCategory("projectManagers");
+      case "committee":
+        // Committee view is handled separately with grouped display
+        return null;
+      default:
+        return getAllMembers();
+    }
   };
 
-  /** Section definitions (order matches your screenshot) */
-  const sections = [
-    {
-      title: "Executive Board",
-      cols: "grid-cols-2 md:grid-cols-4",
-      members: [
-        { ...people.khang, role: "President" },
-        { ...people.mohan, role: "Strategy Vice President" },
-        { ...people.kim, role: "Internal Vice President" },
-        { ...people.michelle, role: "External Vice President" },
-      ],
-    },
-    {
-      title: "Directors",
-      cols: "grid-cols-2 md:grid-cols-4",
-      members: [
-        { ...people.patrick, role: "Director of Social Activities" },
-        { ...people.zach, role: "Director of Finance" },
-        { ...people.justin, role: "Director of Operations" },
-        { ...people.nishant, role: "Director of Technology" },
-      ],
-    },
-    {
-      title: "Project Managers",
-      cols: "grid-cols-2 md:grid-cols-4",
-      members: [
-        { ...people.michelle, role: "Co-Project Manager" },
-        { ...people.tiffany, role: "Co-Project Manager" },
-        { ...people.mohan, role: "Co-Project Manager" },
-        { ...people.patrick, role: "Co-Project Manager" },
-      ],
-    },
-    {
-      title: "Consultants",
-      cols: "grid-cols-2 md:grid-cols-4",
-      members: [
-        { ...people.tiffany, role: "Business Administration" },
-        { ...people.nishant, role: "Computer Science & Applied Mathematics" },
-        { ...people.zach, role: "Business Administration" },
-        { ...people.michelle, role: "Business Administration" },
-        { ...people.khang, role: "Business Administration" },
-        { ...people.kim, role: "Business Administration" },
-        { ...people.justin, role: "Business Economics" },
-        { ...people.mohan, role: "Business Administration & Economics" },
-        { ...people.brian, role: "Environmental Science & Policy" },
-        { ...people.andrew, role: "Computational & Applied Mathematics" },
-        { ...people.patrick, role: "Business Economics" },
-      ],
-    },
-  ];
+  /** Render committee grouped view */
+  const renderCommitteeView = () => {
+    const grouped = getMembersGroupedByCommittee();
+
+    return (
+      <div className="space-y-12">
+        {COMMITTEES.map((committeeName) => {
+          const members = grouped[committeeName];
+          if (!members || members.length === 0) return null;
+
+          return (
+            <div key={committeeName}>
+              <h2 className="text-2xl md:text-3xl font-semibold text-white text-center mb-8">
+                {committeeName === "ProDev" ? "Professional Development" : committeeName}
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-10 md:gap-y-14 place-items-center">
+                {members.map((member) => (
+                  <MemberCard
+                    key={`${committeeName}-${member.id}`}
+                    name={member.name}
+                    role={member.role}
+                    image={member.headshotSrc}
+                    hoverImage={member.hoverSrc}
+                    linkedin={member.linkedinUrl}
+                    showRole={false} // No role subtitle in Committee view per spec
+                  />
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  /** Render standard grid view */
+  const renderGridView = () => {
+    const members = getDisplayMembers();
+    if (!members) return null;
+
+    // Get section title based on active tab
+    const getSectionTitle = () => {
+      switch (activeTab) {
+        case "executives":
+          return "Executive Board";
+        case "directors":
+          return "Directors";
+        case "projectManagers":
+          return "Project Managers";
+        default:
+          return null;
+      }
+    };
+
+    const title = getSectionTitle();
+
+    return (
+      <div>
+        {title && (
+          <h2 className="text-2xl md:text-3xl font-semibold text-white text-center mb-8">
+            {title}
+          </h2>
+        )}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-10 md:gap-y-14 place-items-center">
+          {members.map((member) => (
+            <MemberCard
+              key={member.id}
+              name={member.name}
+              role={member.role}
+              image={member.headshotSrc}
+              hoverImage={member.hoverSrc}
+              linkedin={member.linkedinUrl}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  /** Get advisors for the Advisors section */
+  const advisors = getMembersByCategory("advisors");
 
   return (
     <div>
@@ -187,7 +202,7 @@ export default function Team() {
         </div>
       </div>
 
-      {/* ===== Cityscape + Sections ===== */}
+      {/* ===== Cityscape + Content ===== */}
       <div
         className="bg-fixed bg-cover bg-center text-white relative"
         style={{ backgroundImage: `url('/cityscape.jpeg')` }}
@@ -196,35 +211,41 @@ export default function Team() {
         <div className="absolute inset-0 bg-icgblue/70" />
 
         <div className="relative z-10 container mx-auto px-6 md:px-10 lg:px-16 pb-24">
-          {sections.map((section, idx) => (
-            <div key={section.title} className={idx === 0 ? "pt-16" : "pt-14"}>
-              <h2 className="text-2xl md:text-3xl font-semibold text-white text-center mb-8">
-                {section.title}
-              </h2>
-
-              <div
-                className={`grid ${section.cols} gap-x-10 gap-y-10 md:gap-y-14 place-items-center`}
-              >
-                {section.members.map((m) => (
-                  <MemberCard key={`${section.title}-${m.name}`} {...m} />
-                ))}
-              </div>
+          {/* ===== Tab Buttons ===== */}
+          <div className="pt-12 pb-10">
+            <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+              {TABS.map((tab) => (
+                <TabButton
+                  key={tab.key}
+                  label={tab.label}
+                  isActive={activeTab === tab.key}
+                  onClick={() => setActiveTab(tab.key)}
+                />
+              ))}
             </div>
-          ))}
+          </div>
 
-          {/* ===== Advisors ===== */}
+          {/* ===== Dynamic Content ===== */}
+          <div className="pt-4">
+            {activeTab === "committee" ? renderCommitteeView() : renderGridView()}
+          </div>
+
+          {/* ===== Advisors (always shown) ===== */}
           <div className="pt-16">
             <h2 className="text-2xl md:text-3xl font-semibold text-white text-center mb-8">
               Advisors
             </h2>
-            <div className="flex items-center justify-center">
-              <MemberCard
-                name={people.advisorEdward.name}
-                role="External Advisor"
-                image={people.advisorEdward.image}
-                hoverImage={people.advisorEdward.hoverImage}
-                linkedin={people.advisorEdward.linkedin}
-              />
+            <div className="flex flex-wrap items-center justify-center gap-10">
+              {advisors.map((advisor) => (
+                <MemberCard
+                  key={advisor.id}
+                  name={advisor.name}
+                  role={advisor.role}
+                  image={advisor.headshotSrc}
+                  hoverImage={advisor.hoverSrc}
+                  linkedin={advisor.linkedinUrl}
+                />
+              ))}
             </div>
           </div>
         </div>
