@@ -66,7 +66,16 @@ function Students() {
     {
       date: 'January 5th-7th, 2026',
       heading: 'Coffee Chats',
-      content: 'Schedule a coffee chat with someone from the ICG team to learn more about the application process and get your questions answered.',
+      content: (<>Schedule a coffee chat with someone from the ICG team to learn more about the application process and get your questions answered.
+      
+      <br /><br /><a
+            href="https://apply.irvineconsultinggroup.com/coffee-chat"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-icgblue font-semibold hover:opacity-80 border-2 p-2 rounded-md border-black bg-blue-100"
+          >
+            Sign Up Here
+          </a></>),
     },
     {
       date: 'Jan 7, 2026',
