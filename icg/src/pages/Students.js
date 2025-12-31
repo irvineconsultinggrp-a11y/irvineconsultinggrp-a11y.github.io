@@ -64,7 +64,7 @@ function Students() {
       ),
     },
     {
-      date: 'January 5th-8th, 2026',
+      date: 'January 5th-7th, 2026',
       heading: 'Coffee Chats',
       content: 'Schedule a coffee chat with someone from the ICG team to learn more about the application process and get your questions answered.',
     },
