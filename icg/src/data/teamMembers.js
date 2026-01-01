@@ -94,7 +94,7 @@ export const teamMembers = [
   {
     id: "nishant",
     name: "Nishant Nuthalapati",
-    role: "Associate Consultant",
+    role: "Consultant",
     categories: ["associates"],
     committees: ["Technology"],
     headshotSrc: "/headshots/Nishant.png",
@@ -104,7 +104,7 @@ export const teamMembers = [
   {
     id: "patrick",
     name: "Patrick Lee",
-    role: "Associate Consultant",
+    role: "Consultant",
     categories: ["associates", "projectManagers"],
     committees: ["Finance"],
     headshotSrc: "/headshots/Patrick.png",
@@ -114,7 +114,7 @@ export const teamMembers = [
   {
     id: "andrew",
     name: "Andrew Wagner",
-    role: "Associate Consultant",
+    role: "Consultant",
     categories: ["associates"],
     committees: ["Marketing", "Socials"],
     headshotSrc: "/headshots/Andrew.png",
@@ -124,7 +124,7 @@ export const teamMembers = [
   {
     id: "rohan",
     name: "Rohan Bharti",
-    role: "Associate Consultant",
+    role: "Consultant",
     categories: ["associates"],
     committees: ["Technology"],
     headshotSrc: "/headshots/Rohan.png",
@@ -134,7 +134,7 @@ export const teamMembers = [
   {
     id: "sahana",
     name: "Sahana Chockalingam",
-    role: "Associate Consultant",
+    role: "Consultant",
     categories: ["associates"],
     committees: ["ProDev"],
     headshotSrc: "/headshots/Sahana.png",
@@ -144,7 +144,7 @@ export const teamMembers = [
   {
     id: "joel",
     name: "Joel Leong",
-    role: "Associate Consultant",
+    role: "Consultant",
     categories: ["associates"],
     committees: ["Finance", "ProDev"],
     headshotSrc: "/headshots/Joel.png",
@@ -154,7 +154,7 @@ export const teamMembers = [
   {
     id: "sonia",
     name: "Sonia Wang",
-    role: "Associate Consultant",
+    role: "Consultant",
     categories: ["associates"],
     committees: ["Operations"],
     headshotSrc: "/headshots/Sonia.png",
@@ -164,7 +164,7 @@ export const teamMembers = [
   {
     id: "madison",
     name: "Madison Lee",
-    role: "Associate Consultant",
+    role: "Consultant",
     categories: ["associates"],
     committees: ["Marketing", "Sourcing"],
     headshotSrc: "/headshots/Madison.png",
@@ -174,7 +174,7 @@ export const teamMembers = [
   {
     id: "trinity",
     name: "Trinity Nguyen",
-    role: "Associate Consultant",
+    role: "Consultant",
     categories: ["associates"],
     committees: ["Finance", "Recruitment"],
     headshotSrc: "/headshots/Trinity.png",
@@ -184,7 +184,7 @@ export const teamMembers = [
   {
     id: "aaron",
     name: "Aaron Johnson",
-    role: "Associate Consultant",
+    role: "Consultant",
     categories: ["associates"],
     committees: ["ProDev", "Recruitment"],
     headshotSrc: "/headshots/Aaron.png",
@@ -194,7 +194,7 @@ export const teamMembers = [
   {
     id: "zaid",
     name: "Zaid Baghdadi",
-    role: "Associate Consultant",
+    role: "Consultant",
     categories: ["associates"],
     committees: ["Marketing", "Socials"],
     headshotSrc: "/headshots/Zaid.png",
@@ -204,7 +204,7 @@ export const teamMembers = [
   {
     id: "krish",
     name: "Krish Marwah",
-    role: "Associate Consultant",
+    role: "Consultant",
     categories: ["associates"],
     committees: ["Sourcing"],
     headshotSrc: "/headshots/Krish.png",
