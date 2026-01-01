@@ -220,13 +220,13 @@ function Home() {
           <div className="w-full md:w-1/2 flex -ml-4">
             <div className="flex flex-col gap-8">
               <div className="flex items-start space-x-4">
-                <h1 className="font-bold text-5xl md:text-7xl">5+</h1>
+                <h1 className="font-bold text-5xl md:text-7xl">8+</h1>
               </div>
               <div className="flex items-start space-x-4">
-                <h1 className="font-bold text-5xl md:text-7xl">11+</h1>
+                <h1 className="font-bold text-5xl md:text-7xl">21+</h1>
               </div>
               <div className="flex items-start space-x-4 mb-10">
-                <h1 className="font-bold text-5xl md:text-7xl">80+</h1>
+                <h1 className="font-bold text-5xl md:text-7xl">200+</h1>
               </div>
             </div>
           <div className="flex flex-col gap-6 pl-10">
