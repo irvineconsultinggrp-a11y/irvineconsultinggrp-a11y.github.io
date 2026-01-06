@@ -9,7 +9,7 @@ export default function DevelopmentCarousel() {
       number: "1",
       title_one: "Built For",
       title_two: "Real Impact",
-      subtitle:"ICG doesn’t wait for opportunity, we create it.",
+      subtitle: "ICG doesn’t wait for opportunity, we create it.",
       description:
         "From day one, you'll be on the front lines of innovation, solving real-world challenges with passionate teammates. This hands-on experience ensures you're client-ready from the start.",
       imageUrl: "/1.png",
@@ -29,7 +29,7 @@ export default function DevelopmentCarousel() {
       number: "3",
       title_one: "Work With",
       title_two: "Real Companies",
-      subtitle:"Our culture embraces the grind, late nights, and big wins.",
+      subtitle: "Our culture embraces the grind, late nights, and big wins.",
       description:
         "You'll grow by being in the thick of it, applying your knowledge in fast-paced, high-impact situations. Success here comes from resilience, curiosity, and the willingness to dive head first.",
       imageUrl: "/3.png",
@@ -39,7 +39,7 @@ export default function DevelopmentCarousel() {
       number: "4",
       title_one: "Meet Future",
       title_two: "MBB Consultants",
-      subtitle:"You’ll join a tight-knit, ambitious community that pushes you to be your best.",
+      subtitle: "You’ll join a tight-knit, ambitious community that pushes you to be your best.",
       description:
         "Collaboration and support are built into our culture, making every challenge a shared experience. At ICG, your network becomes one of your most valuable assets, both professionally and personally.",
       imageUrl: "/4.png",
@@ -72,27 +72,27 @@ export default function DevelopmentCarousel() {
 
         {/* Content Column */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <div>
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-icgblue leading-tight">
-                {slides[currentSlide].title_one}
-              </h2>
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#035e97] leading-tight">
-                {slides[currentSlide].title_two}
-              </h2>
-              
-              {/* Decorative line - centered on mobile, left on desktop */}
-              <div className="w-16 h-1 bg-icgblue mt-4 mb-6 mx-auto md:mx-0"></div>
-              
-              {/* Text Container - removed the negative margins that caused clipping */}
-              <div className='text-icgblue space-y-4 max-w-prose'>
-                <h3 className="text-lg md:text-2xl font-semibold leading-snug">
-                  {slides[currentSlide].subtitle}
-                </h3>
-                <p className="text-base md:text-xl font-light leading-relaxed text-gray-700">
-                  {slides[currentSlide].description}
-                </p>
-              </div>
+          <div>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-icgblue leading-tight">
+              {slides[currentSlide].title_one}
+            </h2>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#035e97] leading-tight">
+              {slides[currentSlide].title_two}
+            </h2>
+
+            {/* Decorative line - centered on mobile, left on desktop */}
+            <div className="w-16 h-1 bg-icgblue mt-4 mb-6 mx-auto md:mx-0"></div>
+
+            {/* Text Container - removed the negative margins that caused clipping */}
+            <div className='text-icgblue space-y-4 max-w-prose'>
+              <h3 className="text-lg md:text-2xl font-semibold leading-snug">
+                {slides[currentSlide].subtitle}
+              </h3>
+              <p className="text-base md:text-xl font-light leading-relaxed text-gray-700">
+                {slides[currentSlide].description}
+              </p>
             </div>
+          </div>
         </div>
       </div>
 
@@ -111,9 +111,8 @@ export default function DevelopmentCarousel() {
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all ${
-                currentSlide === index ? "bg-icgblue scale-125" : "bg-gray-300"
-              }`}
+              className={`w-3 h-3 rounded-full transition-all ${currentSlide === index ? "bg-icgblue scale-125" : "bg-gray-300"
+                }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
