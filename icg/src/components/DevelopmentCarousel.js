@@ -2,7 +2,7 @@ import { useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 export default function DevelopmentCarousel() {
-  const [currentSlide, setCurrentSlide] = useState(0) // Starting with slide 2 (index 1)
+  const [currentSlide, setCurrentSlide] = useState(0)
 
   const slides = [
     {
@@ -59,59 +59,60 @@ export default function DevelopmentCarousel() {
   }
 
   return (
-    <section className="py-16 container mx-auto px-4 bg-white">
-      <div className="grid md:grid-cols-2 gap-8 items-center">
+    <section className="py-16 container mx-auto px-6 bg-white overflow-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         {/* Image Column */}
-        <div className="relative">
+        <div className="relative w-full">
           <img
             src={slides[currentSlide].imageUrl || "/nishant.png"}
-            alt={slides[currentSlide].title}
-            className="rounded-lg w-full h-auto"
+            alt={slides[currentSlide].title_one}
+            className="rounded-lg w-full h-auto object-cover shadow-xl"
           />
         </div>
 
         {/* Content Column */}
-        <div className="flex flex-col items-center md:items-start">
-          <div className="flex  justify-center mb-4">
-            
+        <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <div>
-              <h2 className="text-5xl md:text-6xl font-bold text-icgblue">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-icgblue leading-tight">
                 {slides[currentSlide].title_one}
               </h2>
-              <h2 className="pt-4 text-5xl md:text-6xl font-bold text-[#035e97]  ">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#035e97] leading-tight">
                 {slides[currentSlide].title_two}
               </h2>
-              <div className="w-10 md:w-16 h-1 bg-icgblue mt-2"></div>
-              <div class='text-icgblue text-base md:text-xl mb-8  text-center md:text-left mt-5 md:ml-0 -ml-10 space-y-5'>
-                <h3 className="">
+              
+              {/* Decorative line - centered on mobile, left on desktop */}
+              <div className="w-16 h-1 bg-icgblue mt-4 mb-6 mx-auto md:mx-0"></div>
+              
+              {/* Text Container - removed the negative margins that caused clipping */}
+              <div className='text-icgblue space-y-4 max-w-prose'>
+                <h3 className="text-lg md:text-2xl font-semibold leading-snug">
                   {slides[currentSlide].subtitle}
                 </h3>
-                <p className="">
+                <p className="text-base md:text-xl font-light leading-relaxed text-gray-700">
                   {slides[currentSlide].description}
                 </p>
               </div>
             </div>
-          </div>
         </div>
       </div>
 
       {/* Navigation Controls */}
-      <div className="flex justify-center items-center mt-8 gap-4">
+      <div className="flex justify-center items-center mt-12 gap-6">
         <button
           onClick={prevSlide}
-          className="p-2 rounded-full hover:bg-gray-100"
+          className="p-3 rounded-full border border-gray-200 hover:bg-gray-100 transition-colors"
           aria-label="Previous slide"
         >
           <ChevronLeft className="w-6 h-6" />
         </button>
 
-        <div className="flex space-x-2">
+        <div className="flex space-x-3">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-2 h-2 rounded-full ${
-                currentSlide === index ? "bg-black" : "bg-gray-300"
+              className={`w-3 h-3 rounded-full transition-all ${
+                currentSlide === index ? "bg-icgblue scale-125" : "bg-gray-300"
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -120,7 +121,7 @@ export default function DevelopmentCarousel() {
 
         <button
           onClick={nextSlide}
-          className="p-2 rounded-full hover:bg-gray-100"
+          className="p-3 rounded-full border border-gray-200 hover:bg-gray-100 transition-colors"
           aria-label="Next slide"
         >
           <ChevronRight className="w-6 h-6" />
