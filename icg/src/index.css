@@ -1,37 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html, body {
-  font-family: 'Helvetica', sans-serif;
-}
-
-body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Aileron', ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: 'Aileron', ui-monospace, monospace;
 }
 
-/* Client Logo Carousel */
+/* Scrolling Logo Animations */
 @keyframes scroll-left {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
+/* Hero logo bar */
+.logo-carousel-track-hero {
+  animation: scroll-left 30s linear infinite;
+  width: max-content;
+}
+
+/* Contact page logo bar */
 .logo-carousel-wrapper {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
@@ -49,7 +43,7 @@ code {
   flex-direction: row;
   align-items: center;
   gap: 4rem;
-  animation: scroll-left 40s linear infinite;
+  animation: scroll-left 30s linear infinite;
   width: max-content;
 }
 

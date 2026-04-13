@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import '@fontsource/aileron/latin.css';
+import '@fontsource/aileron/latin-italic.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';

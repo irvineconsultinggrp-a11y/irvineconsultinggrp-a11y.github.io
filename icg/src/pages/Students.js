@@ -1,186 +1,244 @@
 import React from 'react';
-import ApplicationTimeline from '../components/ApplicationTimeline';
-import DevelopmentCarousel from "../components/DevelopmentCarousel";
-import FAQItem from '../components/FaqItem';
 import { motion } from 'framer-motion';
+import DevelopmentCarousel from "../components/DevelopmentCarousel";
+
+const APPLY_URL = "https://apply.irvineconsultinggroup.com";
+const COFFEE_CHAT_URL = "https://apply.irvineconsultinggroup.com/coffee-chat";
+
+const testimonials = [
+  {
+    name: "Khang Nguyen",
+    role: "President, ICG",
+    quote: "Joining Irvine Consulting Group has been one of the most valuable experiences of my college career. I've grown so much in terms of problem-solving, communication, and leadership, all while being surrounded by an ambitious and supportive team. ICG truly feels like a launchpad.",
+    image: "/headshots/Khang.png",
+  },
+  {
+    name: "Trinity Nguyen",
+    role: "Consultant, ICG",
+    quote: "Joining Irvine Consulting Group has been one of the most valuable experiences of my college career. I've grown so much in terms of problem-solving, communication, and leadership, all while being surrounded by an ambitious and supportive team. ICG truly feels like a launchpad.",
+    image: "/headshots/Trinity.png",
+  },
+];
+
+const timelineData = [
+  {
+    date: "Oct 1, 2026",
+    heading: "Applications Open",
+    content: "Apply to join ICG and take the first step toward a hands-on consulting experience. Stay connected on LinkedIn, Instagram, and our website for updates.",
+    button: { label: "Apply", href: APPLY_URL },
+  },
+  {
+    date: "Oct 7–10, 2026",
+    heading: "Coffee Chats",
+    content: "Schedule a coffee chat with someone from the ICG team to learn more about the application process and get your questions answered.",
+    button: { label: "Sign Up", href: COFFEE_CHAT_URL },
+  },
+  {
+    date: "Oct 15, 2026",
+    heading: "In-Person Info Session",
+    content: "Meet the ICG team, learn more about ICG, gain insights on the recruitment process",
+  },
+  {
+    date: "Oct 24, 2026",
+    heading: "Application Deadline",
+    content: "Applications must be submitted by 11:59 PM on October 24th!",
+  },
+  {
+    date: "Oct 27, 2026",
+    heading: "First Round Group Interviews",
+    content: "Group interviews will be held on October 27th. You will be paired with other candidates and will have a chance to share your skills in a group setting.",
+  },
+  {
+    date: "Oct 30, 2026",
+    heading: "Second Round Individual Interviews",
+    content: "Individual interviews will be held on October 30th. You will have a chance to share your skills and learn more about the ICG team in a one-on-one setting.",
+  },
+];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: i * 0.1, ease: 'easeOut' },
+  }),
+};
 
 function Students() {
-  const SOCIAL = {
-    linkedin: "https://www.linkedin.com/company/irvineconsultinggroup/posts/?feedView=all",
-    instagram: "https://www.instagram.com/icg.uci/",
-  };
-  const faqs = [
-    {
-      question: "Client Services",
-      answer: "At ICG we don't believe in just shadowing, we believe in impact. You will work directly with real clients across industries, helping them solve meaningful business challenges. You'll learn how to communicate professionally, ask the right questions, and technical skill that will help deliver strategic, impactful recommendations for our clients. It's a chance to build client-facing confidence early in your consulting journey.",
-    },
-    {
-      question: "Career Exploration and Development",
-      answer: "Whether you're still figuring it out or dead-set on consulting, ICG helps you explore your career path with intention. Our workshops, alumni panels, and professional development program are designed to help you understand different industries and roles, build your network, and sharpen your professional edge. We don't just prep you for interviews, we ensure success."
-    },
-    {
-      question: "Technical & Core Consulting Skills",
-      answer: "We start with the basics and move fast. In your first few weeks, you'll get training in case structuring, problem solving, slide design, and market research. From there, you'll immediately apply these skills on client teams. With consistent feedback and high standards, ICG develops strong consultants through hands-on practice, not just theory."
-    },
-    {
-      question: "Industry Level Thinking",
-      answer: "ICG mirrors the pace and pressure of real-world consulting. You'll learn how to work in ambiguity, break down complex problems, and develop solutions that make sense in real business contexts. Beyond technical skills, you'll gain the mindset of a consultant: structured thinking, crisp communication, and the drive to deliver real results."
-    }
-  ];
-
-  const timelineData = [
-    {
-      date: 'December 29, 2025',
-      heading: 'Applications Open',
-      content: (
-        <>
-          Apply to join ICG and take the first step toward a hands-on consulting experience. Stay connected on{" "}
-          <a href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer" className="underline hover:opacity-80">LinkedIn</a>
-          {", "}
-          <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer" className="underline hover:opacity-80">Instagram</a>
-          {", and our website for updates."}<br /><br />
-          <a
-            href="https://apply.irvineconsultinggroup.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-icgblue font-semibold hover:opacity-80 border-2 p-2 rounded-md border-black bg-blue-100"
-          >
-            Apply Here
-          </a>
-        </>
-      ),
-    },
-    {
-      date: 'January 5th-7th, 2026',
-      heading: 'Coffee Chats',
-      content: (<>Schedule a coffee chat with someone from the ICG team to learn more about the application process and get your questions answered.
-      <br /><br /><a
-            href="https://apply.irvineconsultinggroup.com/coffee-chat"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-icgblue font-semibold hover:opacity-80 border-2 p-2 rounded-md border-black bg-blue-100"
-          >
-            Sign Up Here
-          </a></>),
-    },
-    {
-      date: 'Jan 7, 2026',
-      heading: 'In-Person Info Session',
-      content: 'Meet the team, learn about ICG, and ask questions. Location: TBA, Time: TBA.',
-    },
-    {
-      date: 'Jan 8, 2026',
-      heading: 'Application Deadline',
-      content: 'Applications must be submitted by 11:59 PM on January 8th!',
-    },
-    {
-      date: 'Jan 10, 2026',
-      heading: 'First Round Group Interviews',
-      content: 'Group interviews will be held on January 10th. You will be paired with other candidates and will have a chance to share your skills in a group setting.',
-    },
-    {
-      date: 'Jan 11, 2026',
-      heading: 'Second Round Individual Interviews',
-      content: 'Individual interviews will be held on January 11th. You will have a chance to share your skills and learn more about the ICG team in a one-on-one setting.',
-    },
-  ];
-
-  const testimonials = [
-    {
-      id: 1,
-      name: "Nishant Nuthalapati",
-      quote: "Joining Irvine Consulting Group has been one of the most valuable experiences of my college career. I've grown so much in terms of problem-solving, communication, and leadership, all while being surrounded by an ambitious and supportive team. ICG truly feels like a launchpad.",
-      imageUrl: "/nishant.png",
-    },
-    {
-      id: 2,
-      name: "Zach Bosa",
-      quote: "ICG gave me the rare opportunity to work directly with real clients, pitch data-driven solutions, and lead parts of the presentation process. I've grown more confident in my ability to communicate insights clearly and professionally under pressure. If you're curious or serious about consulting and want to accelerate your growth, ICG is the best place to start.",
-      imageUrl: "/zach.png",
-    },
-  ];
-
   return (
     <div className="overflow-x-hidden">
-      {/* Hero Section */}
+      {/* ===== HERO ===== */}
       <div
-        className="min-h-screen relative bg-cover bg-center flex items-center"
-        style={{ backgroundImage: `url("/icg_join_us_2.jpeg")` }}
+        className="relative min-h-screen bg-cover bg-center flex flex-col items-center justify-center"
+        style={{ backgroundImage: `url("/W%2726%20Girls.jpg")` }}
       >
-        <div className="absolute inset-0 bg-[#061c2a] bg-opacity-80"></div>
-        <div className="relative z-10 container mx-auto px-6 py-20 flex flex-col items-center justify-center text-center">
-          <h1 className="text-5xl sm:text-6xl md:text-8xl font-extrabold text-white drop-shadow-lg mb-4">
-            Join Us Now
-          </h1>
-
-          <p className="text-lg sm:text-2xl text-white font-light max-w-3xl leading-relaxed">
-            A team of fun-loving hard-working problem solvers! Scroll to learn more about your ICG
-            experience and event timeline.
-          </p>
-          <button
-            className="mt-8 bg-white text-black px-8 py-3 text-xl font-bold rounded-md hover:bg-gray-200 transition-colors"
-            onClick={() => window.open('https://apply.irvineconsultinggroup.com')}
+        <div className="absolute inset-0 bg-icgblue/70" />
+        <div className="relative z-10 text-center px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            Apply Now
-          </button>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl text-white font-extrabold leading-[0.85] tracking-tighter">
+              Join UCI&apos;s
+            </h1>
+            <h1
+              className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[0.85] tracking-tighter bg-clip-text text-transparent mt-0"
+              style={{
+                backgroundImage:
+                  "linear-gradient(to right, #a8d8ff, #ffffff, #a8d8ff)",
+              }}
+            >
+              Premier Strategy Consulting Org
+            </h1>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <a
+              href={APPLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-10 border-2 border-white text-white font-bold px-8 py-3 rounded-md hover:bg-white hover:text-icgblue transition-all duration-300"
+            >
+              Apply Now
+            </a>
+          </motion.div>
         </div>
       </div>
 
-      {/* Your ICG Experience Section */}
-      <div className="w-full text-icgblue py-16 px-6">
-        <div className="container mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Your ICG <span className='text-[#005d97]'>Experience.</span></h2>
-          <div className="max-w-3xl mx-auto mt-10">
-            {faqs.map((faq, index) => (
-              <FAQItem key={index} question={faq.question} answer={faq.answer} isLast={index === faqs.length - 1} />
-            ))}
+      {/* ===== FLOATING CONTENT PANEL ===== */}
+      <div className="relative z-10 -mt-10 md:-mt-16 bg-white rounded-t-[28px] md:rounded-t-[40px] px-4 md:px-8 pt-8 md:pt-12 pb-16">
+
+        {/* ===== YOUR ICG EXPERIENCE ===== */}
+        <div className="pt-16 pb-10 px-2 md:px-6">
+          <div className="container mx-auto">
+            <motion.h2
+              className="text-5xl md:text-7xl font-extrabold text-icgblue mb-4 text-center"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+            >
+              Your ICG Experience
+            </motion.h2>
+          </div>
+          <div className="text-icgblue">
+            <DevelopmentCarousel />
           </div>
         </div>
-      </div>
 
-      {/* Development Carousel */}
-      <div className="w-full bg-white text-icgblue py-10">
-        <DevelopmentCarousel />
-      </div>
+        {/* ===== TESTIMONIALS ===== */}
+        <div className="pt-8 pb-24 px-2 md:px-6">
+          <div className="container mx-auto max-w-5xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {testimonials.map((t, i) => (
+                <motion.div
+                  key={i}
+                  className="bg-white border border-gray-200 rounded-2xl p-8 md:p-10 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  custom={i}
+                  variants={fadeUp}
+                >
+                  <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-8">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <img
+                      src={t.image}
+                      alt={t.name}
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
+                    <div>
+                      <p className="font-bold text-icgblue">{t.name}</p>
+                      <p className="text-sm text-gray-500">{t.role}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
 
-      {/* Testimonials Section */}
-      <div
-        className="py-16 relative bg-cover bg-center"
-        style={{ backgroundImage: 'url("/Merage Undergraduate Student Association Cover.jpeg")' }}
-      >
-        <div className="absolute inset-0 bg-white bg-opacity-90"></div>
-        <div className="relative container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
-            {testimonials.map((testimonial) => (
-              <div key={testimonial.id} className="flex flex-col items-center text-center">
-                <div className="w-40 h-40 md:w-64 md:h-64 rounded-full overflow-hidden mb-6 shadow-xl border-4 border-white">
-                  <img
-                    src={testimonial.imageUrl || '/placeholder.svg'}
-                    alt={testimonial.name}
-                    className="w-full h-full object-cover"
-                  />
+        {/* ===== RECRUITMENT TIMELINE ===== */}
+        <div className="py-24 px-2 md:px-6">
+          <div className="container mx-auto max-w-3xl">
+            <motion.h2
+              className="text-5xl md:text-7xl font-extrabold text-icgblue mb-40 text-center"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+            >
+              Recruitment Timeline
+            </motion.h2>
+
+            <div className="relative ml-3 md:ml-5">
+              {timelineData.map((item, i) => (
+                <div key={i} className="relative flex items-stretch">
+                  {/* Left column: dot + connector line */}
+                  <div className="flex flex-col items-center shrink-0 w-6">
+                    <div className={`w-px flex-1 ${i === 0 ? 'bg-transparent' : 'bg-gray-300'}`} />
+                    <motion.div
+                      className="w-3 h-3 rounded-full bg-icgblue shrink-0"
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: i * 0.15, type: 'spring', stiffness: 300 }}
+                    />
+                    <motion.div
+                      className={`w-px flex-1 origin-top ${i === timelineData.length - 1 ? 'bg-transparent' : 'bg-gray-300'}`}
+                      initial={{ scaleY: 0 }}
+                      whileInView={{ scaleY: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: i * 0.15 + 0.2 }}
+                    />
+                  </div>
+
+                  {/* Card */}
+                  <motion.div
+                    className="flex-1 ml-6 md:ml-10 mb-8"
+                    initial={{ opacity: 0, x: 40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.15 }}
+                  >
+                    <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                      <div className="flex items-start justify-between gap-4 mb-2">
+                        <div>
+                          <h3 className="text-lg md:text-xl font-bold text-icgblue">
+                            {item.heading}
+                          </h3>
+                          <p className="text-sm font-medium text-[#005d97] italic">
+                            {item.date}
+                          </p>
+                        </div>
+                        {item.button && (
+                          <a
+                            href={item.button.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="shrink-0 bg-icgblue text-white text-sm font-bold px-5 py-2 rounded-md hover:bg-icgblue/90 hover:scale-105 transition-all duration-200"
+                          >
+                            {item.button.label}
+                          </a>
+                        )}
+                      </div>
+                      <p className="text-gray-600 text-sm md:text-base leading-relaxed mt-2">
+                        {item.content}
+                      </p>
+                    </div>
+                  </motion.div>
                 </div>
-                <h3 className="text-2xl font-bold text-black mb-3">
-                  {testimonial.name}
-                </h3>
-                <p className="text-gray-700 text-lg leading-relaxed italic">
-                  "{testimonial.quote}"
-                </p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Timeline Section */}
-      <div className="py-20 bg-white text-icgblue px-6">
-        <div className="container mx-auto">
-          <h1 className="text-3xl md:text-5xl font-bold mb-10 text-left">What To <span className='text-[#005d97]'>Look Out</span> For.</h1>
-          {/* Ensure the timeline doesn't overflow the screen width */}
-          <div className="w-full overflow-x-auto overflow-y-hidden">
-             <ApplicationTimeline timelineData={timelineData} />
-          </div>
-        </div>
       </div>
     </div>
   );

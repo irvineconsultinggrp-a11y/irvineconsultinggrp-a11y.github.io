@@ -12,7 +12,7 @@ export default function DevelopmentCarousel() {
       subtitle: "ICG doesn’t wait for opportunity, we create it.",
       description:
         "From day one, you'll be on the front lines of innovation, solving real-world challenges with passionate teammates. This hands-on experience ensures you're client-ready from the start.",
-      imageUrl: "/1.png",
+      imageUrl: "/Talking.JPG",
     },
     {
       id: 2,
@@ -60,18 +60,22 @@ export default function DevelopmentCarousel() {
 
   return (
     <section className="py-16 container mx-auto px-6 bg-white overflow-hidden">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-        {/* Image Column */}
-        <div className="relative w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center md:items-stretch">
+        {/* Image column: fixed aspect so every slide matches the same card footprint */}
+        <div className="relative w-full aspect-[8/5] overflow-hidden rounded-lg shadow-xl shrink-0">
           <img
             src={slides[currentSlide].imageUrl || "/nishant.png"}
             alt={slides[currentSlide].title_one}
-            className="rounded-lg w-full h-auto object-cover shadow-xl"
+            className={`absolute inset-0 h-full w-full object-cover object-center ${
+              currentSlide === 0
+                ? "brightness-[0.96] contrast-[1.03] saturate-[1.04]"
+                : ""
+            }`}
           />
         </div>
 
         {/* Content Column */}
-        <div className="flex flex-col items-center md:items-start text-center md:text-left">
+        <div className="flex flex-col items-center md:items-start md:justify-center text-center md:text-left">
           <div>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-icgblue leading-tight">
               {slides[currentSlide].title_one}

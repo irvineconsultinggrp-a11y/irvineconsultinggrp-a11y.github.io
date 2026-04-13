@@ -6,12 +6,13 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        marcellus: ['Marcellus', 'serif'], // Add Marcellus font
-        serif: ['"Times New Roman"', 'serif'],
-        helvetica: ['Helvetica', 'Arial', 'sans-serif'],
+        sans: ['Aileron', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        serif: ['Aileron', 'ui-serif', 'Georgia', 'serif'],
+        mono: ['Aileron', 'ui-monospace', 'monospace'],
       },
       colors: {
         icgblue: '#061e2a',
+        skyblue: '#bde0fe',
       },
     },
   },

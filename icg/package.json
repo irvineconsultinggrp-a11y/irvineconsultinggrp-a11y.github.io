@@ -1,11 +1,12 @@
 {
   "name": "icg",
   "version": "0.1.0",
-  "homepage": "https://NishantN2005.github.io/",
+  "homepage": "https://www.irvineconsultinggroup.com",
   "private": true,
   "dependencies": {
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
+    "@fontsource/aileron": "^5.2.5",
     "@formspree/react": "^3.0.0",
     "@mui/lab": "latest",
     "@mui/material": "latest",
