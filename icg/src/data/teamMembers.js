@@ -33,9 +33,9 @@ export const teamMembers = [
     id: "michelle",
     name: "Michelle Choy",
     role: "Vice President",
-    categories: ["executives", "projectManagers"],
+    categories: ["executives"],
     committees: [],
-    headshotSrc: "/headshots/Michelle.png",
+    headshotSrc: "/headshots/Michelle Choy.jpg",
     hoverSrc: "/IMG_4479.jpg",
     linkedinUrl: "https://www.linkedin.com/in/michelle-choy0/",
   },
@@ -435,7 +435,7 @@ export const CATEGORY_LABELS = {
   executives: "Executives",
   directors: "Directors",
   associates: "Committee",
-  projectManagers: "Project Managers",
+  projectManagers: "Project Team",
   advisors: "Advisors",
 };
 

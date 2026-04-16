@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 export default function DevelopmentCarousel() {
@@ -46,48 +46,51 @@ export default function DevelopmentCarousel() {
     }
   ]
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
-  }
+  }, [slides.length])
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1))
-  }
+  }, [slides.length])
 
-  const goToSlide = (index) => {
+  const goToSlide = useCallback((index) => {
     setCurrentSlide(index)
-  }
+  }, [])
 
   return (
     <section className="py-16 container mx-auto px-6 bg-white overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center md:items-stretch">
-        {/* Image column: fixed aspect so every slide matches the same card footprint */}
-        <div className="relative w-full aspect-[8/5] overflow-hidden rounded-lg shadow-xl shrink-0">
-          <img
-            src={slides[currentSlide].imageUrl || "/nishant.png"}
-            alt={slides[currentSlide].title_one}
-            className={`absolute inset-0 h-full w-full object-cover object-center ${
-              currentSlide === 0
-                ? "brightness-[0.96] contrast-[1.03] saturate-[1.04]"
-                : ""
-            }`}
-          />
+        {/* Stacked images with opacity crossfade — avoids reload flicker on slide change */}
+        <div className="relative w-full aspect-[8/5] overflow-hidden rounded-lg shadow-xl shrink-0 bg-gray-100">
+          {slides.map((slide, index) => (
+            <img
+              key={slide.imageUrl}
+              src={slide.imageUrl}
+              alt=""
+              decoding="async"
+              fetchPriority={index === 0 ? "high" : "low"}
+              className={`absolute inset-0 h-full w-full object-cover object-center will-change-[opacity] transition-opacity duration-200 ease-out ${
+                index === currentSlide
+                  ? "opacity-100 z-10"
+                  : "opacity-0 z-0 pointer-events-none"
+              } ${index === 0 && currentSlide === 0 ? "brightness-[0.96] contrast-[1.03] saturate-[1.04]" : ""}`}
+            />
+          ))}
         </div>
 
         {/* Content Column */}
         <div className="flex flex-col items-center md:items-start md:justify-center text-center md:text-left">
-          <div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-icgblue leading-tight">
+          <div className="w-full">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-icgblue leading-tight transition-opacity duration-200">
               {slides[currentSlide].title_one}
             </h2>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#035e97] leading-tight">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#035e97] leading-tight transition-opacity duration-200">
               {slides[currentSlide].title_two}
             </h2>
 
-            {/* Decorative line - centered on mobile, left on desktop */}
             <div className="w-16 h-1 bg-icgblue mt-4 mb-6 mx-auto md:mx-0"></div>
 
-            {/* Text Container - removed the negative margins that caused clipping */}
             <div className='text-icgblue space-y-4 max-w-prose'>
               <h3 className="text-lg md:text-2xl font-semibold leading-snug">
                 {slides[currentSlide].subtitle}
@@ -100,9 +103,9 @@ export default function DevelopmentCarousel() {
         </div>
       </div>
 
-      {/* Navigation Controls */}
       <div className="flex justify-center items-center mt-12 gap-6">
         <button
+          type="button"
           onClick={prevSlide}
           className="p-3 rounded-full border border-gray-200 hover:bg-gray-100 transition-colors"
           aria-label="Previous slide"
@@ -113,9 +116,10 @@ export default function DevelopmentCarousel() {
         <div className="flex space-x-3">
           {slides.map((_, index) => (
             <button
+              type="button"
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all ${currentSlide === index ? "bg-icgblue scale-125" : "bg-gray-300"
+              className={`w-3 h-3 rounded-full transition-transform duration-150 ${currentSlide === index ? "bg-icgblue scale-125" : "bg-gray-300"
                 }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -123,6 +127,7 @@ export default function DevelopmentCarousel() {
         </div>
 
         <button
+          type="button"
           onClick={nextSlide}
           className="p-3 rounded-full border border-gray-200 hover:bg-gray-100 transition-colors"
           aria-label="Next slide"

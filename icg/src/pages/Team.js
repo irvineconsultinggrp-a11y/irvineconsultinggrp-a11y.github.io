@@ -126,6 +126,7 @@ export default function Team() {
     eric: { transform: "scale(1.2)" },
     abby: { transform: "scale(1.2)" },
     aaron: { transform: "scale(1.2)" },
+    michelle: { transform: "scale(1.1)" },
   };
 
   return (
@@ -137,11 +138,11 @@ export default function Team() {
       >
         <div className="absolute inset-0 bg-icgblue/60" />
         <div className="relative z-10 text-center px-6">
-          <h1 className="text-4xl sm:text-5xl md:text-7xl text-white font-extrabold leading-[0.85] tracking-tighter">
-            A collaborate and intuitive
+          <h1 className="text-4xl sm:text-5xl md:text-7xl text-white font-extrabold leading-[1.08] tracking-tighter pb-1">
+            A collaborative and intuitive
           </h1>
           <h1
-            className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[0.85] tracking-tighter bg-clip-text text-transparent mt-0"
+            className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.08] tracking-tighter bg-clip-text text-transparent mt-0 pb-1"
             style={{
               backgroundImage: "linear-gradient(to right, #a8d8ff, #ffffff, #a8d8ff)",
             }}

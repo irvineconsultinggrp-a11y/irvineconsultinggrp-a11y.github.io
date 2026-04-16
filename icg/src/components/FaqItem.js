@@ -5,23 +5,49 @@ export default function FAQItem({ question, answer, isLast }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={`${!isLast ? 'mb-3' : ''}`}>
-      <div className={`border border-gray-200 rounded-xl transition-all duration-200 ${isOpen ? 'bg-gray-50' : 'bg-white hover:border-gray-300'}`}>
-        <button
-          className="flex justify-between items-center w-full px-6 py-5 text-left"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-expanded={isOpen}
-        >
-          <h3 className="text-base md:text-lg font-medium text-icgblue pr-4">{question}</h3>
-          <ChevronDown className={`w-5 h-5 text-icgblue shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
-        </button>
-
+    <div className={`min-w-0 ${!isLast ? 'mb-3' : ''}`}>
+      <div
+        className={`min-w-0 rounded-xl border transition-colors transition-shadow duration-300 ease-out ${
+          isOpen
+            ? 'bg-icgblue border-icgblue shadow-lg shadow-icgblue/30'
+            : 'bg-white border-gray-200 hover:border-icgblue/40 hover:shadow-md'
+        }`}
+        onMouseEnter={() => setIsOpen(true)}
+        onMouseLeave={() => setIsOpen(false)}
+      >
         <div
-          className={`overflow-hidden transition-all duration-300 ease-in-out ${
-            isOpen ? 'max-h-96 opacity-100 pb-5 px-6' : 'max-h-0 opacity-0'
+          className={`grid w-full grid-cols-[minmax(0,1fr)_2.25rem] items-start gap-x-3 px-6 py-5 text-left ${
+            isOpen ? 'text-white' : 'text-icgblue'
           }`}
         >
-          <p className="text-gray-600 font-light leading-relaxed text-sm md:text-base">{answer}</p>
+          <h3 className="min-w-0 max-w-full break-words text-lg md:text-xl font-normal leading-snug [text-rendering:geometricPrecision]">
+            {question}
+          </h3>
+          <span
+            className="inline-flex h-9 w-full items-center justify-center rounded-md"
+            aria-hidden
+          >
+            <ChevronDown
+              className={`h-5 w-5 transition-transform duration-300 ease-out will-change-transform ${
+                isOpen ? 'rotate-180 text-white' : 'text-icgblue'
+              }`}
+            />
+          </span>
+        </div>
+
+        {/* px-6 always so horizontal width does not change when opening; only max-height + opacity animate */}
+        <div
+          className={`overflow-hidden px-6 transition-[max-height,opacity] duration-300 ease-in-out ${
+            isOpen ? 'max-h-[28rem] opacity-100 pb-5' : 'max-h-0 opacity-0 pb-0'
+          }`}
+        >
+          <p
+            className={`max-w-[calc(100%-3rem)] break-words leading-relaxed text-xs md:text-sm [text-rendering:geometricPrecision] ${
+              isOpen ? 'text-white/95 font-normal' : 'text-gray-600 font-normal'
+            }`}
+          >
+            {answer}
+          </p>
         </div>
       </div>
     </div>

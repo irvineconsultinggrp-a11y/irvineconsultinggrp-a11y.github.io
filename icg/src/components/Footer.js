@@ -20,7 +20,7 @@ function Footer() {
           </div>
         </div>
 
-        {/* Right — Contact Us + icons (matches site banner) */}
+        {/* Right — Contact Us + icons */}
         <div className="flex flex-col items-center md:items-end gap-4">
           <h3 className="text-xl font-bold text-white">Contact Us</h3>
           <div className="flex items-center gap-5">

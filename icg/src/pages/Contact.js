@@ -11,15 +11,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm, ValidationError } from "@formspree/react";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay: i * 0.1, ease: "easeOut" },
-  }),
-};
+import ScrollReveal from "../components/ScrollReveal";
 
 const services = [
   {
@@ -306,17 +298,18 @@ export default function Contact() {
   return (
     <div className="overflow-x-hidden">
       {/* ===== Hero ===== */}
+      <ScrollReveal>
       <div
         className="relative min-h-[80vh] md:min-h-screen bg-cover bg-center flex items-center justify-center"
         style={{ backgroundImage: `url('/icg-work-with-us.webp')` }}
       >
         <div className="absolute inset-0 bg-icgblue/70" />
         <div className="relative z-10 text-center px-6">
-          <h1 className="text-4xl sm:text-5xl md:text-7xl text-white font-extrabold leading-[0.85] tracking-tighter">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl text-white font-extrabold leading-[1.08] tracking-tighter md:whitespace-nowrap">
             Trusted by Fortune 500 companies
           </h1>
           <h1
-            className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[0.85] tracking-tighter bg-clip-text text-transparent mt-0"
+            className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-extrabold leading-[1.08] tracking-tighter bg-clip-text text-transparent mt-0 md:whitespace-nowrap"
             style={{
               backgroundImage:
                 "linear-gradient(to right, #a8d8ff, #ffffff, #a8d8ff)",
@@ -326,31 +319,22 @@ export default function Contact() {
           </h1>
         </div>
       </div>
+      </ScrollReveal>
 
       {/* ===== Floating Content Panel ===== */}
       <div className="relative z-10 -mt-10 md:-mt-16 bg-white rounded-t-[28px] md:rounded-t-[40px] px-4 md:px-8 pt-12 md:pt-20 pb-16">
         {/* ===== Our Services ===== */}
+        <ScrollReveal>
         <section className="max-w-6xl mx-auto mb-24 md:mb-32">
-          <motion.h2
-            className="text-4xl md:text-6xl font-extrabold text-icgblue text-center mb-12 md:mb-16"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-          >
+          <h2 className="text-4xl md:text-6xl font-extrabold text-icgblue text-center mb-12 md:mb-16">
             Our Services.
-          </motion.h2>
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((svc, i) => (
-              <motion.div
+              <div
                 key={svc.title}
                 className="border border-gray-200 rounded-xl p-8 flex flex-col items-center text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-300 bg-white"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={i}
-                variants={fadeUp}
               >
                 <div className="mb-4">{svc.icon}</div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">
@@ -359,22 +343,18 @@ export default function Contact() {
                 <p className="text-gray-600 text-sm leading-relaxed">
                   {svc.description}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </section>
+        </ScrollReveal>
 
         {/* ===== Our Clients ===== */}
+        <ScrollReveal>
         <section className="max-w-6xl mx-auto mb-24 md:mb-32">
-          <motion.h2
-            className="text-4xl md:text-6xl font-extrabold text-icgblue text-center mb-12 md:mb-16"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-          >
+          <h2 className="text-4xl md:text-6xl font-extrabold text-icgblue text-center mb-12 md:mb-16">
             Our Clients.
-          </motion.h2>
+          </h2>
 
           <div
             className="relative flex items-center justify-center max-w-4xl mx-auto"
@@ -426,18 +406,14 @@ export default function Contact() {
             </button>
           </div>
         </section>
+        </ScrollReveal>
 
         {/* ===== Project Timeline ===== */}
+        <ScrollReveal>
         <section className="max-w-3xl mx-auto mb-24 md:mb-32">
-          <motion.h2
-            className="text-4xl md:text-6xl font-extrabold text-icgblue text-center mb-12 md:mb-16"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-          >
+          <h2 className="text-4xl md:text-6xl font-extrabold text-icgblue text-center mb-12 md:mb-16">
             Project Timeline.
-          </motion.h2>
+          </h2>
 
           <div className="relative ml-3 md:ml-5">
             {timelineData.map((item, i) => (
@@ -498,16 +474,12 @@ export default function Contact() {
             ))}
           </div>
         </section>
+        </ScrollReveal>
 
         {/* ===== Contact Us ===== */}
+        <ScrollReveal>
         <section className="max-w-5xl mx-auto">
-          <motion.div
-            className="text-center mb-10"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-          >
+          <div className="text-center mb-10">
             <h2 className="text-4xl md:text-6xl font-extrabold text-icgblue mb-3">
               Contact Us.
             </h2>
@@ -515,15 +487,9 @@ export default function Contact() {
               If you have a project you would like to discuss, fill out the form
               and we'll get back to you shortly
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-8 border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm">
             {/* People */}
             <div className="p-8 flex flex-col justify-center space-y-8 md:space-y-12">
               <div className="flex items-center space-x-4 md:space-x-6">
@@ -558,9 +524,9 @@ export default function Contact() {
               <div className="flex items-center space-x-4 md:space-x-6">
                 <div className="w-20 h-20 md:w-28 md:h-28 shrink-0 rounded-full overflow-hidden border">
                   <img
-                    src="/headshots/Michelle.png"
+                    src="/headshots/Michelle Choy.jpg"
                     alt="Michelle Choy"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-center scale-[1.1] origin-center"
                   />
                 </div>
                 <div>
@@ -646,8 +612,9 @@ export default function Contact() {
                 </form>
               )}
             </div>
-          </motion.div>
+          </div>
         </section>
+        </ScrollReveal>
       </div>
     </div>
   );

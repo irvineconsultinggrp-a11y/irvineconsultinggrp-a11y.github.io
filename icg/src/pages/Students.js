@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import DevelopmentCarousel from "../components/DevelopmentCarousel";
+import ScrollReveal from "../components/ScrollReveal";
 
 const APPLY_URL = "https://apply.irvineconsultinggroup.com";
 const COFFEE_CHAT_URL = "https://apply.irvineconsultinggroup.com/coffee-chat";
@@ -9,7 +10,8 @@ const testimonials = [
   {
     name: "Khang Nguyen",
     role: "President, ICG",
-    quote: "Joining Irvine Consulting Group has been one of the most valuable experiences of my college career. I've grown so much in terms of problem-solving, communication, and leadership, all while being surrounded by an ambitious and supportive team. ICG truly feels like a launchpad.",
+    quote:
+      "Leading ICG has meant building a team that delivers for clients and pushes each other to think sharper every day. The ownership is real, the pace is fast, and the people around you will make you better. If you want responsibility and growth, this is a special place to be.",
     image: "/headshots/Khang.png",
   },
   {
@@ -25,13 +27,13 @@ const timelineData = [
     date: "Oct 1, 2026",
     heading: "Applications Open",
     content: "Apply to join ICG and take the first step toward a hands-on consulting experience. Stay connected on LinkedIn, Instagram, and our website for updates.",
-    button: { label: "Apply", href: APPLY_URL },
+    button: { label: "Apply", href: APPLY_URL, disabled: true },
   },
   {
     date: "Oct 7–10, 2026",
     heading: "Coffee Chats",
     content: "Schedule a coffee chat with someone from the ICG team to learn more about the application process and get your questions answered.",
-    button: { label: "Sign Up", href: COFFEE_CHAT_URL },
+    button: { label: "Sign Up", href: COFFEE_CHAT_URL, disabled: true },
   },
   {
     date: "Oct 15, 2026",
@@ -55,19 +57,11 @@ const timelineData = [
   },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay: i * 0.1, ease: 'easeOut' },
-  }),
-};
-
 function Students() {
   return (
     <div className="overflow-x-hidden">
       {/* ===== HERO ===== */}
+      <ScrollReveal>
       <div
         className="relative min-h-screen bg-cover bg-center flex flex-col items-center justify-center"
         style={{ backgroundImage: `url("/W%2726%20Girls.jpg")` }}
@@ -79,11 +73,11 @@ function Students() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl sm:text-5xl md:text-7xl text-white font-extrabold leading-[0.85] tracking-tighter">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl text-white font-extrabold leading-[1.08] tracking-tighter pb-1">
               Join UCI&apos;s
             </h1>
             <h1
-              className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[0.85] tracking-tighter bg-clip-text text-transparent mt-0"
+              className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.08] tracking-tighter bg-clip-text text-transparent mt-0 pb-1"
               style={{
                 backgroundImage:
                   "linear-gradient(to right, #a8d8ff, #ffffff, #a8d8ff)",
@@ -92,62 +86,41 @@ function Students() {
               Premier Strategy Consulting Org
             </h1>
           </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <a
-              href={APPLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-10 border-2 border-white text-white font-bold px-8 py-3 rounded-md hover:bg-white hover:text-icgblue transition-all duration-300"
-            >
-              Apply Now
-            </a>
-          </motion.div>
         </div>
       </div>
+      </ScrollReveal>
 
       {/* ===== FLOATING CONTENT PANEL ===== */}
       <div className="relative z-10 -mt-10 md:-mt-16 bg-white rounded-t-[28px] md:rounded-t-[40px] px-4 md:px-8 pt-8 md:pt-12 pb-16">
 
         {/* ===== YOUR ICG EXPERIENCE ===== */}
+        <ScrollReveal>
         <div className="pt-16 pb-10 px-2 md:px-6">
           <div className="container mx-auto">
-            <motion.h2
-              className="text-5xl md:text-7xl font-extrabold text-icgblue mb-4 text-center"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-            >
+            <h2 className="text-5xl md:text-7xl font-extrabold text-icgblue mb-4 text-center">
               Your ICG Experience
-            </motion.h2>
+            </h2>
           </div>
           <div className="text-icgblue">
             <DevelopmentCarousel />
           </div>
         </div>
+        </ScrollReveal>
 
         {/* ===== TESTIMONIALS ===== */}
+        <ScrollReveal>
         <div className="pt-8 pb-24 px-2 md:px-6">
           <div className="container mx-auto max-w-5xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:items-stretch">
               {testimonials.map((t, i) => (
-                <motion.div
+                <div
                   key={i}
-                  className="bg-white border border-gray-200 rounded-2xl p-8 md:p-10 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  custom={i}
-                  variants={fadeUp}
+                  className="bg-white border border-gray-200 rounded-2xl p-8 md:p-10 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col h-full"
                 >
-                  <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-8">
+                  <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-8 flex-1">
                     &ldquo;{t.quote}&rdquo;
                   </p>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 mt-auto shrink-0">
                     <img
                       src={t.image}
                       alt={t.name}
@@ -158,24 +131,20 @@ function Students() {
                       <p className="text-sm text-gray-500">{t.role}</p>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
         </div>
+        </ScrollReveal>
 
         {/* ===== RECRUITMENT TIMELINE ===== */}
+        <ScrollReveal>
         <div className="py-24 px-2 md:px-6">
           <div className="container mx-auto max-w-3xl">
-            <motion.h2
-              className="text-5xl md:text-7xl font-extrabold text-icgblue mb-40 text-center"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-            >
+            <h2 className="text-5xl md:text-7xl font-extrabold text-icgblue mb-40 text-center">
               Recruitment Timeline
-            </motion.h2>
+            </h2>
 
             <div className="relative ml-3 md:ml-5">
               {timelineData.map((item, i) => (
@@ -217,7 +186,7 @@ function Students() {
                             {item.date}
                           </p>
                         </div>
-                        {item.button && (
+                        {item.button && !item.button.disabled && (
                           <a
                             href={item.button.href}
                             target="_blank"
@@ -226,6 +195,11 @@ function Students() {
                           >
                             {item.button.label}
                           </a>
+                        )}
+                        {item.button?.disabled && (
+                          <span className="shrink-0 bg-gray-200 text-gray-500 text-sm font-bold px-5 py-2 rounded-md cursor-not-allowed select-none">
+                            Coming soon
+                          </span>
                         )}
                       </div>
                       <p className="text-gray-600 text-sm md:text-base leading-relaxed mt-2">
@@ -238,6 +212,7 @@ function Students() {
             </div>
           </div>
         </div>
+        </ScrollReveal>
 
       </div>
     </div>

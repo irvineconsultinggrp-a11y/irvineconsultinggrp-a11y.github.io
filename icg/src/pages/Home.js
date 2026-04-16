@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import FAQItem from '../components/FaqItem';
+import ScrollReveal from '../components/ScrollReveal';
 import { ArrowUpRight } from 'lucide-react';
 
 const clientLogos = [
@@ -50,6 +51,14 @@ const testimonials = [
     logo: "/clientlogo/toughcutie.png",
     headshot: "/clientheadshot/Brittany Coleman.jpeg",
   },
+  {
+    quote:
+      "Our interaction with the Irvine Consulting Group was nothing short of meaningful and provocative. The activities and findings that were commensurate through their research was validating and insightful in by which it will definitively shape our company's marketing strategies and tactics. The Irvine Consulting Group are consummate professionals and they are a dynamic group to work with. I highly recommend enlisting the services of these marketing mercenaries to disrupt your current thinking.",
+    author: "Newton Hoang",
+    role: "Vice President — Head of Marketing, Kura Sushi",
+    logo: "/clientlogo/kura-sushi.png",
+    headshot: "/clientheadshot/Newton Hoang.jfif",
+  },
 ];
 
 const faqs = [
@@ -95,28 +104,30 @@ function TestimonialCard({ testimonial, position, onClick }) {
       style={{ pointerEvents: position === 'hidden' ? 'none' : 'auto' }}
       onClick={isClickable ? onClick : undefined}
     >
-      <div className="bg-white rounded-2xl shadow-lg p-8 md:p-10">
-        <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-8">
-          &ldquo;{testimonial.quote}&rdquo;
-        </p>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+      <div className="bg-white rounded-2xl shadow-lg px-5 py-5 md:px-6 md:py-6 flex flex-col h-[29rem] sm:h-[28rem] md:h-[27rem] lg:h-[26rem]">
+        <div className="min-h-0 flex-1 flex items-center justify-center mb-3 px-0.5">
+          <p className="text-gray-700 text-[0.9375rem] sm:text-base md:text-lg leading-snug sm:leading-normal text-center">
+            &ldquo;{testimonial.quote}&rdquo;
+          </p>
+        </div>
+        <div className="flex items-center justify-between shrink-0 gap-3 pt-3 border-t border-gray-100">
+          <div className="flex items-center gap-2.5 min-w-0">
             {testimonial.headshot && (
               <img
                 src={testimonial.headshot}
                 alt={testimonial.author}
-                className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover shrink-0"
+                className="w-9 h-9 md:w-10 md:h-10 rounded-full object-cover shrink-0"
               />
             )}
-            <div>
-              <p className="font-bold text-icgblue">{testimonial.author}</p>
-              <p className="text-sm text-gray-500">{testimonial.role}</p>
+            <div className="min-w-0">
+              <p className="font-bold text-icgblue text-sm md:text-base">{testimonial.author}</p>
+              <p className="text-xs md:text-sm text-gray-500 leading-tight line-clamp-2">{testimonial.role}</p>
             </div>
           </div>
           <img
             src={testimonial.logo}
             alt="Company"
-            className="h-20 md:h-24 w-auto max-w-[min(100%,280px)] object-contain"
+            className="h-12 sm:h-14 md:h-16 w-auto max-w-[min(100%,220px)] sm:max-w-[min(100%,260px)] object-contain shrink-0"
           />
         </div>
       </div>
@@ -146,6 +157,7 @@ function Home() {
   return (
     <div className="overflow-x-hidden">
       {/* ===== HERO ===== */}
+      <ScrollReveal>
       <div
         className="relative min-h-screen bg-cover bg-center flex flex-col"
         style={{ backgroundImage: `url('/skyline.jpg')` }}
@@ -191,18 +203,14 @@ function Home() {
           </div>
         </div>
       </div>
+      </ScrollReveal>
 
       {/* ===== WHAT IS ICG ===== */}
+      <ScrollReveal>
       <div className="bg-white py-24 md:py-32 px-6">
         <div className="container mx-auto">
           <div className="bg-gray-50 rounded-2xl p-8 md:p-14 flex flex-col md:flex-row items-center gap-12">
-            <motion.div
-              className="w-full md:w-1/2 space-y-6"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
+            <div className="w-full md:w-1/2 space-y-6">
               <h2 className="text-3xl md:text-5xl font-bold text-icgblue">
                 What is ICG?
               </h2>
@@ -217,14 +225,8 @@ function Home() {
               >
                 Contact Us
               </Link>
-            </motion.div>
-            <motion.div
-              className="w-full md:w-1/2"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-            >
+            </div>
+            <div className="w-full md:w-1/2">
               <div className="overflow-hidden rounded-xl shadow-md aspect-[4/3] w-full">
                 <img
                   src="/W%2726%20Group.jpg"
@@ -232,12 +234,14 @@ function Home() {
                   className="h-full w-full object-cover object-[38%_center] scale-[1.22] origin-center"
                 />
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
+      </ScrollReveal>
 
       {/* ===== STATS (~1.75× vs previous text-4xl/md:text-5xl + labels) ===== */}
+      <ScrollReveal>
       <div className="bg-white pb-36 md:pb-40 px-6">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-[5.25rem] text-center">
@@ -246,13 +250,9 @@ function Home() {
               { number: '$200 M+', label: 'Value Served', numberNowrap: true },
               { number: '600+', label: 'Hours of Service' },
             ].map((stat, i) => (
-              <motion.div
+              <div
                 key={stat.label}
                 className="min-w-0 text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
               >
                 <p
                   className={`inline-block text-[3.94rem] md:text-[5.25rem] font-bold text-icgblue tracking-tight leading-none transition-transform duration-300 hover:scale-110 cursor-default ${
@@ -264,32 +264,27 @@ function Home() {
                 <p className="mt-4 text-black text-[1.75rem] font-light leading-snug">
                   {stat.label}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
       </div>
+      </ScrollReveal>
 
       {/* ===== TESTIMONIALS ===== */}
+      <ScrollReveal>
       <div className="bg-[#f0f4f8] py-24 md:py-28 px-6">
         <div className="container mx-auto max-w-5xl">
-          <motion.h2
-            className="text-3xl md:text-5xl font-bold text-icgblue text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <h2 className="text-3xl md:text-5xl font-bold text-icgblue text-center">
             What Our Clients Say
-          </motion.h2>
-          <p className="text-center text-gray-400 mt-2 mb-16 font-light">
+          </h2>
+          <p className="text-center text-gray-600 mt-2 mb-16 font-light">
             Trusted by Professionals
           </p>
 
-          {/* 3D Carousel */}
+          {/* 3D Carousel — fixed card height so all slides align; long quotes scroll inside the card */}
           <div
-            className="relative flex items-center justify-center"
-            style={{ height: '380px' }}
+            className="relative flex items-center justify-center min-h-[29rem] sm:min-h-[28rem] md:min-h-[27rem] lg:min-h-[26rem]"
           >
             <AnimatePresence mode="popLayout">
               {testimonials.map((t, i) => (
@@ -334,19 +329,14 @@ function Home() {
           </div>
         </div>
       </div>
+      </ScrollReveal>
 
-      {/* ===== FAQ ===== */}
+      {/* ===== FAQ ===== (no ScrollReveal: motion transforms + in-view animation fight hover layout) */}
       <div className="bg-white py-24 md:py-28 px-6">
         <div className="container mx-auto max-w-3xl">
-          <motion.h2
-            className="text-3xl md:text-5xl font-bold text-icgblue mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <h2 className="text-3xl md:text-5xl font-bold text-icgblue mb-12">
             Frequently asked Questions
-          </motion.h2>
+          </h2>
           {faqs.map((faq, index) => (
             <FAQItem
               key={index}
@@ -359,19 +349,14 @@ function Home() {
       </div>
 
       {/* ===== CTA ===== */}
+      <ScrollReveal>
       <div className="bg-white pb-28 px-6">
         <div className="container mx-auto max-w-3xl">
-          <motion.h2
-            className="text-3xl md:text-5xl font-bold text-icgblue leading-tight"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <h2 className="text-3xl md:text-5xl font-bold text-icgblue leading-tight">
             Enough about us.
             <br />
             <span className="font-light">What can we do for you?</span>
-          </motion.h2>
+          </h2>
           <div className="flex flex-col sm:flex-row gap-4 mt-10">
             <Link
               to="/students"
@@ -388,6 +373,7 @@ function Home() {
           </div>
         </div>
       </div>
+      </ScrollReveal>
     </div>
   );
 }
