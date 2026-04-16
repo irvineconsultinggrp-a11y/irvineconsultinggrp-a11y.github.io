@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  /* Reserve space for the vertical scrollbar so layout width stays stable when
+     content height changes (e.g. FAQ hover) — avoids text reflowing on hover. */
+  scrollbar-gutter: stable;
+  /* Always reserve scrollbar track width (stable gutter alone is not enough on all OSes). */
+  overflow-y: scroll;
+}
+
 html, body {
   margin: 0;
   font-family: 'Aileron', ui-sans-serif, system-ui, sans-serif;

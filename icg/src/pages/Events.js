@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import EventRsvpDialog from "../components/RSVP";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay: i * 0.1, ease: "easeOut" },
-  }),
-};
+import ScrollReveal from "../components/ScrollReveal";
 
 const pastEvents = [
   {
@@ -93,6 +85,8 @@ export default function Events() {
           {/* Dark top bar for navbar visibility */}
           <div className="bg-icgblue h-20 md:h-24" />
 
+          <ScrollReveal>
+          <div>
           <div className="bg-white min-h-[75vh] flex flex-col items-center justify-center px-6 relative">
             {/* Tab Buttons */}
             <div className="flex gap-3 absolute top-8 md:top-10">
@@ -126,8 +120,10 @@ export default function Events() {
             </motion.div>
           </div>
 
-          {/* Dark blue ending bar */}
-          <div className="bg-icgblue h-32 md:h-40" />
+          {/* Spacer before footer (white; footer is dark blue) */}
+          <div className="bg-white h-32 md:h-40 border-t border-gray-100" />
+          </div>
+          </ScrollReveal>
         </>
       )}
 
@@ -137,6 +133,8 @@ export default function Events() {
           {/* Dark top bar for navbar visibility */}
           <div className="bg-icgblue h-20 md:h-24" />
 
+          <ScrollReveal>
+          <div>
           {/* Tab buttons + cards on white background */}
           <div className="bg-white px-4 md:px-8 pt-8 md:pt-10 pb-20">
             <div className="flex justify-center gap-3 mb-12">
@@ -162,8 +160,10 @@ export default function Events() {
             </div>
           </div>
 
-          {/* Dark blue ending bar */}
-          <div className="bg-icgblue h-32 md:h-40" />
+          {/* Spacer before footer (white; footer is dark blue) */}
+          <div className="bg-white h-32 md:h-40 border-t border-gray-100" />
+          </div>
+          </ScrollReveal>
         </>
       )}
     </div>
@@ -172,14 +172,7 @@ export default function Events() {
 
 function EventCard({ event, index, showRsvp = false }) {
   return (
-    <motion.div
-      className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      custom={index}
-      variants={fadeUp}
-    >
+    <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
       <div className="aspect-[16/9] bg-gray-100 overflow-hidden">
         <img
           src={event.image}
@@ -199,6 +192,6 @@ function EventCard({ event, index, showRsvp = false }) {
           </div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }
