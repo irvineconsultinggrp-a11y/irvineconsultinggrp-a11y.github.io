@@ -28,7 +28,12 @@ async function optimize(filePath, maxWidth) {
 }
 
 async function run() {
-  const headshots = fs.readdirSync(path.join(PUBLIC, 'headshots')).map(f => path.join(PUBLIC, 'headshots', f));
+  const headshotDirs = ['headshots', 'standardizedheadshots'];
+  const headshots = headshotDirs.flatMap((sub) => {
+    const dir = path.join(PUBLIC, sub);
+    if (!fs.existsSync(dir)) return [];
+    return fs.readdirSync(dir).map((f) => path.join(dir, f));
+  });
   const clientlogos = fs.readdirSync(path.join(PUBLIC, 'clientlogo')).map(f => path.join(PUBLIC, 'clientlogo', f));
   const rootFiles = fs.readdirSync(PUBLIC, { withFileTypes: true })
     .filter(d => d.isFile() && /\.(png|jpg|jpeg)$/i.test(d.name))

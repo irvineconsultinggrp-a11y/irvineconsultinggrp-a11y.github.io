@@ -5,8 +5,7 @@ import {
   getMembersByCategory,
 } from "../data/teamMembers";
 
-function MemberCard({ name, role, image, linkedin, objectPosition, imgStyle, coolOverlay }) {
-  const style = { ...objectPosition && { objectPosition }, ...imgStyle };
+function MemberCard({ name, role, image, linkedin }) {
   return (
     <div className="flex flex-col items-center">
       <div
@@ -15,12 +14,8 @@ function MemberCard({ name, role, image, linkedin, objectPosition, imgStyle, coo
         <img
           src={image}
           alt={name}
-          className="w-full h-full object-cover object-[center_70%]"
-          style={Object.keys(style).length ? style : undefined}
+          className="w-full h-full object-cover object-center"
         />
-        {coolOverlay && (
-          <div className="absolute inset-0 bg-blue-900/10 pointer-events-none" />
-        )}
       </div>
 
       <div className="text-center">
@@ -112,23 +107,6 @@ export default function Team() {
   const advisors = getMembersByCategory("advisors");
   const members = getDisplayMembers();
 
-  const photoAdjustments = {
-    zach: { objectPosition: "40% center" },
-    parav: { filter: "brightness(1.2)" },
-    sathvik: { filter: "brightness(1.2)" },
-    vasavi: { filter: "brightness(1.2)" },
-    ethan: { filter: "brightness(1.2)" },
-    lucia: { filter: "brightness(1.2)" },
-    rohan: { filter: "brightness(1.2)" },
-    joel: { filter: "brightness(1.2)" },
-    brian: { filter: "brightness(1.2)" },
-    akash: { filter: "brightness(1.2)" },
-    eric: { transform: "scale(1.2)" },
-    abby: { transform: "scale(1.2)" },
-    aaron: { transform: "scale(1.2)" },
-    michelle: { transform: "scale(1.1)" },
-  };
-
   return (
     <div className="overflow-x-hidden">
       {/* ===== Hero ===== */}
@@ -178,12 +156,6 @@ export default function Team() {
                   role={member.role}
                   image={member.headshotSrc}
                   linkedin={member.linkedinUrl}
-                  objectPosition={photoAdjustments[member.id]?.objectPosition}
-                  imgStyle={{
-                    ...(photoAdjustments[member.id]?.filter && { filter: photoAdjustments[member.id].filter }),
-                    ...(photoAdjustments[member.id]?.transform && { transform: photoAdjustments[member.id].transform }),
-                  }}
-                  coolOverlay={photoAdjustments[member.id]?.coolOverlay}
                 />
               ))}
           </div>

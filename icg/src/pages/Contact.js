@@ -495,7 +495,7 @@ export default function Contact() {
               <div className="flex items-center space-x-4 md:space-x-6">
                 <div className="w-20 h-20 md:w-28 md:h-28 shrink-0 rounded-full overflow-hidden border">
                   <img
-                    src="/headshots/Khang Nguyen.png"
+                    src="/standardizedheadshots/Khang Nguyen.png"
                     alt="Khang Nguyen"
                     className="w-full h-full object-cover"
                   />
@@ -524,7 +524,7 @@ export default function Contact() {
               <div className="flex items-center space-x-4 md:space-x-6">
                 <div className="w-20 h-20 md:w-28 md:h-28 shrink-0 rounded-full overflow-hidden border">
                   <img
-                    src="/headshots/Michelle Choy.jpg"
+                    src="/standardizedheadshots/Michelle Choy.jpg"
                     alt="Michelle Choy"
                     className="w-full h-full object-cover object-center scale-[1.1] origin-center"
                   />
