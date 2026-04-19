@@ -12,13 +12,13 @@ const testimonials = [
     role: "President, ICG",
     quote:
       "Leading ICG has meant building a team that delivers for clients and pushes each other to think sharper every day. The ownership is real, the pace is fast, and the people around you will make you better. If you want responsibility and growth, this is a special place to be.",
-    image: "/headshots/Khang.png",
+    image: "/standardizedheadshots/Khang Nguyen.png",
   },
   {
     name: "Trinity Nguyen",
     role: "Consultant, ICG",
     quote: "Joining Irvine Consulting Group has been one of the most valuable experiences of my college career. I've grown so much in terms of problem-solving, communication, and leadership, all while being surrounded by an ambitious and supportive team. ICG truly feels like a launchpad.",
-    image: "/headshots/Trinity.png",
+    image: "/standardizedheadshots/Trinity Nguyen.jpg",
   },
 ];
 
