@@ -5,7 +5,12 @@ import {
   getMembersByCategory,
 } from "../data/teamMembers";
 
-function MemberCard({ name, role, image, linkedin }) {
+const HEADSHOT_BRIGHTEN_IDS = new Set(["akash", "joel"]);
+
+function MemberCard({ id, name, role, image, linkedin }) {
+  const brightenHeadshot = id && HEADSHOT_BRIGHTEN_IDS.has(id);
+  const objectPositionClass =
+    id === "andrew" ? "object-[50%_38%]" : "object-center";
   return (
     <div className="flex flex-col items-center">
       <div
@@ -14,7 +19,7 @@ function MemberCard({ name, role, image, linkedin }) {
         <img
           src={image}
           alt={name}
-          className="h-full w-full origin-center scale-[1.08] object-cover object-center"
+          className={`h-full w-full origin-center scale-[1.08] object-cover ${objectPositionClass}${brightenHeadshot ? " brightness-110 contrast-[1.02]" : ""}`}
         />
       </div>
 
@@ -152,6 +157,7 @@ export default function Team() {
               members.map((member) => (
                 <MemberCard
                   key={member.id}
+                  id={member.id}
                   name={member.name}
                   role={member.role}
                   image={member.headshotSrc}
@@ -170,6 +176,7 @@ export default function Team() {
             {advisors.map((advisor) => (
               <MemberCard
                 key={advisor.id}
+                id={advisor.id}
                 name={advisor.name}
                 role={advisor.role}
                 image={advisor.headshotSrc}
