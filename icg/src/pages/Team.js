@@ -14,7 +14,7 @@ function MemberCard({ name, role, image, linkedin }) {
         <img
           src={image}
           alt={name}
-          className="w-full h-full object-cover object-center"
+          className="h-full w-full origin-center scale-[1.08] object-cover object-center"
         />
       </div>
 

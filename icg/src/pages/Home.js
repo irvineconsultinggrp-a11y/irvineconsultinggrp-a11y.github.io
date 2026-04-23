@@ -113,11 +113,13 @@ function TestimonialCard({ testimonial, position, onClick }) {
         <div className="flex items-center justify-between shrink-0 gap-3 pt-3 border-t border-gray-100">
           <div className="flex items-center gap-2.5 min-w-0">
             {testimonial.headshot && (
-              <img
-                src={testimonial.headshot}
-                alt={testimonial.author}
-                className="w-9 h-9 md:w-10 md:h-10 rounded-full object-cover shrink-0"
-              />
+              <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full md:h-10 md:w-10">
+                <img
+                  src={testimonial.headshot}
+                  alt={testimonial.author}
+                  className="h-full w-full origin-center scale-[1.08] object-cover object-center"
+                />
+              </div>
             )}
             <div className="min-w-0">
               <p className="font-bold text-icgblue text-sm md:text-base">{testimonial.author}</p>

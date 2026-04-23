@@ -498,7 +498,7 @@ export default function Contact() {
                   <img
                     src={headshotV2("Khang Nguyen.png")}
                     alt="Khang Nguyen"
-                    className="w-full h-full object-cover"
+                    className="h-full w-full origin-center scale-[1.08] object-cover object-center"
                   />
                 </div>
                 <div>
@@ -527,7 +527,7 @@ export default function Contact() {
                   <img
                     src={headshotV2("Michelle Choy.png")}
                     alt="Michelle Choy"
-                    className="w-full h-full object-cover object-center scale-[1.1] origin-center"
+                    className="h-full w-full origin-center scale-[1.08] object-cover object-center"
                   />
                 </div>
                 <div>

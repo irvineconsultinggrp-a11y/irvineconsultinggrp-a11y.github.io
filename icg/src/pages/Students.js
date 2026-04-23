@@ -122,11 +122,13 @@ function Students() {
                     &ldquo;{t.quote}&rdquo;
                   </p>
                   <div className="flex items-center gap-4 mt-auto shrink-0">
-                    <img
-                      src={t.image}
-                      alt={t.name}
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
+                    <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full">
+                      <img
+                        src={t.image}
+                        alt={t.name}
+                        className="h-full w-full origin-center scale-[1.08] object-cover object-center"
+                      />
+                    </div>
                     <div>
                       <p className="font-bold text-icgblue">{t.name}</p>
                       <p className="text-sm text-gray-500">{t.role}</p>
