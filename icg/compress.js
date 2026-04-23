@@ -28,7 +28,7 @@ async function optimize(filePath, maxWidth) {
 }
 
 async function run() {
-  const headshotDirs = ['headshots', 'standardizedheadshots'];
+  const headshotDirs = ['headshots', 'Standardized Headshots v2'];
   const headshots = headshotDirs.flatMap((sub) => {
     const dir = path.join(PUBLIC, sub);
     if (!fs.existsSync(dir)) return [];

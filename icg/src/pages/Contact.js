@@ -12,6 +12,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm, ValidationError } from "@formspree/react";
 import ScrollReveal from "../components/ScrollReveal";
+import { headshotV2 } from "../data/teamMembers";
 
 const services = [
   {
@@ -495,7 +496,7 @@ export default function Contact() {
               <div className="flex items-center space-x-4 md:space-x-6">
                 <div className="w-20 h-20 md:w-28 md:h-28 shrink-0 rounded-full overflow-hidden border">
                   <img
-                    src="/standardizedheadshots/Khang Nguyen.png"
+                    src={headshotV2("Khang Nguyen.png")}
                     alt="Khang Nguyen"
                     className="w-full h-full object-cover"
                   />
@@ -524,7 +525,7 @@ export default function Contact() {
               <div className="flex items-center space-x-4 md:space-x-6">
                 <div className="w-20 h-20 md:w-28 md:h-28 shrink-0 rounded-full overflow-hidden border">
                   <img
-                    src="/standardizedheadshots/Michelle Choy.jpg"
+                    src={headshotV2("Michelle Choy.png")}
                     alt="Michelle Choy"
                     className="w-full h-full object-cover object-center scale-[1.1] origin-center"
                   />
