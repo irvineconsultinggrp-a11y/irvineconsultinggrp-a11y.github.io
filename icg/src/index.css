@@ -33,6 +33,18 @@ code {
   width: max-content;
 }
 
+.logo-carousel-track-hero.is-paused,
+.logo-carousel-viewport:not(.is-visible) .logo-carousel-track-hero {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-carousel-track-hero,
+  .logo-carousel-track {
+    animation: none !important;
+  }
+}
+
 /* Contact page logo bar */
 .logo-carousel-wrapper {
   width: 100vw;

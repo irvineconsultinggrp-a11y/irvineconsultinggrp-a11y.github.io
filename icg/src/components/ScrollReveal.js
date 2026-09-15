@@ -1,21 +1,13 @@
 import { motion, useReducedMotion } from 'framer-motion';
 
 const variants = {
-  hidden: {
-    opacity: 0.55,
-    filter: 'grayscale(0.38)',
-    y: 28,
-  },
-  visible: {
-    opacity: 1,
-    filter: 'grayscale(0)',
-    y: 0,
-  },
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
 };
 
 /**
- * Scroll-linked section: fades in and lifts slightly when entering view;
- * dims and desaturates when scrolled away (once: false), similar to montlakeconsulting.com-style pages.
+ * Enter-once fade for below-fold sections. Opacity only — no translate,
+ * so scrolling never fights layout near section boundaries.
  */
 export default function ScrollReveal({ children, className = '', delay = 0 }) {
   const reduceMotion = useReducedMotion();
@@ -31,12 +23,11 @@ export default function ScrollReveal({ children, className = '', delay = 0 }) {
       whileInView="visible"
       variants={variants}
       viewport={{
-        once: false,
-        amount: 0.22,
-        margin: '0px 0px -8% 0px',
+        once: true,
+        amount: 0.15,
       }}
       transition={{
-        duration: 0.52,
+        duration: 0.45,
         delay,
         ease: [0.22, 1, 0.36, 1],
       }}

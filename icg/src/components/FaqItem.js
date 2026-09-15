@@ -1,8 +1,10 @@
 import { ChevronDown } from "lucide-react";
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 
 export default function FAQItem({ question, answer, isLast }) {
   const [isOpen, setIsOpen] = useState(false);
+  const panelId = useId();
+  const buttonId = useId();
 
   return (
     <div className={`min-w-0 ${!isLast ? 'mb-3' : ''}`}>
@@ -12,10 +14,13 @@ export default function FAQItem({ question, answer, isLast }) {
             ? 'bg-icgblue border-icgblue shadow-lg shadow-icgblue/30'
             : 'bg-white border-gray-200 hover:border-icgblue/40 hover:shadow-md'
         }`}
-        onMouseEnter={() => setIsOpen(true)}
-        onMouseLeave={() => setIsOpen(false)}
       >
-        <div
+        <button
+          type="button"
+          id={buttonId}
+          aria-expanded={isOpen}
+          aria-controls={panelId}
+          onClick={() => setIsOpen((open) => !open)}
           className={`grid w-full grid-cols-[minmax(0,1fr)_2.25rem] items-start gap-x-3 px-6 py-5 text-left ${
             isOpen ? 'text-white' : 'text-icgblue'
           }`}
@@ -28,26 +33,27 @@ export default function FAQItem({ question, answer, isLast }) {
             aria-hidden
           >
             <ChevronDown
-              className={`h-5 w-5 transition-transform duration-300 ease-out will-change-transform ${
+              className={`h-5 w-5 transition-transform duration-300 ease-out ${
                 isOpen ? 'rotate-180 text-white' : 'text-icgblue'
               }`}
             />
           </span>
-        </div>
+        </button>
 
-        {/* px-6 always so horizontal width does not change when opening; only max-height + opacity animate */}
         <div
+          id={panelId}
+          role="region"
+          aria-labelledby={buttonId}
+          hidden={!isOpen}
           className={`overflow-hidden px-6 transition-[max-height,opacity] duration-300 ease-in-out ${
             isOpen ? 'max-h-[28rem] opacity-100 pb-5' : 'max-h-0 opacity-0 pb-0'
           }`}
         >
-          <p
-            className={`max-w-[calc(100%-3rem)] break-words leading-relaxed text-xs md:text-sm [text-rendering:geometricPrecision] ${
-              isOpen ? 'text-white/95 font-normal' : 'text-gray-600 font-normal'
-            }`}
-          >
-            {answer}
-          </p>
+          {isOpen && (
+            <p className="max-w-[calc(100%-3rem)] break-words leading-relaxed text-xs md:text-sm text-white/95 font-normal [text-rendering:geometricPrecision]">
+              {answer}
+            </p>
+          )}
         </div>
       </div>
     </div>

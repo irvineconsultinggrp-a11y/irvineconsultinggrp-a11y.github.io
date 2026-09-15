@@ -8,7 +8,8 @@
  */
 
 export function headshotV2(filename) {
-  return `/Standardized%20Headshots%20v2/${encodeURIComponent(filename)}`;
+  const webpName = filename.replace(/\.(png|jpe?g|jfif)$/i, '.webp');
+  return `/Standardized%20Headshots%20v2/${encodeURIComponent(webpName)}`;
 }
 
 export const teamMembers = [
@@ -91,7 +92,7 @@ export const teamMembers = [
     role: "Director of Technology",
     categories: ["directors"],
     committees: ["Technology"],
-    headshotSrc: "/headshots/Hunter.png",
+    headshotSrc: "/headshots/Hunter.webp",
     hoverSrc: null,
     linkedinUrl: "https://www.linkedin.com/in/hunterkoth/",
     inactive: true,
@@ -104,7 +105,7 @@ export const teamMembers = [
     role: "Consultant",
     categories: ["associates"],
     committees: ["Technology"],
-    headshotSrc: "/headshots/Nishant.png",
+    headshotSrc: "/headshots/Nishant.webp",
     hoverSrc: "/IMG_6177.jpeg",
     linkedinUrl: "https://www.linkedin.com/in/nishant-nuthalapati/",
     inactive: true,
@@ -115,7 +116,7 @@ export const teamMembers = [
     role: "Consultant",
     categories: ["associates", "projectManagers"],
     committees: ["Finance"],
-    headshotSrc: "/headshots/Patrick.png",
+    headshotSrc: "/headshots/Patrick.webp",
     hoverSrc: "/IMG_8758.jpg",
     linkedinUrl: "https://www.linkedin.com/in/leepatricks/",
     inactive: true,
@@ -206,7 +207,7 @@ export const teamMembers = [
     role: "Consultant",
     categories: ["associates"],
     committees: ["Marketing", "Socials"],
-    headshotSrc: "/headshots/Zaid.png",
+    headshotSrc: "/headshots/Zaid.webp",
     hoverSrc: null,
     linkedinUrl: "https://www.linkedin.com/in/zaid-baghdadi-479a5027a/",
     inactive: true,
@@ -331,7 +332,7 @@ export const teamMembers = [
     role: "External Advisor",
     categories: ["advisors"],
     committees: [],
-    headshotSrc: "/edward.png",
+    headshotSrc: "/edward.webp",
     hoverSrc: null,
     linkedinUrl: "https://www.linkedin.com/in/edwardhanli/",
   },

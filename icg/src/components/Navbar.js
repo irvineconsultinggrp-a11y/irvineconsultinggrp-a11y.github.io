@@ -8,7 +8,7 @@ function Navbar() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -52,7 +52,10 @@ function Navbar() {
         {/* Mobile menu button */}
         <div className="md:hidden absolute right-6">
           <button
+            type="button"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isOpen}
             className={`p-2 rounded-lg transition-colors ${scrolled ? 'text-icgblue' : 'text-white'}`}
           >
             <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import FAQItem from '../components/FaqItem';
@@ -6,16 +6,16 @@ import ScrollReveal from '../components/ScrollReveal';
 import { ArrowUpRight } from 'lucide-react';
 
 const clientLogos = [
-  { src: '/clientlogo/bereal.png', alt: 'BeReal', small: true },
-  { src: '/clientlogo/sandisk.png', alt: 'SanDisk' },
-  { src: '/clientlogo/abd.png', alt: 'Artificial By Design' },
-  { src: '/clientlogo/aura.png', alt: 'Aura' },
-  { src: '/clientlogo/adgreetz.png', alt: 'AdGreetz' },
-  { src: '/clientlogo/kura-sushi.png', alt: 'Kura Sushi' },
-  { src: '/clientlogo/knowt.png', alt: 'Knowt' },
-  { src: '/clientlogo/toughcutie.png', alt: 'ToughCutie' },
-  { src: '/clientlogo/datedrop.png', alt: 'DateDrop' },
-  { src: '/clientlogo/7leaves.png', alt: '7 Leaves', small: true },
+  { src: '/clientlogo/bereal.webp', alt: 'BeReal', small: true },
+  { src: '/clientlogo/sandisk.webp', alt: 'SanDisk' },
+  { src: '/clientlogo/abd.webp', alt: 'Artificial By Design' },
+  { src: '/clientlogo/aura.webp', alt: 'Aura' },
+  { src: '/clientlogo/adgreetz.webp', alt: 'AdGreetz' },
+  { src: '/clientlogo/kura-sushi.webp', alt: 'Kura Sushi' },
+  { src: '/clientlogo/knowt.webp', alt: 'Knowt' },
+  { src: '/clientlogo/toughcutie.webp', alt: 'ToughCutie' },
+  { src: '/clientlogo/datedrop.webp', alt: 'DateDrop' },
+  { src: '/clientlogo/7leaves.webp', alt: '7 Leaves', small: true },
 ];
 
 const testimonials = [
@@ -24,40 +24,32 @@ const testimonials = [
       "The ICG team explored these domains with technical rigor by developing insights around model portability, edge to cloud tradeoffs and the architecture of AI-native data centers.",
     author: "Alex Veytsman",
     role: "CEO, Artificial By Design",
-    logo: "/clientlogo/abd.png",
-    headshot: "/clientheadshot/Alex Veytsman.jfif",
+    logo: "/clientlogo/abd.webp",
+    headshot: "/clientheadshot/Alex Veytsman.webp",
   },
   {
     quote:
       "ICG's approach to problem-solving was refreshing. They delivered insights that helped us reshape our market strategy.",
     author: "Brittany Coleman",
     role: "Founder and CEO, ToughCutie",
-    logo: "/clientlogo/toughcutie.png",
-    headshot: "/clientheadshot/Brittany Coleman.jpeg",
+    logo: "/clientlogo/toughcutie.webp",
+    headshot: "/clientheadshot/Brittany Coleman.webp",
   },
   {
     quote:
       "It was a real pleasure working with the Irvine Consulting student team. They tackled a complex and demanding assignment and helped shape AdGreetz's expansion strategy with remarkable professionalism, clarity, and dedication.",
     author: "Amit Seth",
     role: "CEO, AdGreetz",
-    logo: "/clientlogo/adgreetz.png",
-    headshot: "/clientheadshot/Amit Seth.jpg",
-  },
-  {
-    quote:
-      "Everyone on the team was very sharp and engaged. They executed as a team very well, were always prepared and when feedback was provided, they acted upon it timely.",
-    author: "Brittany Coleman",
-    role: "CEO, ToughCutie",
-    logo: "/clientlogo/toughcutie.png",
-    headshot: "/clientheadshot/Brittany Coleman.jpeg",
+    logo: "/clientlogo/adgreetz.webp",
+    headshot: "/clientheadshot/Amit Seth.webp",
   },
   {
     quote:
       "Our interaction with the Irvine Consulting Group was nothing short of meaningful and provocative. The activities and findings that were commensurate through their research was validating and insightful in by which it will definitively shape our company's marketing strategies and tactics. The Irvine Consulting Group are consummate professionals and they are a dynamic group to work with. I highly recommend enlisting the services of these marketing mercenaries to disrupt your current thinking.",
     author: "Newton Hoang",
     role: "Vice President — Head of Marketing, Kura Sushi",
-    logo: "/clientlogo/kura-sushi.png",
-    headshot: "/clientheadshot/Newton Hoang.jfif",
+    logo: "/clientlogo/kura-sushi.webp",
+    headshot: "/clientheadshot/Newton Hoang.webp",
   },
 ];
 
@@ -65,7 +57,7 @@ const faqs = [
   {
     question: "When is the next recruitment cycle for ICG?",
     answer:
-      "For recruitment information, check out the Join Us page. All information will be updated on a quarterly basis.",
+      "For recruitment information, check out the Join page. All information will be updated on a quarterly basis.",
   },
   {
     question: "How long does a typical consulting project take?",
@@ -86,10 +78,10 @@ const faqs = [
 
 function TestimonialCard({ testimonial, position, onClick }) {
   const variants = {
-    center: { x: 0, scale: 1, opacity: 1, zIndex: 10, filter: 'blur(0px)' },
-    left: { x: '-70%', scale: 0.85, opacity: 0.5, zIndex: 5, filter: 'blur(2px)' },
-    right: { x: '70%', scale: 0.85, opacity: 0.5, zIndex: 5, filter: 'blur(2px)' },
-    hidden: { x: 0, scale: 0.7, opacity: 0, zIndex: 0, filter: 'blur(4px)' },
+    center: { x: 0, scale: 1, opacity: 1, zIndex: 10 },
+    left: { x: '-70%', scale: 0.85, opacity: 0.5, zIndex: 5 },
+    right: { x: '70%', scale: 0.85, opacity: 0.5, zIndex: 5 },
+    hidden: { x: 0, scale: 0.7, opacity: 0, zIndex: 0 },
   };
 
   const isClickable = position === 'left' || position === 'right';
@@ -117,6 +109,8 @@ function TestimonialCard({ testimonial, position, onClick }) {
                 <img
                   src={testimonial.headshot}
                   alt={testimonial.author}
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full origin-center scale-[1.08] object-cover object-center"
                 />
               </div>
@@ -129,6 +123,8 @@ function TestimonialCard({ testimonial, position, onClick }) {
           <img
             src={testimonial.logo}
             alt="Company"
+            loading="lazy"
+            decoding="async"
             className="h-12 sm:h-14 md:h-16 w-auto max-w-[min(100%,220px)] sm:max-w-[min(100%,260px)] object-contain shrink-0"
           />
         </div>
@@ -139,6 +135,19 @@ function TestimonialCard({ testimonial, position, onClick }) {
 
 function Home() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [marqueeVisible, setMarqueeVisible] = useState(true);
+  const marqueeRef = useRef(null);
+
+  useEffect(() => {
+    const el = marqueeRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => setMarqueeVisible(entry.isIntersecting),
+      { rootMargin: '0px', threshold: 0.05 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const getPosition = (index) => {
     const total = testimonials.length;
@@ -159,11 +168,14 @@ function Home() {
   return (
     <div className="overflow-x-hidden">
       {/* ===== HERO ===== */}
-      <ScrollReveal>
-      <div
-        className="relative min-h-screen bg-cover bg-center flex flex-col"
-        style={{ backgroundImage: `url('/skyline.jpg')` }}
-      >
+      <div className="relative min-h-screen flex flex-col overflow-hidden">
+        <img
+          src="/skyline.webp"
+          alt=""
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
         <div className="absolute inset-0 bg-icgblue/75" />
 
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6">
@@ -191,13 +203,18 @@ function Home() {
 
         {/* Scrolling client logos */}
         <div className="relative z-10 pb-14">
-          <div className="overflow-hidden py-4">
-            <div className="logo-carousel-track-hero flex items-center gap-16 md:gap-24">
+          <div
+            ref={marqueeRef}
+            className={`overflow-hidden py-4 logo-carousel-viewport${marqueeVisible ? ' is-visible' : ''}`}
+          >
+            <div className={`logo-carousel-track-hero flex items-center gap-16 md:gap-24${marqueeVisible ? '' : ' is-paused'}`}>
               {doubledLogos.map((logo, i) => (
                 <img
                   key={i}
                   src={logo.src}
                   alt={logo.alt}
+                  loading="lazy"
+                  decoding="async"
                   className={`${logo.small ? 'h-10 md:h-[90px] max-w-[220px] md:max-w-[350px]' : 'h-16 md:h-[144px] max-w-[350px] md:max-w-[550px]'} w-auto object-contain brightness-0 invert opacity-70 shrink-0`}
                 />
               ))}
@@ -205,7 +222,6 @@ function Home() {
           </div>
         </div>
       </div>
-      </ScrollReveal>
 
       {/* ===== WHAT IS ICG ===== */}
       <ScrollReveal>
@@ -231,8 +247,10 @@ function Home() {
             <div className="w-full md:w-1/2">
               <div className="overflow-hidden rounded-xl shadow-md aspect-[4/3] w-full">
                 <img
-                  src="/W%2726%20Group.jpg"
+                  src="/W%2726%20Group.webp"
                   alt="ICG team — Winter 2026 group"
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover object-[38%_center] scale-[1.22] origin-center"
                 />
               </div>
