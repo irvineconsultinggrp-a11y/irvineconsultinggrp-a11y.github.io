@@ -62,11 +62,14 @@ function Students() {
   return (
     <div className="overflow-x-hidden">
       {/* ===== HERO ===== */}
-      <ScrollReveal>
-      <div
-        className="relative min-h-screen bg-cover bg-center flex flex-col items-center justify-center"
-        style={{ backgroundImage: `url("/W%2726%20Girls.jpg")` }}
-      >
+      <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+        <img
+          src="/W%2726%20Girls.webp"
+          alt=""
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
         <div className="absolute inset-0 bg-icgblue/70" />
         <div className="relative z-10 text-center px-6">
           <motion.div
@@ -89,7 +92,6 @@ function Students() {
           </motion.div>
         </div>
       </div>
-      </ScrollReveal>
 
       {/* ===== FLOATING CONTENT PANEL ===== */}
       <div className="relative z-10 -mt-10 md:-mt-16 bg-white rounded-t-[28px] md:rounded-t-[40px] px-4 md:px-8 pt-8 md:pt-12 pb-16">
@@ -126,6 +128,8 @@ function Students() {
                       <img
                         src={t.image}
                         alt={t.name}
+                        loading="lazy"
+                        decoding="async"
                         className="h-full w-full origin-center scale-[1.08] object-cover object-center"
                       />
                     </div>
@@ -174,8 +178,8 @@ function Students() {
                   {/* Card */}
                   <motion.div
                     className="flex-1 ml-6 md:ml-10 mb-8"
-                    initial={{ opacity: 0, x: 40 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: i * 0.15 }}
                   >

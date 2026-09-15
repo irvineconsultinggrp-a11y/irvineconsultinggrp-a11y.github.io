@@ -55,55 +55,55 @@ const services = [
 
 const clients = [
   {
-    src: "/clientlogo/bereal.png",
+    src: "/clientlogo/bereal.webp",
     alt: "BeReal",
     projectDescription:
       "We supported BeReal with market and user-behavior research to inform product positioning and growth priorities for their social platform.",
   },
   {
-    src: "/clientlogo/sandisk.png",
+    src: "/clientlogo/sandisk.webp",
     alt: "SanDisk",
     projectDescription:
       "Our team analyzed storage and memory market dynamics and helped frame strategic options around product lines and competitive differentiation.",
   },
   {
-    src: "/clientlogo/aura.png",
+    src: "/clientlogo/aura.webp",
     alt: "AURA",
     projectDescription:
       "We partnered with AURA on go-to-market and customer insights work to sharpen messaging and clarify expansion opportunities.",
   },
   {
-    src: "/clientlogo/toughcutie.png",
+    src: "/clientlogo/toughcutie.webp",
     alt: "ToughCutie",
     projectDescription:
       "ICG delivered branding and growth strategy recommendations to help ToughCutie strengthen its narrative and scale in a crowded retail landscape.",
   },
   {
-    src: "/clientlogo/kura-sushi.png",
+    src: "/clientlogo/kura-sushi.webp",
     alt: "Kura Sushi",
     projectDescription:
       "We conducted market research and operational benchmarking to support Kura Sushi’s strategic planning and customer experience initiatives.",
   },
   {
-    src: "/clientlogo/adgreetz.png",
+    src: "/clientlogo/adgreetz.webp",
     alt: "AdGreetz",
     projectDescription:
       "Our engagement focused on expansion strategy and partnership opportunities, helping AdGreetz prioritize markets and next-step growth levers.",
   },
   {
-    src: "/clientlogo/knowt.png",
+    src: "/clientlogo/knowt.webp",
     alt: "Knowt",
     projectDescription:
       "We worked with Knowt on product and user research to refine positioning for their education platform and inform the product roadmap.",
   },
   {
-    src: "/clientlogo/7leaves.png",
+    src: "/clientlogo/7leaves.webp",
     alt: "7 Leaves Cafe",
     projectDescription:
       "ICG supported 7 Leaves with market analysis and growth strategy to evaluate new locations and strengthen brand presence in key regions.",
   },
   {
-    src: "/clientlogo/datedrop.png",
+    src: "/clientlogo/datedrop.webp",
     alt: "Date Drop",
     projectDescription:
       "We helped Date Drop clarify target segments and messaging through research and a structured go-to-market narrative for their consumer offering.",
@@ -118,22 +118,20 @@ function ClientCarouselCard({
   onSideClick,
 }) {
   const variants = {
-    center: { x: 0, scale: 1, opacity: 1, zIndex: 10, filter: "blur(0px)" },
+    center: { x: 0, scale: 1, opacity: 1, zIndex: 10 },
     left: {
       x: "-72%",
       scale: 0.82,
       opacity: 0.45,
       zIndex: 5,
-      filter: "blur(2px)",
     },
     right: {
       x: "72%",
       scale: 0.82,
       opacity: 0.45,
       zIndex: 5,
-      filter: "blur(2px)",
     },
-    hidden: { x: 0, scale: 0.65, opacity: 0, zIndex: 0, filter: "blur(4px)" },
+    hidden: { x: 0, scale: 0.65, opacity: 0, zIndex: 0 },
   };
 
   const isSide = position === "left" || position === "right";
@@ -201,6 +199,8 @@ function ClientCarouselCard({
           <img
             src={client.src}
             alt={client.alt}
+            loading="lazy"
+            decoding="async"
             className={`max-h-[252px] md:max-h-[308px] w-auto max-w-full object-contain ${client.logoClassName ?? ""}`}
           />
         </div>
@@ -299,11 +299,14 @@ export default function Contact() {
   return (
     <div className="overflow-x-hidden">
       {/* ===== Hero ===== */}
-      <ScrollReveal>
-      <div
-        className="relative min-h-[80vh] md:min-h-screen bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: `url('/icg-work-with-us.webp')` }}
-      >
+      <div className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden">
+        <img
+          src="/icg-work-with-us.webp"
+          alt=""
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
         <div className="absolute inset-0 bg-icgblue/70" />
         <div className="relative z-10 text-center px-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl text-white font-extrabold leading-[1.08] tracking-tighter md:whitespace-nowrap">
@@ -320,7 +323,6 @@ export default function Contact() {
           </h1>
         </div>
       </div>
-      </ScrollReveal>
 
       {/* ===== Floating Content Panel ===== */}
       <div className="relative z-10 -mt-10 md:-mt-16 bg-white rounded-t-[28px] md:rounded-t-[40px] px-4 md:px-8 pt-12 md:pt-20 pb-16">
@@ -454,8 +456,8 @@ export default function Contact() {
                 {/* Card */}
                 <motion.div
                   className="flex-1 ml-6 md:ml-10 mb-8"
-                  initial={{ opacity: 0, x: 40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.15 }}
                 >
@@ -498,6 +500,8 @@ export default function Contact() {
                   <img
                     src={headshotV2("Khang Nguyen.png")}
                     alt="Khang Nguyen"
+                    loading="lazy"
+                    decoding="async"
                     className="h-full w-full origin-center scale-[1.08] object-cover object-center"
                   />
                 </div>
@@ -527,6 +531,8 @@ export default function Contact() {
                   <img
                     src={headshotV2("Michelle Choy.png")}
                     alt="Michelle Choy"
+                    loading="lazy"
+                    decoding="async"
                     className="h-full w-full origin-center scale-[1.08] object-cover object-center"
                   />
                 </div>

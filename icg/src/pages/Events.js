@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import EventRsvpDialog from "../components/RSVP";
-import ScrollReveal from "../components/ScrollReveal";
 
 const pastEvents = [
   {
@@ -11,7 +10,7 @@ const pastEvents = [
       "Learn how to tackle consulting case interviews with industry professionals and get the opportunity to listen to successful UCI alumni.",
     date: "May 8, 2025 • 6:00 PM",
     location: "Antrepreneur Center",
-    image: "/speaker1.png",
+    image: "/speaker1.webp",
     formUrl:
       "https://docs.google.com/forms/d/e/1FAIpQLSczYg0fm7ldwse1k6p09NfhfsZYUVNYtEsPr3a7il71Ins-cQ/viewform?embedded=true",
   },
@@ -22,7 +21,7 @@ const pastEvents = [
       "Join us for a panel discussion with industry professionals and learn how to break into the consulting industry.",
     date: "May 15, 2025 • 6:00 PM",
     location: "Antrepreneur Center",
-    image: "/workshop-2.png",
+    image: "/workshop-2.webp",
     formUrl:
       "https://docs.google.com/forms/d/e/1FAIpQLSe-zI6VLwxLySvm5SR7PjJru5Vy-kdIvyASxJjE3WcEga608w/viewform?embedded=true",
   },
@@ -33,7 +32,7 @@ const pastEvents = [
       "Learn about what it is like to work at top consulting firms and how to prepare for the recruitment process.",
     date: "May 22, 2025 • 6:00 PM",
     location: "Antrepreneur Center",
-    image: "/workshop-3.png",
+    image: "/workshop-3.webp",
     formUrl:
       "https://docs.google.com/forms/d/e/1FAIpQLSfgfm3tp5zXqEcyVl0E02wbs80cbMLzoH3jLI4RXafw6U8fbg/viewform?embedded=true",
   },
@@ -85,7 +84,6 @@ export default function Events() {
           {/* Dark top bar for navbar visibility */}
           <div className="bg-icgblue h-20 md:h-24" />
 
-          <ScrollReveal>
           <div>
           <div className="bg-white min-h-[75vh] flex flex-col items-center justify-center px-6 relative">
             {/* Tab Buttons */}
@@ -106,8 +104,8 @@ export default function Events() {
 
             <motion.div
               className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
               key="upcoming"
             >
@@ -123,7 +121,6 @@ export default function Events() {
           {/* Spacer before footer (white; footer is dark blue) */}
           <div className="bg-white h-32 md:h-40 border-t border-gray-100" />
           </div>
-          </ScrollReveal>
         </>
       )}
 
@@ -133,7 +130,6 @@ export default function Events() {
           {/* Dark top bar for navbar visibility */}
           <div className="bg-icgblue h-20 md:h-24" />
 
-          <ScrollReveal>
           <div>
           {/* Tab buttons + cards on white background */}
           <div className="bg-white px-4 md:px-8 pt-8 md:pt-10 pb-20">
@@ -163,7 +159,6 @@ export default function Events() {
           {/* Spacer before footer (white; footer is dark blue) */}
           <div className="bg-white h-32 md:h-40 border-t border-gray-100" />
           </div>
-          </ScrollReveal>
         </>
       )}
     </div>
@@ -177,6 +172,8 @@ function EventCard({ event, index, showRsvp = false }) {
         <img
           src={event.image}
           alt={event.title}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover"
         />
       </div>

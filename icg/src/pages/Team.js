@@ -19,6 +19,8 @@ function MemberCard({ id, name, role, image, linkedin }) {
         <img
           src={image}
           alt={name}
+          loading="lazy"
+          decoding="async"
           className={`h-full w-full origin-center scale-[1.08] object-cover ${objectPositionClass}${brightenHeadshot ? " brightness-110 contrast-[1.02]" : ""}`}
         />
       </div>
@@ -115,10 +117,14 @@ export default function Team() {
   return (
     <div className="overflow-x-hidden">
       {/* ===== Hero ===== */}
-      <div
-        className="relative min-h-[80vh] md:min-h-screen bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: `url('/icg-team.png')` }}
-      >
+      <div className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden">
+        <img
+          src="/icg-team.webp"
+          alt=""
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
         <div className="absolute inset-0 bg-icgblue/60" />
         <div className="relative z-10 text-center px-6">
           <h1 className="text-4xl sm:text-5xl md:text-7xl text-white font-extrabold leading-[1.08] tracking-tighter pb-1">

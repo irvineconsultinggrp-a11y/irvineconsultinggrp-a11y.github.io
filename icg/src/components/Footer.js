@@ -7,8 +7,10 @@ function Footer() {
         {/* Left */}
         <div className="flex items-center gap-5">
           <img
-            src="/icg-logo-white.png"
+            src="/icg-logo-white.webp"
             alt="ICG Logo"
+            loading="lazy"
+            decoding="async"
             className="w-16 h-16"
           />
           <div>
