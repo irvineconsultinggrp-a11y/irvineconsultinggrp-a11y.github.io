@@ -11,7 +11,40 @@
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.ico" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link
+      rel="preload"
+      as="image"
+      href="%PUBLIC_URL%/skyline.webp"
+      fetchpriority="high"
+    />
     <title>Irvine Consulting Group</title>
+    <style>
+      html, body, #root {
+        margin: 0;
+        min-height: 100%;
+        background: #061e2a;
+      }
+      .app-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        background: #061e2a;
+      }
+      .app-splash img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      .app-splash-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(6, 30, 42, 0.75);
+      }
+    </style>
     <!-- GitHub Pages SPA redirect restore (paired with 404.html) -->
     <script>
       (function () {
@@ -25,6 +58,12 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Background-only splash; React replaces #root on mount -->
+      <div class="app-splash" aria-hidden="true">
+        <img src="%PUBLIC_URL%/skyline.webp" alt="" />
+        <div class="app-splash-overlay"></div>
+      </div>
+    </div>
   </body>
 </html>
