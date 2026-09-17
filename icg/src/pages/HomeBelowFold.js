@@ -140,76 +140,75 @@ function HomeBelowFold() {
   return (
     <>
       {/* ===== WHAT IS ICG ===== */}
-      <ScrollReveal>
       <div className="bg-white py-24 md:py-32 px-6">
         <div className="container mx-auto">
-          <div className="bg-gray-50 rounded-2xl p-8 md:p-14 flex flex-col md:flex-row items-center gap-12">
-            <div className="w-full md:w-1/2 space-y-6">
-              <h2 className="text-3xl md:text-5xl font-bold text-icgblue">
-                What is ICG?
-              </h2>
-              <p className="text-gray-500 text-base md:text-lg leading-relaxed">
-                ICG is the premier strategy consulting organization at UC Irvine,
-                dedicated to shaping the future leaders in consulting through
-                experiential learning and development opportunities.
-              </p>
-              <Link
-                to="/contact"
-                className="inline-block bg-icgblue text-white font-semibold px-7 py-3 rounded-lg hover:bg-icgblue/90 transition-colors"
-              >
-                Contact Us
-              </Link>
-            </div>
-            <div className="w-full md:w-1/2">
-              <div className="overflow-hidden rounded-xl shadow-md aspect-[4/3] w-full">
-                <img
-                  src="/W%2726%20Group.webp"
-                  alt="ICG team — Winter 2026 group"
-                  loading="lazy"
-                  decoding="async"
-                  className="h-full w-full object-cover object-[38%_center] scale-[1.22] origin-center"
-                />
+          <ScrollReveal>
+            <div className="bg-gray-50 rounded-2xl p-8 md:p-14 flex flex-col md:flex-row items-center gap-12">
+              <div className="w-full md:w-1/2 space-y-6">
+                <h2 className="text-3xl md:text-5xl font-bold text-icgblue">
+                  What is ICG?
+                </h2>
+                <p className="text-gray-500 text-base md:text-lg leading-relaxed">
+                  ICG is the premier strategy consulting organization at UC Irvine,
+                  dedicated to shaping the future leaders in consulting through
+                  experiential learning and development opportunities.
+                </p>
+                <Link
+                  to="/contact"
+                  className="inline-block bg-icgblue text-white font-semibold px-7 py-3 rounded-lg hover:bg-icgblue/90 transition-colors"
+                >
+                  Contact Us
+                </Link>
+              </div>
+              <div className="w-full md:w-1/2">
+                <div className="overflow-hidden rounded-xl shadow-md aspect-[4/3] w-full bg-gray-200">
+                  <img
+                    src="/W%2726%20Group.webp"
+                    alt="ICG team — Winter 2026 group"
+                    decoding="async"
+                    className="h-full w-full object-cover object-[38%_center] scale-[1.22] origin-center"
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
-      </ScrollReveal>
 
       {/* ===== STATS ===== */}
-      <ScrollReveal>
       <div className="bg-white pb-36 md:pb-40 px-6">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-[5.25rem] text-center">
-            {[
-              { number: '13+', label: 'Clients served' },
-              { number: '$200 M+', label: 'Value Served', numberNowrap: true },
-              { number: '600+', label: 'Hours of Service' },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="min-w-0 text-center"
-              >
-                <p
-                  className={`inline-block text-[3.94rem] md:text-[5.25rem] font-bold text-icgblue tracking-tight leading-none transition-transform duration-300 hover:scale-110 cursor-default ${
-                    stat.numberNowrap ? 'whitespace-nowrap' : ''
-                  }`}
+          <ScrollReveal>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-[5.25rem] text-center">
+              {[
+                { number: '13+', label: 'Clients served' },
+                { number: '$200 M+', label: 'Value Served', numberNowrap: true },
+                { number: '600+', label: 'Hours of Service' },
+              ].map((stat) => (
+                <div
+                  key={stat.label}
+                  className="min-w-0 text-center"
                 >
-                  {stat.number}
-                </p>
-                <p className="mt-4 text-black text-[1.75rem] font-light leading-snug">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
+                  <p
+                    className={`inline-block text-[3.94rem] md:text-[5.25rem] font-bold text-icgblue tracking-tight leading-none transition-transform duration-300 hover:scale-110 cursor-default ${
+                      stat.numberNowrap ? 'whitespace-nowrap' : ''
+                    }`}
+                  >
+                    {stat.number}
+                  </p>
+                  <p className="mt-4 text-black text-[1.75rem] font-light leading-snug">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
         </div>
       </div>
-      </ScrollReveal>
 
       {/* ===== TESTIMONIALS ===== */}
-      <ScrollReveal>
       <div className="bg-[#f0f4f8] py-24 md:py-28 px-6">
+        <ScrollReveal>
         <div className="container mx-auto max-w-5xl">
           <h2 className="text-3xl md:text-5xl font-bold text-icgblue text-center">
             What Our Clients Say
@@ -262,29 +261,31 @@ function HomeBelowFold() {
             </button>
           </div>
         </div>
+        </ScrollReveal>
       </div>
-      </ScrollReveal>
 
       {/* ===== FAQ ===== */}
       <div className="bg-white py-24 md:py-28 px-6">
         <div className="container mx-auto max-w-3xl">
-          <h2 className="text-3xl md:text-5xl font-bold text-icgblue mb-12">
-            Frequently asked Questions
-          </h2>
-          {faqs.map((faq, index) => (
-            <FAQItem
-              key={index}
-              question={faq.question}
-              answer={faq.answer}
-              isLast={index === faqs.length - 1}
-            />
-          ))}
+          <ScrollReveal>
+            <h2 className="text-3xl md:text-5xl font-bold text-icgblue mb-12">
+              Frequently asked Questions
+            </h2>
+            {faqs.map((faq, index) => (
+              <FAQItem
+                key={index}
+                question={faq.question}
+                answer={faq.answer}
+                isLast={index === faqs.length - 1}
+              />
+            ))}
+          </ScrollReveal>
         </div>
       </div>
 
       {/* ===== CTA ===== */}
-      <ScrollReveal>
       <div className="bg-white pb-28 px-6">
+        <ScrollReveal>
         <div className="container mx-auto max-w-3xl">
           <h2 className="text-3xl md:text-5xl font-bold text-icgblue leading-tight">
             Enough about us.
@@ -306,8 +307,8 @@ function HomeBelowFold() {
             </Link>
           </div>
         </div>
+        </ScrollReveal>
       </div>
-      </ScrollReveal>
     </>
   );
 }
