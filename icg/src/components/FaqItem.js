@@ -1,10 +1,12 @@
 import { ChevronDown } from "lucide-react";
 import React, { useId, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export default function FAQItem({ question, answer, isLast }) {
   const [isOpen, setIsOpen] = useState(false);
   const panelId = useId();
   const buttonId = useId();
+  const reduceMotion = useReducedMotion();
 
   return (
     <div className={`min-w-0 ${!isLast ? 'mb-3' : ''}`}>
@@ -40,21 +42,24 @@ export default function FAQItem({ question, answer, isLast }) {
           </span>
         </button>
 
-        <div
+        <motion.div
           id={panelId}
           role="region"
           aria-labelledby={buttonId}
-          hidden={!isOpen}
-          className={`overflow-hidden px-6 transition-[max-height,opacity] duration-300 ease-in-out ${
-            isOpen ? 'max-h-[28rem] opacity-100 pb-5' : 'max-h-0 opacity-0 pb-0'
-          }`}
+          aria-hidden={!isOpen}
+          initial={false}
+          animate={isOpen ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
+          transition={
+            reduceMotion
+              ? { duration: 0 }
+              : { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
+          }
+          className="overflow-hidden"
         >
-          {isOpen && (
-            <p className="max-w-[calc(100%-3rem)] break-words leading-relaxed text-xs md:text-sm text-white/95 font-normal [text-rendering:geometricPrecision]">
-              {answer}
-            </p>
-          )}
-        </div>
+          <p className="px-6 pb-5 break-words leading-relaxed text-xs md:text-sm text-white/95 font-normal [text-rendering:geometricPrecision]">
+            {answer}
+          </p>
+        </motion.div>
       </div>
     </div>
   );

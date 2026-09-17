@@ -34,7 +34,7 @@ const testimonials = [
     quote:
       "Our interaction with the Irvine Consulting Group was nothing short of meaningful and provocative. The activities and findings that were commensurate through their research was validating and insightful in by which it will definitively shape our company's marketing strategies and tactics. The Irvine Consulting Group are consummate professionals and they are a dynamic group to work with. I highly recommend enlisting the services of these marketing mercenaries to disrupt your current thinking.",
     author: "Newton Hoang",
-    role: "Vice President — Head of Marketing, Kura Sushi",
+    role: "Vice President of Marketing, Kura Sushi",
     logo: "/clientlogo/kura-sushi.webp",
     headshot: "/clientheadshot/Newton Hoang.webp",
   },
@@ -63,24 +63,37 @@ const faqs = [
   },
 ];
 
-function TestimonialCard({ testimonial, position, onClick }) {
-  const variants = {
-    center: { x: 0, scale: 1, opacity: 1, zIndex: 10 },
-    left: { x: '-70%', scale: 0.85, opacity: 0.5, zIndex: 5 },
-    right: { x: '70%', scale: 0.85, opacity: 0.5, zIndex: 5 },
-    hidden: { x: 0, scale: 0.7, opacity: 0, zIndex: 0 },
-  };
+const cardVariants = {
+  enter: (direction) => ({
+    x: direction > 0 ? '120%' : '-120%',
+    scale: 0.7,
+    opacity: 0,
+    zIndex: 0,
+  }),
+  left: { x: '-70%', scale: 0.85, opacity: 0.5, zIndex: 5 },
+  center: { x: 0, scale: 1, opacity: 1, zIndex: 10 },
+  right: { x: '70%', scale: 0.85, opacity: 0.5, zIndex: 5 },
+  exit: (direction) => ({
+    x: direction > 0 ? '-120%' : '120%',
+    scale: 0.7,
+    opacity: 0,
+    zIndex: 0,
+  }),
+};
 
+function TestimonialCard({ testimonial, position, direction, onClick }) {
   const isClickable = position === 'left' || position === 'right';
 
   return (
     <motion.div
       className={`absolute w-full max-w-2xl px-4 ${isClickable ? 'cursor-pointer' : ''}`}
+      custom={direction}
+      variants={cardVariants}
+      initial="enter"
       animate={position}
-      variants={variants}
-      initial={false}
+      exit="exit"
       transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-      style={{ pointerEvents: position === 'hidden' ? 'none' : 'auto' }}
+      style={{ pointerEvents: isClickable || position === 'center' ? 'auto' : 'none' }}
       onClick={isClickable ? onClick : undefined}
     >
       <div className="bg-white rounded-2xl shadow-lg px-5 py-5 md:px-6 md:py-6 flex flex-col h-[29rem] sm:h-[28rem] md:h-[27rem] lg:h-[26rem]">
@@ -122,20 +135,35 @@ function TestimonialCard({ testimonial, position, onClick }) {
 
 function HomeBelowFold() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const total = testimonials.length;
 
-  const getPosition = (index) => {
-    const total = testimonials.length;
-    const diff = (index - currentTestimonial + total) % total;
-    if (diff === 0) return 'center';
-    if (diff === 1) return 'right';
-    if (diff === total - 1) return 'left';
-    return 'hidden';
+  const visibleCards = [
+    {
+      testimonial: testimonials[(currentTestimonial - 1 + total) % total],
+      position: 'left',
+    },
+    {
+      testimonial: testimonials[currentTestimonial],
+      position: 'center',
+    },
+    {
+      testimonial: testimonials[(currentTestimonial + 1) % total],
+      position: 'right',
+    },
+  ];
+
+  const goTo = (index) => {
+    const next = (index + total) % total;
+    if (next === currentTestimonial) return;
+    const forward = (next - currentTestimonial + total) % total;
+    const backward = (currentTestimonial - next + total) % total;
+    setDirection(forward <= backward ? 1 : -1);
+    setCurrentTestimonial(next);
   };
 
-  const nextTestimonial = () =>
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  const prevTestimonial = () =>
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  const nextTestimonial = () => goTo(currentTestimonial + 1);
+  const prevTestimonial = () => goTo(currentTestimonial - 1);
 
   return (
     <>
@@ -220,13 +248,20 @@ function HomeBelowFold() {
           <div
             className="relative flex items-center justify-center min-h-[29rem] sm:min-h-[28rem] md:min-h-[27rem] lg:min-h-[26rem]"
           >
-            <AnimatePresence mode="popLayout">
-              {testimonials.map((t, i) => (
+            <AnimatePresence initial={false} custom={direction}>
+              {visibleCards.map(({ testimonial, position }) => (
                 <TestimonialCard
-                  key={i}
-                  testimonial={t}
-                  position={getPosition(i)}
-                  onClick={() => setCurrentTestimonial(i)}
+                  key={testimonial.author}
+                  testimonial={testimonial}
+                  position={position}
+                  direction={direction}
+                  onClick={() =>
+                    goTo(
+                      position === 'left'
+                        ? currentTestimonial - 1
+                        : currentTestimonial + 1
+                    )
+                  }
                 />
               ))}
             </AnimatePresence>
@@ -244,7 +279,7 @@ function HomeBelowFold() {
               {testimonials.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setCurrentTestimonial(i)}
+                  onClick={() => goTo(i)}
                   className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                     currentTestimonial === i ? 'bg-icgblue w-7' : 'bg-gray-300'
                   }`}

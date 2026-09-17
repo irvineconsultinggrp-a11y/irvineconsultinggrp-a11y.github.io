@@ -63,7 +63,7 @@ function Home() {
         <div className="absolute inset-0 bg-icgblue/75" />
 
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6">
-          <motion.div {...heroMotion}>
+          <motion.div className="w-full min-w-0 text-center" {...heroMotion}>
             <h1 className="font-extrabold text-white leading-none tracking-tight whitespace-nowrap text-[clamp(2.2rem,7vw,6.5rem)]">
               Irvine Consulting Group
             </h1>
