@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import FAQItem from '../components/FaqItem';
 import ScrollReveal from '../components/ScrollReveal';
+import ProofSections from '../components/ProofSections';
 import { ArrowUpRight } from 'lucide-react';
 
 const testimonials = [
@@ -204,7 +205,7 @@ function HomeBelowFold() {
       </div>
 
       {/* ===== STATS ===== */}
-      <div className="bg-white pb-36 md:pb-40 px-6">
+      <div className="bg-white pb-20 md:pb-24 px-6">
         <div className="container mx-auto max-w-6xl">
           <ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-[5.25rem] text-center">
@@ -233,6 +234,8 @@ function HomeBelowFold() {
           </ScrollReveal>
         </div>
       </div>
+
+      <ProofSections />
 
       {/* ===== TESTIMONIALS ===== */}
       <div className="bg-[#f0f4f8] py-24 md:py-28 px-6">
