@@ -4,7 +4,7 @@ import { featuredClients, memberPlacements } from '../data/proofLogos';
 function ProofSections() {
   return (
     <>
-      <section className="bg-white py-24 md:py-28 px-6" aria-labelledby="featured-clients-heading">
+      <section className="bg-white pt-4 md:pt-6 pb-24 md:pb-28 px-6" aria-labelledby="featured-clients-heading">
         <div className="container mx-auto max-w-6xl">
           <ScrollReveal>
             <h2
@@ -17,20 +17,18 @@ function ProofSections() {
               Strategy engagements with teams you already know.
             </p>
 
-            <ul className="flex flex-wrap items-center justify-center list-none p-0 m-0">
+            <ul className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-12 md:gap-x-16 md:gap-y-16 list-none p-0 m-0">
               {featuredClients.map((client) => (
                 <li
                   key={client.name}
-                  className="flex w-1/2 sm:w-1/3 items-center justify-center px-5 py-5 md:px-8 md:py-6"
+                  className="flex h-20 md:h-28 items-center justify-center px-4 md:px-6"
                 >
                   <img
                     src={client.src}
                     alt={client.name}
                     loading="lazy"
                     decoding="async"
-                    className={`w-auto max-w-[9.5rem] md:max-w-[12rem] object-contain ${
-                      client.logoClassName ?? 'h-12 md:h-14'
-                    }`}
+                    className="h-16 md:h-20 w-auto max-w-[13rem] md:max-w-[17rem] object-contain"
                   />
                 </li>
               ))}

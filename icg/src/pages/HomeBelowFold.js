@@ -205,7 +205,7 @@ function HomeBelowFold() {
       </div>
 
       {/* ===== STATS ===== */}
-      <div className="bg-white pb-20 md:pb-24 px-6">
+      <div className="bg-white pb-4 md:pb-6 px-6">
         <div className="container mx-auto max-w-6xl">
           <ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-[5.25rem] text-center">

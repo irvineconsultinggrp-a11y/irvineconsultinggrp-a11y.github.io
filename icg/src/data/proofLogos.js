@@ -1,48 +1,39 @@
 export const featuredClients = [
   {
     name: 'Aura Intelligence',
-    src: '/clientlogo/aura.webp',
-    logoClassName: 'h-28 md:h-36',
+    src: '/clientlogo/featured/aura.webp',
   },
   {
     name: 'Kura Sushi',
-    src: '/clientlogo/kura-sushi.webp',
-    logoClassName: 'h-28 md:h-36',
+    src: '/clientlogo/featured/kura-sushi.webp',
   },
   {
     name: 'Tough Cutie',
-    src: '/clientlogo/toughcutie.webp',
-    logoClassName: 'h-28 md:h-36',
+    src: '/clientlogo/featured/toughcutie.webp',
   },
   {
     name: 'BeReal',
-    src: '/clientlogo/bereal.webp',
-    logoClassName: 'h-12 md:h-14',
+    src: '/clientlogo/featured/bereal.webp',
   },
   {
     name: 'Mastercard',
-    src: '/clientlogo/mastercard.webp',
-    logoClassName: 'h-12 md:h-14',
+    src: '/clientlogo/featured/mastercard.webp',
   },
   {
     name: 'SanDisk',
-    src: '/clientlogo/sandisk.webp',
-    logoClassName: 'h-28 md:h-36',
+    src: '/clientlogo/featured/sandisk.webp',
   },
   {
     name: 'Make-A-Wish',
-    src: '/clientlogo/make-a-wish.webp',
-    logoClassName: 'h-11 md:h-14',
+    src: '/clientlogo/featured/make-a-wish.webp',
   },
   {
     name: 'Ditto',
-    src: '/clientlogo/ditto.svg',
-    logoClassName: 'h-12 md:h-14',
+    src: '/clientlogo/featured/ditto.webp',
   },
   {
     name: 'Amazon',
     src: '/clientlogo/amazon.svg',
-    logoClassName: 'h-12 md:h-14',
   },
 ];
 
