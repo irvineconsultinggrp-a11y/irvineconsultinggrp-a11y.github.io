@@ -14,12 +14,13 @@ function MemberCard({ id, name, role, image, linkedin }) {
   return (
     <div className="flex flex-col items-center">
       <div
-        className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 lg:w-44 lg:h-44 mb-3 rounded-full overflow-hidden shadow-md ring-0 ring-icgblue/15 transition-all duration-300 ease-out hover:scale-[1.07] hover:-translate-y-1.5 hover:shadow-xl hover:ring-4 hover:z-10 cursor-default"
+        className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 lg:w-44 lg:h-44 mb-3 rounded-full overflow-hidden bg-gray-200 shadow-md ring-0 ring-icgblue/15 transition-all duration-300 ease-out hover:scale-[1.07] hover:-translate-y-1.5 hover:shadow-xl hover:ring-4 hover:z-10 cursor-default"
       >
         <img
           src={image}
           alt={name}
-          loading="lazy"
+          loading="eager"
+          fetchPriority="low"
           decoding="async"
           className={`h-full w-full origin-center scale-[1.08] object-cover ${objectPositionClass}${brightenHeadshot ? " brightness-110 contrast-[1.02]" : ""}`}
         />
@@ -70,6 +71,7 @@ const TABS = [
   { key: "executives", label: "Executives" },
   { key: "directors", label: "Directors" },
   { key: "projectManagers", label: "Project Managers" },
+  { key: "alumni", label: "Alumni" },
 ];
 
 /** Sort key for "All Members": President → VPs → Directors → others; stable by source order. */
@@ -96,7 +98,9 @@ export default function Team() {
     switch (activeTab) {
       case "all": {
         const list = getAllMembers().filter(
-          (m) => !m.categories.includes("advisors")
+          (m) =>
+            !m.categories.includes("advisors") &&
+            !m.categories.includes("alumni")
         );
         return sortMembersForAllView(list);
       }
@@ -106,6 +110,8 @@ export default function Team() {
         return getMembersByCategory("directors");
       case "projectManagers":
         return getMembersByCategory("projectManagers");
+      case "alumni":
+        return getMembersByCategory("alumni");
       default:
         return getAllMembers();
     }
@@ -116,6 +122,12 @@ export default function Team() {
 
   return (
     <div className="overflow-x-hidden">
+      <link
+        rel="preload"
+        as="image"
+        href="/icg-team.webp"
+        fetchPriority="high"
+      />
       {/* ===== Hero ===== */}
       <div className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden">
         <img

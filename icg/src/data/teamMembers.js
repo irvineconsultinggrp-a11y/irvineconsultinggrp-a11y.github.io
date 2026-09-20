@@ -1,6 +1,6 @@
 /**
  * Centralized team member data source
- * Categories: executives, directors, associates, projectManagers, advisors
+ * Categories: executives, directors, associates, projectManagers, advisors, alumni
  * Committees: Recruitment, Marketing, Operations, Finance, Sourcing, ProDev, Socials, Technology
  *
  * Set `inactive: true` to hide someone from the site while keeping their record in this file.
@@ -205,12 +205,11 @@ export const teamMembers = [
     id: "zaid",
     name: "Zaid Baghdadi",
     role: "Consultant",
-    categories: ["associates"],
+    categories: ["alumni"],
     committees: ["Marketing", "Socials"],
     headshotSrc: "/headshots/Zaid.webp",
     hoverSrc: null,
     linkedinUrl: "https://www.linkedin.com/in/zaid-baghdadi-479a5027a/",
-    inactive: true,
   },
   {
     id: "krish",
@@ -288,7 +287,7 @@ export const teamMembers = [
     id: "parav",
     name: "Parav Salaniwal",
     role: "Consultant",
-    categories: ["associates"],
+    categories: ["alumni"],
     committees: [],
     headshotSrc: headshotV2("Parav Salaniwal.png"),
     hoverSrc: null,
@@ -318,7 +317,7 @@ export const teamMembers = [
     id: "ian",
     name: "Ian Su",
     role: "Consultant",
-    categories: ["associates"],
+    categories: ["alumni"],
     committees: [],
     headshotSrc: headshotV2("Ian Su.png"),
     hoverSrc: null,
@@ -362,7 +361,7 @@ export function getAllMembers() {
 
 /**
  * Get team members by category
- * @param {string} category - One of: "executives", "directors", "associates", "projectManagers", "advisors"
+ * @param {string} category - One of: "executives", "directors", "associates", "projectManagers", "advisors", "alumni"
  * @returns {Array} Members in that category
  */
 export function getMembersByCategory(category) {
@@ -440,6 +439,7 @@ export const CATEGORIES = [
   "associates",
   "projectManagers",
   "advisors",
+  "alumni",
 ];
 
 /**
@@ -452,5 +452,6 @@ export const CATEGORY_LABELS = {
   associates: "Committee",
   projectManagers: "Project Team",
   advisors: "Advisors",
+  alumni: "Alumni",
 };
 

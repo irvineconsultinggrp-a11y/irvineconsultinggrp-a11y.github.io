@@ -5,8 +5,8 @@ import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
+import Team from './pages/Team';
 
-const Team = lazy(() => import('./pages/Team'));
 const Students = lazy(() => import('./pages/Students'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Events = lazy(() => import('./pages/Events'));
