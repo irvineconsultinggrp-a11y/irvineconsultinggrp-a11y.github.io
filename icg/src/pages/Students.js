@@ -68,7 +68,7 @@ function Students() {
           alt=""
           fetchPriority="high"
           decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full origin-center object-cover object-[40%_center] md:scale-[1.18]"
         />
         <div className="absolute inset-0 bg-icgblue/70" />
         <div className="relative z-10 text-center px-6">

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import FAQItem from '../components/FaqItem';
 import ScrollReveal from '../components/ScrollReveal';
+import ProofSections from '../components/ProofSections';
 import { ArrowUpRight } from 'lucide-react';
 
 const testimonials = [
@@ -34,7 +35,7 @@ const testimonials = [
     quote:
       "Our interaction with the Irvine Consulting Group was nothing short of meaningful and provocative. The activities and findings that were commensurate through their research was validating and insightful in by which it will definitively shape our company's marketing strategies and tactics. The Irvine Consulting Group are consummate professionals and they are a dynamic group to work with. I highly recommend enlisting the services of these marketing mercenaries to disrupt your current thinking.",
     author: "Newton Hoang",
-    role: "Vice President — Head of Marketing, Kura Sushi",
+    role: "Vice President of Marketing, Kura Sushi",
     logo: "/clientlogo/kura-sushi.webp",
     headshot: "/clientheadshot/Newton Hoang.webp",
   },
@@ -63,24 +64,37 @@ const faqs = [
   },
 ];
 
-function TestimonialCard({ testimonial, position, onClick }) {
-  const variants = {
-    center: { x: 0, scale: 1, opacity: 1, zIndex: 10 },
-    left: { x: '-70%', scale: 0.85, opacity: 0.5, zIndex: 5 },
-    right: { x: '70%', scale: 0.85, opacity: 0.5, zIndex: 5 },
-    hidden: { x: 0, scale: 0.7, opacity: 0, zIndex: 0 },
-  };
+const cardVariants = {
+  enter: (direction) => ({
+    x: direction > 0 ? '120%' : '-120%',
+    scale: 0.7,
+    opacity: 0,
+    zIndex: 0,
+  }),
+  left: { x: '-70%', scale: 0.85, opacity: 0.5, zIndex: 5 },
+  center: { x: 0, scale: 1, opacity: 1, zIndex: 10 },
+  right: { x: '70%', scale: 0.85, opacity: 0.5, zIndex: 5 },
+  exit: (direction) => ({
+    x: direction > 0 ? '-120%' : '120%',
+    scale: 0.7,
+    opacity: 0,
+    zIndex: 0,
+  }),
+};
 
+function TestimonialCard({ testimonial, position, direction, onClick }) {
   const isClickable = position === 'left' || position === 'right';
 
   return (
     <motion.div
       className={`absolute w-full max-w-2xl px-4 ${isClickable ? 'cursor-pointer' : ''}`}
+      custom={direction}
+      variants={cardVariants}
+      initial="enter"
       animate={position}
-      variants={variants}
-      initial={false}
+      exit="exit"
       transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-      style={{ pointerEvents: position === 'hidden' ? 'none' : 'auto' }}
+      style={{ pointerEvents: isClickable || position === 'center' ? 'auto' : 'none' }}
       onClick={isClickable ? onClick : undefined}
     >
       <div className="bg-white rounded-2xl shadow-lg px-5 py-5 md:px-6 md:py-6 flex flex-col h-[29rem] sm:h-[28rem] md:h-[27rem] lg:h-[26rem]">
@@ -122,94 +136,110 @@ function TestimonialCard({ testimonial, position, onClick }) {
 
 function HomeBelowFold() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const total = testimonials.length;
 
-  const getPosition = (index) => {
-    const total = testimonials.length;
-    const diff = (index - currentTestimonial + total) % total;
-    if (diff === 0) return 'center';
-    if (diff === 1) return 'right';
-    if (diff === total - 1) return 'left';
-    return 'hidden';
+  const visibleCards = [
+    {
+      testimonial: testimonials[(currentTestimonial - 1 + total) % total],
+      position: 'left',
+    },
+    {
+      testimonial: testimonials[currentTestimonial],
+      position: 'center',
+    },
+    {
+      testimonial: testimonials[(currentTestimonial + 1) % total],
+      position: 'right',
+    },
+  ];
+
+  const goTo = (index) => {
+    const next = (index + total) % total;
+    if (next === currentTestimonial) return;
+    const forward = (next - currentTestimonial + total) % total;
+    const backward = (currentTestimonial - next + total) % total;
+    setDirection(forward <= backward ? 1 : -1);
+    setCurrentTestimonial(next);
   };
 
-  const nextTestimonial = () =>
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  const prevTestimonial = () =>
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  const nextTestimonial = () => goTo(currentTestimonial + 1);
+  const prevTestimonial = () => goTo(currentTestimonial - 1);
 
   return (
     <>
       {/* ===== WHAT IS ICG ===== */}
-      <ScrollReveal>
       <div className="bg-white py-24 md:py-32 px-6">
         <div className="container mx-auto">
-          <div className="bg-gray-50 rounded-2xl p-8 md:p-14 flex flex-col md:flex-row items-center gap-12">
-            <div className="w-full md:w-1/2 space-y-6">
-              <h2 className="text-3xl md:text-5xl font-bold text-icgblue">
-                What is ICG?
-              </h2>
-              <p className="text-gray-500 text-base md:text-lg leading-relaxed">
-                ICG is the premier strategy consulting organization at UC Irvine,
-                dedicated to shaping the future leaders in consulting through
-                experiential learning and development opportunities.
-              </p>
-              <Link
-                to="/contact"
-                className="inline-block bg-icgblue text-white font-semibold px-7 py-3 rounded-lg hover:bg-icgblue/90 transition-colors"
-              >
-                Contact Us
-              </Link>
-            </div>
-            <div className="w-full md:w-1/2">
-              <div className="overflow-hidden rounded-xl shadow-md aspect-[4/3] w-full">
-                <img
-                  src="/W%2726%20Group.webp"
-                  alt="ICG team — Winter 2026 group"
-                  loading="lazy"
-                  decoding="async"
-                  className="h-full w-full object-cover object-[38%_center] scale-[1.22] origin-center"
-                />
+          <ScrollReveal>
+            <div className="bg-gray-50 rounded-2xl p-8 md:p-14 flex flex-col md:flex-row items-center gap-12">
+              <div className="w-full md:w-1/2 space-y-6">
+                <h2 className="text-3xl md:text-5xl font-bold text-icgblue">
+                  What is ICG?
+                </h2>
+                <p className="text-gray-500 text-base md:text-lg leading-relaxed">
+                  ICG is the premier strategy consulting organization at UC Irvine,
+                  dedicated to shaping the future leaders in consulting through
+                  experiential learning and development opportunities.
+                </p>
+                <Link
+                  to="/contact"
+                  className="inline-block bg-icgblue text-white font-semibold px-7 py-3 rounded-lg hover:bg-icgblue/90 transition-colors"
+                >
+                  Contact Us
+                </Link>
+              </div>
+              <div className="w-full md:w-1/2">
+                <div className="overflow-hidden rounded-xl shadow-md aspect-[4/3] w-full bg-gray-200">
+                  <img
+                    src="/W%2726%20Group.webp"
+                    alt="ICG team — Winter 2026 group"
+                    decoding="async"
+                    className="h-full w-full object-cover object-[38%_center] scale-[1.22] origin-center"
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
-      </ScrollReveal>
 
       {/* ===== STATS ===== */}
-      <ScrollReveal>
-      <div className="bg-white pb-36 md:pb-40 px-6">
+      <div className="bg-white pb-4 md:pb-6 px-6">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-[5.25rem] text-center">
-            {[
-              { number: '13+', label: 'Clients served' },
-              { number: '$200 M+', label: 'Value Served', numberNowrap: true },
-              { number: '600+', label: 'Hours of Service' },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="min-w-0 text-center"
-              >
-                <p
-                  className={`inline-block text-[3.94rem] md:text-[5.25rem] font-bold text-icgblue tracking-tight leading-none transition-transform duration-300 hover:scale-110 cursor-default ${
-                    stat.numberNowrap ? 'whitespace-nowrap' : ''
-                  }`}
+          <ScrollReveal>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-[5.25rem] text-center">
+              {[
+                { number: '13+', label: 'Clients served' },
+                { number: '$200 M+', label: 'Value Served', numberNowrap: true },
+                { number: '600+', label: 'Hours of Service' },
+              ].map((stat) => (
+                <div
+                  key={stat.label}
+                  className="min-w-0 text-center"
                 >
-                  {stat.number}
-                </p>
-                <p className="mt-4 text-black text-[1.75rem] font-light leading-snug">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
+                  <p
+                    className={`inline-block text-[3.94rem] md:text-[5.25rem] font-bold text-icgblue tracking-tight leading-none transition-transform duration-300 hover:scale-110 cursor-default ${
+                      stat.numberNowrap ? 'whitespace-nowrap' : ''
+                    }`}
+                  >
+                    {stat.number}
+                  </p>
+                  <p className="mt-4 text-black text-[1.75rem] font-light leading-snug">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
         </div>
       </div>
-      </ScrollReveal>
+
+      <ProofSections />
 
       {/* ===== TESTIMONIALS ===== */}
-      <ScrollReveal>
       <div className="bg-[#f0f4f8] py-24 md:py-28 px-6">
+        <ScrollReveal>
         <div className="container mx-auto max-w-5xl">
           <h2 className="text-3xl md:text-5xl font-bold text-icgblue text-center">
             What Our Clients Say
@@ -221,13 +251,20 @@ function HomeBelowFold() {
           <div
             className="relative flex items-center justify-center min-h-[29rem] sm:min-h-[28rem] md:min-h-[27rem] lg:min-h-[26rem]"
           >
-            <AnimatePresence mode="popLayout">
-              {testimonials.map((t, i) => (
+            <AnimatePresence initial={false} custom={direction}>
+              {visibleCards.map(({ testimonial, position }) => (
                 <TestimonialCard
-                  key={i}
-                  testimonial={t}
-                  position={getPosition(i)}
-                  onClick={() => setCurrentTestimonial(i)}
+                  key={testimonial.author}
+                  testimonial={testimonial}
+                  position={position}
+                  direction={direction}
+                  onClick={() =>
+                    goTo(
+                      position === 'left'
+                        ? currentTestimonial - 1
+                        : currentTestimonial + 1
+                    )
+                  }
                 />
               ))}
             </AnimatePresence>
@@ -245,7 +282,7 @@ function HomeBelowFold() {
               {testimonials.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setCurrentTestimonial(i)}
+                  onClick={() => goTo(i)}
                   className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                     currentTestimonial === i ? 'bg-icgblue w-7' : 'bg-gray-300'
                   }`}
@@ -262,29 +299,31 @@ function HomeBelowFold() {
             </button>
           </div>
         </div>
+        </ScrollReveal>
       </div>
-      </ScrollReveal>
 
       {/* ===== FAQ ===== */}
       <div className="bg-white py-24 md:py-28 px-6">
         <div className="container mx-auto max-w-3xl">
-          <h2 className="text-3xl md:text-5xl font-bold text-icgblue mb-12">
-            Frequently asked Questions
-          </h2>
-          {faqs.map((faq, index) => (
-            <FAQItem
-              key={index}
-              question={faq.question}
-              answer={faq.answer}
-              isLast={index === faqs.length - 1}
-            />
-          ))}
+          <ScrollReveal>
+            <h2 className="text-3xl md:text-5xl font-bold text-icgblue mb-12">
+              Frequently asked Questions
+            </h2>
+            {faqs.map((faq, index) => (
+              <FAQItem
+                key={index}
+                question={faq.question}
+                answer={faq.answer}
+                isLast={index === faqs.length - 1}
+              />
+            ))}
+          </ScrollReveal>
         </div>
       </div>
 
       {/* ===== CTA ===== */}
-      <ScrollReveal>
       <div className="bg-white pb-28 px-6">
+        <ScrollReveal>
         <div className="container mx-auto max-w-3xl">
           <h2 className="text-3xl md:text-5xl font-bold text-icgblue leading-tight">
             Enough about us.
@@ -306,8 +345,8 @@ function HomeBelowFold() {
             </Link>
           </div>
         </div>
+        </ScrollReveal>
       </div>
-      </ScrollReveal>
     </>
   );
 }

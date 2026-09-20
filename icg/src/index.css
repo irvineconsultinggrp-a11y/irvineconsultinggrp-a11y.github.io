@@ -45,6 +45,24 @@ code {
   }
 }
 
+/* White-on-navy placement marks that color in on hover */
+.placement-logo {
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+  transition: filter 300ms ease, opacity 300ms ease;
+}
+
+.group:hover .placement-logo,
+.group:focus-within .placement-logo {
+  filter: none;
+  opacity: 1;
+}
+
+.group:hover .placement-logo-plate,
+.group:focus-within .placement-logo-plate {
+  background-color: #fff;
+}
+
 /* Contact page logo bar */
 .logo-carousel-wrapper {
   width: 100vw;
