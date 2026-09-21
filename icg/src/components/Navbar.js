@@ -20,9 +20,12 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [navigating, setNavigating] = useState(false);
   const collapseTimer = useRef(null);
+  const navTimer = useRef(null);
   const location = useLocation();
   const reduceMotion = useReducedMotion();
+  const prevPathname = useRef(location.pathname);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -32,6 +35,17 @@ function Navbar() {
 
   useEffect(() => {
     setIsOpen(false);
+
+    if (prevPathname.current !== location.pathname) {
+      prevPathname.current = location.pathname;
+      setNavigating(true);
+      setExpanded(true);
+      clearTimeout(navTimer.current);
+      navTimer.current = setTimeout(() => {
+        setNavigating(false);
+        setExpanded(false);
+      }, 700);
+    }
   }, [location]);
 
   const handleMouseEnter = () => {
@@ -40,10 +54,14 @@ function Navbar() {
   };
 
   const handleMouseLeave = () => {
+    if (navigating) return;
     collapseTimer.current = setTimeout(() => setExpanded(false), 120);
   };
 
-  useEffect(() => () => clearTimeout(collapseTimer.current), []);
+  useEffect(() => () => {
+    clearTimeout(collapseTimer.current);
+    clearTimeout(navTimer.current);
+  }, []);
 
   const pillSpring = { type: 'spring', stiffness: 420, damping: 36, mass: 0.7 };
 
