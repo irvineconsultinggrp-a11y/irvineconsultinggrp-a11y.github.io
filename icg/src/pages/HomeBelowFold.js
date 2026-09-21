@@ -211,7 +211,7 @@ function HomeBelowFold() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-[5.25rem] text-center">
               {[
                 { number: '20+', label: 'Clients Served' },
-                { number: '$300 M+', label: 'Value Served', numberNowrap: true },
+                { number: '$300M+', label: 'Value Served', numberNowrap: true },
                 { number: '1000+', label: 'Hours of Service' },
               ].map((stat) => (
                 <div
