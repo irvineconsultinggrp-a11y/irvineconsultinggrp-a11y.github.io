@@ -70,7 +70,7 @@ function Home() {
       };
 
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden bg-black">
       {/* ===== HERO (eager — first viewport) ===== */}
       <div ref={heroRef} className="relative min-h-screen flex flex-col overflow-hidden">
         <motion.div
