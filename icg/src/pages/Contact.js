@@ -47,9 +47,9 @@ const services = [
   },
   {
     icon: <Merge className="w-10 h-10 text-purple-500" />,
-    title: "Merger and Acquisition Advisory",
+    title: "Due Diligence",
     description:
-      "Strategic guidance throughout the M&A process, including opportunity assessment, market research, due diligence, and post-merger integration planning.",
+      "Comprehensive analysis and assessment of business operations, finances, and market positioning to inform critical strategic decisions.",
   },
 ];
 
@@ -108,6 +108,26 @@ const clients = [
     projectDescription:
       "We helped Date Drop clarify target segments and messaging through research and a structured go-to-market narrative for their consumer offering.",
   },
+];
+
+// Scattered "Our Clients" logo wall — staggered 5-column layout.
+// left/top are the logo's CENTER as a % of the container (it is translated -50%,-50%).
+const clientLogoLayout = [
+  { src: "lokahi-therapeutics.webp", alt: "Lokahi Therapeutics", left: "10%", top: "14%" },
+  { src: "mastercard.webp", alt: "Mastercard", left: "10%", top: "45%" },
+  { src: "del-taco.webp", alt: "Del Taco", left: "10%", top: "78%" },
+  { src: "aura.webp", alt: "Aura", left: "30%", top: "27%" },
+  { src: "kura-sushi.webp", alt: "Kura Sushi", left: "30%", top: "59%" },
+  { src: "7leaves.webp", alt: "7 Leaves Cafe", left: "30%", top: "85%" },
+  { src: "artificial-by-design.webp", alt: "Artificial By Design", left: "50%", top: "14%" },
+  { src: "john-wayne-airport.webp", alt: "John Wayne Airport", left: "50%", top: "45%", big: true },
+  { src: "knowt.webp", alt: "Knowt", left: "50%", top: "78%" },
+  { src: "sandisk.webp", alt: "SanDisk", left: "70%", top: "27%", size: "h-24 w-24 md:h-[252px] md:w-[252px]" },
+  { src: "bereal.webp", alt: "BeReal", left: "70%", top: "59%" },
+  { src: "operation-freedom-paws.webp", alt: "Operation Freedom Paws", left: "70%", top: "85%" },
+  { src: "riot-games.webp", alt: "Riot Games", left: "90%", top: "14%" },
+  { src: "ditto.webp", alt: "Ditto", left: "90%", top: "45%", dark: true },
+  { src: "adgreetz.webp", alt: "AdGreetz", left: "88%", top: "78%", size: "h-28 w-28 md:h-[286px] md:w-[286px]" },
 ];
 
 function ClientCarouselCard({
@@ -359,6 +379,31 @@ export default function Contact() {
             Our Clients.
           </h2>
 
+          <div className="mb-16 md:mb-20 relative w-full h-[480px] md:h-[680px]">
+            {clientLogoLayout.map((logo) => (
+              <div
+                key={logo.alt}
+                className={`absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center ${
+                  logo.size
+                    ? logo.size
+                    : logo.big
+                    ? "h-20 w-20 md:h-[224px] md:w-[224px]"
+                    : "h-16 w-16 md:h-[168px] md:w-[168px]"
+                }`}
+                style={{ left: logo.left, top: logo.top }}
+              >
+                <img
+                  src={`/clientlogo/${logo.src}`}
+                  alt={logo.alt}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-contain"
+                  style={logo.dark ? { filter: "brightness(0)" } : undefined}
+                />
+              </div>
+            ))}
+          </div>
+
           <div
             className="relative flex items-center justify-center max-w-4xl mx-auto"
             style={{ minHeight: "300px" }}
@@ -488,7 +533,7 @@ export default function Contact() {
             </h2>
             <p className="text-gray-500 text-sm md:text-base max-w-md mx-auto">
               If you have a project you would like to discuss, fill out the form
-              and we'll get back to you shortly
+              and we'll get back to you shortly!
             </p>
           </div>
 

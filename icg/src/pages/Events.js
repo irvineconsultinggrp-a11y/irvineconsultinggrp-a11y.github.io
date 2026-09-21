@@ -1,14 +1,48 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 import EventRsvpDialog from "../components/RSVP";
 
+const upcomingEvents = [
+  {
+    id: 0,
+    title: "Speaker Panel",
+    description:
+      "Join us for a panel discussing careers in consulting, industry insights, and advice from professionals in the field.",
+    date: "Coming Soon",
+    image: "/icg-logo.webp",
+  },
+  {
+    id: 1,
+    title: "Case Competition Fall 2026",
+    description:
+      "ICG's upcoming case competition to tackle a real-world business challenge, present your ideas to industry professionals, and compete alongside fellow students.",
+    date: "Coming Soon",
+    image: "/icg-logo.webp",
+  },
+];
+
 const pastEvents = [
+  {
+    id: 0,
+    title: "EY-Parthenon Case Competition | ICG x AKPsi",
+    description:
+      "ICG's Spring 2026 case competition brought together 100+ participants from 10+ schools to solve a real-world business challenge and compete alongside other ambitious students. Teams presented their recommendations to a judging panel that included professionals from EY-Parthenon, gaining hands-on experience in problem-solving, teamwork, and case presentation.",
+    date: "Spring 2026",
+    location: "Antrepreneur Center",
+    images: [
+      "/case-competition-1.webp",
+      "/case-competition-2.jpg",
+      "/case-competition-3.jpg",
+      "/case-competition-4.jpg",
+    ],
+  },
   {
     id: 1,
     title: "Consulting 101: What is it?",
     description:
       "Learn how to tackle consulting case interviews with industry professionals and get the opportunity to listen to successful UCI alumni.",
-    date: "May 8, 2025 • 6:00 PM",
+    date: "May 8, 2025",
     location: "Antrepreneur Center",
     image: "/speaker1.webp",
     formUrl:
@@ -19,7 +53,7 @@ const pastEvents = [
     title: "Breaking in: Recruitment and Corporate Strategies",
     description:
       "Join us for a panel discussion with industry professionals and learn how to break into the consulting industry.",
-    date: "May 15, 2025 • 6:00 PM",
+    date: "May 15, 2025",
     location: "Antrepreneur Center",
     image: "/workshop-2.webp",
     formUrl:
@@ -30,7 +64,7 @@ const pastEvents = [
     title: "Inside the Firm: MBB, Big 4, and Beyond",
     description:
       "Learn about what it is like to work at top consulting firms and how to prepare for the recruitment process.",
-    date: "May 22, 2025 • 6:00 PM",
+    date: "May 22, 2025",
     location: "Antrepreneur Center",
     image: "/workshop-3.webp",
     formUrl:
@@ -85,9 +119,9 @@ export default function Events() {
           <div className="bg-icgblue h-20 md:h-24" />
 
           <div>
-          <div className="bg-white min-h-[75vh] flex flex-col items-center justify-center px-6 relative">
-            {/* Tab Buttons */}
-            <div className="flex gap-3 absolute top-8 md:top-10">
+          {/* Tab buttons + cards on white background */}
+          <div className="bg-white px-4 md:px-8 pt-8 md:pt-10 pb-48">
+            <div className="flex justify-center gap-3 mb-12">
               <TabButton
                 label="Upcoming Events"
                 isActive={true}
@@ -101,25 +135,17 @@ export default function Events() {
                 dark
               />
             </div>
-
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              key="upcoming"
-            >
-              <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[0.85] tracking-tighter text-icgblue mb-4">
-                Stay Tuned
-              </h1>
-              <p className="text-gray-500 text-base md:text-lg">
-                There are currently no upcoming events.
-              </p>
-            </motion.div>
+            <div className="max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {upcomingEvents.map((event, i) => (
+                  <EventCard key={event.id} event={event} index={i} />
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Spacer before footer (white; footer is dark blue) */}
-          <div className="bg-white h-32 md:h-40 border-t border-gray-100" />
+          <div className="bg-white h-8" />
           </div>
         </>
       )}
@@ -148,16 +174,21 @@ export default function Events() {
               />
             </div>
             <div className="max-w-6xl mx-auto">
+              <div className="flex justify-center mb-12">
+                <div className="w-full max-w-sm">
+                  <EventCard key={pastEvents[0].id} event={pastEvents[0]} index={0} />
+                </div>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {pastEvents.map((event, i) => (
-                  <EventCard key={event.id} event={event} index={i} />
+                {pastEvents.slice(1).map((event, i) => (
+                  <EventCard key={event.id} event={event} index={i + 1} />
                 ))}
               </div>
             </div>
           </div>
 
           {/* Spacer before footer (white; footer is dark blue) */}
-          <div className="bg-white h-32 md:h-40 border-t border-gray-100" />
+          <div className="bg-white h-8" />
           </div>
         </>
       )}
@@ -166,23 +197,78 @@ export default function Events() {
 }
 
 function EventCard({ event, index, showRsvp = false }) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [expandedDescription, setExpandedDescription] = useState(false);
+  const images = event.images || [event.image];
+  const hasMultipleImages = images.length > 1;
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
   return (
     <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-      <div className="aspect-[16/9] bg-gray-100 overflow-hidden">
+      <div className="aspect-[16/9] bg-gray-100 overflow-hidden relative group">
         <img
-          src={event.image}
+          src={images[currentImageIndex]}
           alt={event.title}
           loading="lazy"
           decoding="async"
           className="w-full h-full object-cover"
         />
+        {hasMultipleImages && (
+          <>
+            <button
+              onClick={handlePrevImage}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+              aria-label="Previous image"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={handleNextImage}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+              aria-label="Next image"
+            >
+              <ChevronRight size={20} />
+            </button>
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+              {images.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentImageIndex(i)}
+                  className={`h-2 rounded-full transition-all ${
+                    i === currentImageIndex
+                      ? "bg-white w-6"
+                      : "bg-white/50 w-2 hover:bg-white/75"
+                  }`}
+                  aria-label={`Go to image ${i + 1}`}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
       <div className="p-6">
         <h3 className="text-lg font-bold text-gray-900 mb-1">{event.title}</h3>
         <p className="text-sm text-gray-500 mb-3">{event.date}</p>
-        <p className="text-gray-600 text-sm leading-relaxed">
-          {event.description}
-        </p>
+        <div>
+          <p className={`text-gray-600 text-sm leading-relaxed ${!expandedDescription && event.description.length > 200 ? "line-clamp-3" : ""}`}>
+            {event.description}
+          </p>
+          {event.description.length > 200 && (
+            <button
+              onClick={() => setExpandedDescription(!expandedDescription)}
+              className="text-icgblue text-sm font-semibold hover:underline mt-2"
+            >
+              {expandedDescription ? "...see less" : "...see more"}
+            </button>
+          )}
+        </div>
         {showRsvp && (
           <div className="mt-4">
             <EventRsvpDialog event={event} />

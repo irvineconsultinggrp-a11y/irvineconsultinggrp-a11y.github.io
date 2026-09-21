@@ -11,8 +11,8 @@ const testimonials = [
     quote:
       "The ICG team explored these domains with technical rigor by developing insights around model portability, edge to cloud tradeoffs and the architecture of AI-native data centers.",
     author: "Alex Veytsman",
-    role: "CEO, Artificial By Design",
-    logo: "/clientlogo/abd.webp",
+    role: "CTO, Artificial By Design",
+    logo: "/clientlogo/artificial-by-design-v2.png",
     headshot: "/clientheadshot/Alex Veytsman.webp",
   },
   {
@@ -26,7 +26,7 @@ const testimonials = [
   {
     quote:
       "It was a real pleasure working with the Irvine Consulting student team. They tackled a complex and demanding assignment and helped shape AdGreetz's expansion strategy with remarkable professionalism, clarity, and dedication.",
-    author: "Amit Seth",
+    author: "Eric Frankel",
     role: "CEO, AdGreetz",
     logo: "/clientlogo/adgreetz.webp",
     headshot: "/clientheadshot/Amit Seth.webp",
@@ -210,9 +210,9 @@ function HomeBelowFold() {
           <ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-[5.25rem] text-center">
               {[
-                { number: '13+', label: 'Clients served' },
-                { number: '$200 M+', label: 'Value Served', numberNowrap: true },
-                { number: '600+', label: 'Hours of Service' },
+                { number: '20+', label: 'Clients Served' },
+                { number: '$300 M+', label: 'Value Served', numberNowrap: true },
+                { number: '1000+', label: 'Hours of Service' },
               ].map((stat) => (
                 <div
                   key={stat.label}

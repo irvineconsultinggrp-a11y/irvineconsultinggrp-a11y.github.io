@@ -10,51 +10,94 @@ const COFFEE_CHAT_URL = "https://apply.irvineconsultinggroup.com/coffee-chat";
 const testimonials = [
   {
     name: "Khang Nguyen",
-    role: "President, ICG",
+    role: "President",
     quote:
       "Leading ICG has meant building a team that delivers for clients and pushes each other to think sharper every day. The ownership is real, the pace is fast, and the people around you will make you better. If you want responsibility and growth, this is a special place to be.",
     image: headshotV2("Khang Nguyen.png"),
   },
   {
     name: "Trinity Nguyen",
-    role: "Consultant, ICG",
+    role: "Director of Corp Relations",
     quote: "Joining Irvine Consulting Group has been one of the most valuable experiences of my college career. I've grown so much in terms of problem-solving, communication, and leadership, all while being surrounded by an ambitious and supportive team. ICG truly feels like a launchpad.",
     image: headshotV2("Trinity Nguyen.png"),
+  },
+  {
+    name: "Eric Zheng",
+    role: "Consultant",
+    quote: "Being part of ICG has really changed the way I view life as a whole. Being surrounded by people who know what they're doing gives you the push forward into your career. It's about surrounding yourself with capable people who drive you to be better every single day.",
+    image: headshotV2("Eric Zheng.png"),
   },
 ];
 
 const timelineData = [
   {
-    date: "Oct 1, 2026",
+    date: "Sep 22, 2026",
+    time: "8:00 PM",
     heading: "Applications Open",
     content: "Apply to join ICG and take the first step toward a hands-on consulting experience. Stay connected on LinkedIn, Instagram, and our website for updates.",
     button: { label: "Apply", href: APPLY_URL, disabled: true },
   },
   {
-    date: "Oct 7–10, 2026",
+    date: "Sep 24 - Sep 30, 2026",
+    time: "TBD",
     heading: "Coffee Chats",
-    content: "Schedule a coffee chat with someone from the ICG team to learn more about the application process and get your questions answered.",
+    content: "Schedule a 1-on-1 conversation with an ICG member to learn more about the organization and ask any questions you have.",
     button: { label: "Sign Up", href: COFFEE_CHAT_URL, disabled: true },
   },
   {
-    date: "Oct 15, 2026",
-    heading: "In-Person Info Session",
-    content: "Meet the ICG team, learn more about ICG, gain insights on the recruitment process",
+    date: "Sep 25, 2026",
+    time: "11:00 AM",
+    heading: "ICG x ITG Social",
+    content: "Join us for a social event to meet the ICG and Irvine Investment & Trading Group (ITG) teams, network with peers, and learn more about our organizations.",
+    button: { label: "RSVP", href: APPLY_URL, disabled: true },
   },
   {
-    date: "Oct 24, 2026",
+    date: "Sep 27, 2026",
+    time: "3:00 PM",
+    heading: "Cha For Tea Social",
+    content: "Connect with the ICG team at our Cha For Tea social event. Great opportunity to ask questions and get to know us in a casual setting.",
+    button: { label: "RSVP", href: APPLY_URL, disabled: true },
+  },
+  {
+    date: "Sep 28, 2026",
+    time: "6:00 PM",
+    heading: "Info Session #1",
+    content: "Meet the ICG team, learn more about ICG, and gain insights on the recruitment process.",
+    button: { label: "RSVP", href: APPLY_URL, disabled: true },
+  },
+  {
+    date: "Sep 30, 2026",
+    time: "5:00 PM",
+    heading: "Info Session #2",
+    content: "Join our interactive case and panel session on careers and internships in different industries.",
+    button: { label: "RSVP", href: APPLY_URL, disabled: true },
+  },
+  {
+    date: "Sep 30, 2026",
+    time: "11:59 PM",
     heading: "Application Deadline",
-    content: "Applications must be submitted by 11:59 PM on October 24th!",
+    content: "Applications must be submitted by 11:59 PM on September 30th!",
   },
   {
-    date: "Oct 27, 2026",
-    heading: "First Round Group Interviews",
-    content: "Group interviews will be held on October 27th. You will be paired with other candidates and will have a chance to share your skills in a group setting.",
+    date: "Oct 3, 2026",
+    time: "6:00 PM",
+    heading: "Round 1 Interview",
+    content: "Invite only. First round interviews will be held on October 3rd.",
+    inviteOnly: true,
   },
   {
-    date: "Oct 30, 2026",
-    heading: "Second Round Individual Interviews",
-    content: "Individual interviews will be held on October 30th. You will have a chance to share your skills and learn more about the ICG team in a one-on-one setting.",
+    date: "Oct 4, 2026",
+    time: "6:00 PM",
+    heading: "Round 2 Interview",
+    content: "Invite only. Second round interviews will be held on October 4th.",
+    inviteOnly: true,
+  },
+  {
+    date: "Oct 4, 2026",
+    time: "6:00 PM",
+    heading: "Round 3 Interview",
+    content: "Invite only. Third round interviews will be held on October 4th.",
+    inviteOnly: true,
   },
 ];
 
@@ -87,7 +130,7 @@ function Students() {
                   "linear-gradient(to right, #a8d8ff, #ffffff, #a8d8ff)",
               }}
             >
-              Premier Strategy Consulting Org
+              Premier Strategy Consulting Organization
             </h1>
           </motion.div>
         </div>
@@ -113,8 +156,8 @@ function Students() {
         {/* ===== TESTIMONIALS ===== */}
         <ScrollReveal>
         <div className="pt-8 pb-24 px-2 md:px-6">
-          <div className="container mx-auto max-w-5xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:items-stretch">
+          <div className="container mx-auto max-w-6xl">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:items-stretch">
               {testimonials.map((t, i) => (
                 <div
                   key={i}
@@ -189,10 +232,15 @@ function Students() {
                           <h3 className="text-lg md:text-xl font-bold text-icgblue">
                             {item.heading}
                           </h3>
-                          <p className="text-sm font-medium text-[#005d97] italic">
+                          <p className="text-sm font-medium text-[#005d97]">
                             {item.date}
                           </p>
                         </div>
+                        {item.time && (
+                          <span className="shrink-0 bg-gradient-to-r from-icgblue to-[#0a2e42] text-white text-sm font-bold px-4 py-2.5 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+                            {item.inviteOnly ? "Invite Only" : item.time}
+                          </span>
+                        )}
                         {item.button && !item.button.disabled && (
                           <a
                             href={item.button.href}
@@ -203,7 +251,7 @@ function Students() {
                             {item.button.label}
                           </a>
                         )}
-                        {item.button?.disabled && (
+                        {item.button?.disabled && !item.time && (
                           <span className="shrink-0 bg-gray-200 text-gray-500 text-sm font-bold px-5 py-2 rounded-md cursor-not-allowed select-none">
                             Coming soon
                           </span>

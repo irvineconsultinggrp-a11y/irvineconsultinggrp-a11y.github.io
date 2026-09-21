@@ -3,16 +3,22 @@ import { motion, useReducedMotion } from 'framer-motion';
 import HomeBelowFold from './HomeBelowFold';
 
 const clientLogos = [
-  { src: '/clientlogo/bereal.webp', alt: 'BeReal', small: true },
-  { src: '/clientlogo/sandisk.webp', alt: 'SanDisk' },
-  { src: '/clientlogo/abd.webp', alt: 'Artificial By Design' },
-  { src: '/clientlogo/aura.webp', alt: 'Aura' },
-  { src: '/clientlogo/adgreetz.webp', alt: 'AdGreetz' },
-  { src: '/clientlogo/kura-sushi.webp', alt: 'Kura Sushi' },
-  { src: '/clientlogo/knowt.webp', alt: 'Knowt' },
-  { src: '/clientlogo/toughcutie.webp', alt: 'ToughCutie' },
-  { src: '/clientlogo/datedrop.webp', alt: 'DateDrop' },
-  { src: '/clientlogo/7leaves.webp', alt: '7 Leaves', small: true },
+  { src: '/clientlogo/bereal-v2.png', alt: 'BeReal' },
+  { src: '/clientlogo/sandisk-v2.png', alt: 'SanDisk' },
+  { src: '/clientlogo/artificial-by-design-v2.png', alt: 'Artificial By Design' },
+  { src: '/clientlogo/aura-v2.png', alt: 'Aura' },
+  { src: '/clientlogo/adgreetz-v2.png', alt: 'AdGreetz' },
+  { src: '/clientlogo/kura-sushi-v2.png', alt: 'Kura Sushi', size: 'w-[192px] md:w-[300px] h-auto max-h-[96px] md:max-h-[144px]' },
+  { src: '/clientlogo/knowt-v2.png', alt: 'Knowt' },
+  { src: '/clientlogo/toughcutie-v2.png', alt: 'ToughCutie' },
+  { src: '/clientlogo/datedrop-v2.png', alt: 'DateDrop', size: 'w-[176px] md:w-[275px] h-auto max-h-[88px] md:max-h-[132px]' },
+  { src: '/clientlogo/7leaves-v2.png', alt: '7 Leaves', size: 'w-[112px] md:w-[175px] h-auto max-h-[56px] md:max-h-[84px]' },
+  { src: '/clientlogo/lokahi-therapeutics-v2.png', alt: 'Lokahi Therapeutics' },
+  { src: '/clientlogo/riot-games-v2.png', alt: 'Riot Games' },
+  { src: '/clientlogo/ditto-v2.png', alt: 'Ditto', size: 'w-[128px] md:w-[200px] h-auto max-h-[64px] md:max-h-[96px]' },
+  { src: '/clientlogo/john-wayne-airport-v2.png', alt: 'John Wayne Airport', size: 'w-[80px] md:w-[125px] h-auto max-h-[40px] md:max-h-[60px]' },
+  { src: '/clientlogo/operation-freedom-paws-v2.png', alt: 'Operation Freedom Paws', size: 'w-[192px] md:w-[300px] h-auto max-h-[96px] md:max-h-[144px] ml-3 md:ml-5' },
+  { src: '/clientlogo/make-a-wish-v2.png', alt: 'Make-A-Wish', size: 'w-[192px] md:w-[300px] h-auto max-h-[96px] md:max-h-[144px] -ml-4 md:-ml-8' },
 ];
 
 function Home() {
@@ -60,7 +66,7 @@ function Home() {
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-icgblue/75" />
+        <div className="absolute inset-0 bg-black/75" />
 
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6">
           <motion.div className="w-full min-w-0 text-center" {...heroMotion}>
@@ -74,7 +80,7 @@ function Home() {
                   "linear-gradient(to right, #a8d8ff, #ffffff, #a8d8ff)",
               }}
             >
-              UCI&apos;s Premier Strategy Consulting Org
+              UCI&apos;s Premier Strategy Consulting Organization
             </p>
           </motion.div>
         </div>
@@ -93,7 +99,7 @@ function Home() {
                   alt={logo.alt}
                   loading={i < clientLogos.length ? 'eager' : 'lazy'}
                   decoding="async"
-                  className={`${logo.small ? 'h-10 md:h-[90px] max-w-[220px] md:max-w-[350px]' : 'h-16 md:h-[144px] max-w-[350px] md:max-w-[550px]'} w-auto object-contain brightness-0 invert opacity-70 shrink-0`}
+                  className={`${logo.size ? logo.size : logo.small ? 'w-[112px] md:w-[175px] h-auto max-h-[56px] md:max-h-[84px]' : 'w-[160px] md:w-[250px] h-auto max-h-[80px] md:max-h-[120px]'} object-contain brightness-0 invert opacity-70 shrink-0`}
                 />
               ))}
             </div>
