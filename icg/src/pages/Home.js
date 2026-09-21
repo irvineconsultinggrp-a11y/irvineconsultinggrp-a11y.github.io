@@ -97,7 +97,7 @@ function Home() {
           <motion.div className="w-full min-w-0 text-center" {...heroMotion}>
             <motion.h1
               variants={reduceMotion ? undefined : maskUp(34, 1.05)}
-              className="font-extrabold text-white leading-none tracking-tight whitespace-nowrap text-[clamp(2.2rem,7vw,6.5rem)]"
+              className="font-extrabold text-white leading-none tracking-tight text-center text-[clamp(2.2rem,7vw,6.5rem)]"
             >
               Irvine Consulting Group
             </motion.h1>
