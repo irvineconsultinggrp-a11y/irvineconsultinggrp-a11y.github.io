@@ -1,6 +1,6 @@
 import { Mail, Instagram, Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
-import { Reveal, Stagger, StaggerItem } from "./Motion";
+import { Reveal } from "./Motion";
 import { EASE } from "../lib/motion";
 
 function Footer() {
@@ -33,7 +33,7 @@ function Footer() {
         {/* Right — Contact Us + icons */}
         <div className="flex flex-col items-center md:items-end gap-4">
           <h3 className="text-xl font-bold text-white">Contact Us</h3>
-          <Stagger step={0.07} className="flex items-center gap-5">
+          <div className="flex items-center gap-5">
             {[
               {
                 href: 'mailto:irvineconsulting.grp@gmail.com',
@@ -54,23 +54,22 @@ function Footer() {
                 external: true,
               },
             ].map(({ href, label, Icon, external }) => (
-              <StaggerItem key={label} y={12}>
-                <motion.a
-                  href={href}
-                  {...(external
-                    ? { target: '_blank', rel: 'noopener noreferrer' }
-                    : {})}
-                  aria-label={label}
-                  className="block rounded-full border border-white/50 p-2 text-white/90 hover:bg-white/10 hover:text-white transition-colors"
-                  whileHover={{ y: -3, scale: 1.08 }}
-                  whileTap={{ scale: 0.94 }}
-                  transition={{ duration: 0.3, ease: EASE }}
-                >
-                  <Icon className="w-6 h-6" />
-                </motion.a>
-              </StaggerItem>
+              <motion.a
+                key={label}
+                href={href}
+                {...(external
+                  ? { target: '_blank', rel: 'noopener noreferrer' }
+                  : {})}
+                aria-label={label}
+                className="block rounded-full border border-white/50 p-2 text-white/90 hover:bg-white/10 hover:text-white transition-colors"
+                whileHover={{ y: -3, scale: 1.08 }}
+                whileTap={{ scale: 0.94 }}
+                transition={{ duration: 0.3, ease: EASE }}
+              >
+                <Icon className="w-6 h-6" />
+              </motion.a>
             ))}
-          </Stagger>
+          </div>
         </div>
       </Reveal>
     </footer>
