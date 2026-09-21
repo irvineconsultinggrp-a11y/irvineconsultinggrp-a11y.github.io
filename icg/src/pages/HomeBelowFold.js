@@ -182,9 +182,11 @@ function HomeBelowFold() {
                   What is ICG?
                 </StaggerItem>
                 <StaggerItem as="p" y={16} className="text-gray-500 text-base md:text-lg leading-relaxed">
-                  ICG is the premier strategy consulting organization at UC Irvine,
-                  dedicated to shaping the future leaders in consulting through
-                  experiential learning and development opportunities.
+                  ICG is the premier strategy consulting organization at UC Irvine.
+                  We partner with real clients on meaningful engagements, giving our
+                  members hands-on experience in research, strategy, and execution.
+                  Through experiential learning and mentorship, we shape the next
+                  generation of leaders.
                 </StaggerItem>
                 <StaggerItem y={16}>
                   <Link
