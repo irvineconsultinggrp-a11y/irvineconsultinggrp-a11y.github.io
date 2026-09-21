@@ -6,6 +6,7 @@ import { EASE, EASE_IN_OUT } from '../lib/motion';
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [navHovered, setNavHovered] = useState(false);
   const location = useLocation();
   const reduceMotion = useReducedMotion();
 
@@ -38,45 +39,76 @@ function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent">
       <div className="container mx-auto px-6 py-4 flex items-center justify-center relative">
-        {/* Desktop Nav - Centered pill */}
+        {/* Desktop Nav - Collapsible pill */}
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: EASE, delay: 0.1 }}
+          onMouseEnter={() => setNavHovered(true)}
+          onMouseLeave={() => setNavHovered(false)}
           className={`hidden md:flex items-center gap-1 rounded-full px-2 py-1.5 transition-colors duration-300 ${
             scrolled ? 'bg-gray-100' : 'bg-white/20 backdrop-blur-sm'
           }`}
         >
-          {links.map((link) => {
-            const active = isActive(link.to);
-            return (
-              <Link
-                key={link.to}
-                to={link.to}
-                aria-current={active ? 'page' : undefined}
-                className={`relative px-5 py-2 rounded-full text-sm font-semibold transition-colors duration-200 ${
-                  active
-                    ? scrolled
-                      ? 'text-white'
-                      : 'text-icgblue'
-                    : scrolled
-                      ? 'text-icgblue hover:bg-gray-200'
-                      : 'text-white hover:bg-white/20'
-                }`}
+          {navHovered ? (
+            // Expanded view - show all links
+            <>
+              {links.map((link) => {
+                const active = isActive(link.to);
+                return (
+                  <motion.div
+                    key={link.to}
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: 'auto' }}
+                    exit={{ opacity: 0, width: 0 }}
+                    transition={{ duration: 0.2, ease: EASE }}
+                  >
+                    <Link
+                      to={link.to}
+                      aria-current={active ? 'page' : undefined}
+                      className={`relative px-5 py-2 rounded-full text-sm font-semibold transition-colors duration-200 ${
+                        active
+                          ? scrolled
+                            ? 'text-white'
+                            : 'text-icgblue'
+                          : scrolled
+                            ? 'text-icgblue hover:bg-gray-200'
+                            : 'text-white hover:bg-white/20'
+                      }`}
+                    >
+                      {active && (
+                        <motion.span
+                          layoutId={reduceMotion ? undefined : 'nav-active-pill'}
+                          className={`absolute inset-0 rounded-full ${
+                            scrolled ? 'bg-icgblue' : 'bg-white'
+                          }`}
+                          transition={reduceMotion ? { duration: 0 } : pillSpring}
+                        />
+                      )}
+                      <span className="relative z-10">{link.label}</span>
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </>
+          ) : (
+            // Collapsed view - show only active link or icon
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.2, ease: EASE }}
+              className="flex items-center gap-2"
+            >
+              {links.find((link) => isActive(link.to))?.label || 'Menu'}
+              <motion.svg
+                className="h-4 w-4 fill-current"
+                viewBox="0 0 24 24"
+                animate={{ rotate: 0 }}
               >
-                {active && (
-                  <motion.span
-                    layoutId={reduceMotion ? undefined : 'nav-active-pill'}
-                    className={`absolute inset-0 rounded-full ${
-                      scrolled ? 'bg-icgblue' : 'bg-white'
-                    }`}
-                    transition={reduceMotion ? { duration: 0 } : pillSpring}
-                  />
-                )}
-                <span className="relative z-10">{link.label}</span>
-              </Link>
-            );
-          })}
+                <path d="M7 10l5 5 5-5z" />
+              </motion.svg>
+            </motion.div>
+          )}
         </motion.div>
 
         {/* Mobile menu button */}
