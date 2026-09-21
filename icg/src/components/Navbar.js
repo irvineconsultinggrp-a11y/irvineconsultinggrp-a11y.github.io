@@ -61,7 +61,7 @@ function Navbar() {
                     initial={{ opacity: 0, width: 0 }}
                     animate={{ opacity: 1, width: 'auto' }}
                     exit={{ opacity: 0, width: 0 }}
-                    transition={{ duration: 0.2, ease: EASE }}
+                    transition={{ duration: 0.35, ease: EASE }}
                   >
                     <Link
                       to={link.to}
@@ -92,21 +92,14 @@ function Navbar() {
               })}
             </>
           ) : (
-            // Collapsed view - show only active link or icon
+            // Collapsed view - show only active link
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.2, ease: EASE }}
-              className="flex items-center gap-2"
+              transition={{ duration: 0.4, ease: EASE }}
+              className="flex items-center"
             >
               {links.find((link) => isActive(link.to))?.label || 'Menu'}
-              <motion.svg
-                className="h-4 w-4 fill-current"
-                viewBox="0 0 24 24"
-                animate={{ rotate: 0 }}
-              >
-                <path d="M7 10l5 5 5-5z" />
-              </motion.svg>
             </motion.div>
           )}
         </motion.div>
