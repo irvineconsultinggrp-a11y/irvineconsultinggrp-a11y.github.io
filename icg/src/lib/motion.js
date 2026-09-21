@@ -51,18 +51,27 @@ export const wipeLine = (duration = DUR.slow, delay = 0) => ({
   visible: { y: '0%', transition: { duration, ease: EASE, delay } },
 });
 
-// Image settles from slightly overscaled behind a rising mask.
-export const imageReveal = (duration = DUR.image) => ({
-  hidden: { clipPath: 'inset(0% 0% 100% 0%)' },
-  visible: {
-    clipPath: 'inset(0% 0% 0% 0%)',
-    transition: { duration, ease: EASE_SOFT },
-  },
+// Image wipe, built from two counter-running translates inside an
+// overflow-hidden frame: the shutter slides up while the plate slides down
+// by the same amount, so the mask travels and the picture appears to stay
+// put. Transform-only for the same reason as maskUp above.
+export const imageShutter = (duration = DUR.image, delay = 0) => ({
+  hidden: { y: '100%' },
+  visible: { y: '0%', transition: { duration, ease: EASE_SOFT, delay } },
 });
 
-export const imageSettle = (duration = DUR.image) => ({
+export const imageCounter = (duration = DUR.image, delay = 0) => ({
+  hidden: { y: '-100%' },
+  visible: { y: '0%', transition: { duration, ease: EASE_SOFT, delay } },
+});
+
+// Settle outlasts the wipe on purpose — that lag is what gives it weight.
+export const imageSettle = (duration = DUR.image, delay = 0) => ({
   hidden: { scale: 1.08 },
-  visible: { scale: 1, transition: { duration: duration * 1.25, ease: EASE_SOFT } },
+  visible: {
+    scale: 1,
+    transition: { duration: duration * 1.3, ease: EASE_SOFT, delay },
+  },
 });
 
 export const stagger = (staggerChildren = 0.075, delayChildren = 0) => ({

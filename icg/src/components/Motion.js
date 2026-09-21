@@ -6,7 +6,8 @@ import {
   fadeUp,
   fadeIn,
   maskUp,
-  imageReveal,
+  imageShutter,
+  imageCounter,
   imageSettle,
   ruleDraw,
   stagger,
@@ -205,9 +206,12 @@ export function StaggerItem({
 }
 
 /**
- * Image that wipes in behind a rising mask while settling out of a slight
- * overscale. The two curves run at different lengths on purpose — the
- * settle outlasts the wipe, which is what gives it weight.
+ * Image that wipes in behind a travelling mask while settling out of a
+ * slight overscale.
+ *
+ * `className` must carry overflow-hidden and the frame's size — the shutter
+ * is clipped by it. Inside, two counter-running translates cancel out so the
+ * picture holds still while the mask moves across it.
  */
 export function ImageReveal({
   children,
@@ -222,7 +226,7 @@ export function ImageReveal({
   if (reduceMotion) {
     return (
       <div className={className} {...rest}>
-        {children}
+        <div className={innerClassName}>{children}</div>
       </div>
     );
   }
@@ -232,12 +236,15 @@ export function ImageReveal({
       className={className}
       initial="hidden"
       whileInView="visible"
-      variants={withDelay(imageReveal(), delay)}
       viewport={{ ...VIEWPORT, once }}
       {...rest}
     >
-      <motion.div className={innerClassName} variants={withDelay(imageSettle(), delay)}>
-        {children}
+      <motion.div className="h-full w-full" variants={imageShutter(DUR.image, delay)}>
+        <motion.div className="h-full w-full" variants={imageCounter(DUR.image, delay)}>
+          <motion.div className={innerClassName} variants={imageSettle(DUR.image, delay)}>
+            {children}
+          </motion.div>
+        </motion.div>
       </motion.div>
     </motion.div>
   );
