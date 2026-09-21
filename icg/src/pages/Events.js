@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import EventRsvpDialog from "../components/RSVP";
 
