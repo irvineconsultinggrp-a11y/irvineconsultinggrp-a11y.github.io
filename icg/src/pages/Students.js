@@ -148,6 +148,16 @@ function Students() {
             >
               Join UCI&apos;s
             </motion.h1>
+            <motion.h1
+              variants={reduceMotion ? undefined : maskUp(30, 1)}
+              className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.08] tracking-tighter bg-clip-text text-transparent mt-0 pb-1"
+              style={{
+                backgroundImage:
+                  "linear-gradient(to right, #a8d8ff, #ffffff, #a8d8ff)",
+              }}
+            >
+              Premier Strategy Consulting Organization
+            </motion.h1>
           </motion.div>
         </motion.div>
       </div>
