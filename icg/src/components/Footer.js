@@ -17,7 +17,7 @@ function Footer() {
             alt="ICG Logo"
             loading="lazy"
             decoding="async"
-            className="w-24 h-24"
+            className="w-28 h-28"
             whileHover={{ rotate: -6, scale: 1.06 }}
             transition={{ type: "spring", stiffness: 300, damping: 18 }}
           />
