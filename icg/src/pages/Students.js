@@ -223,7 +223,7 @@ function Students() {
         {/* ===== RECRUITMENT TIMELINE ===== */}
         <ScrollReveal>
         <div className="py-24 px-2 md:px-6">
-          <div className="container mx-auto max-w-3xl">
+          <div className="container mx-auto max-w-6xl">
             <Reveal
               as="h2"
               preset="mask"
@@ -232,77 +232,86 @@ function Students() {
               Recruitment Timeline
             </Reveal>
 
-            <div className="relative ml-3 md:ml-5">
-              {timelineData.map((item, i) => (
-                <div key={i} className="relative flex items-stretch">
-                  {/* Left column: dot + connector line. Each row animates off
-                      its own viewport entry, so delays are within-row only —
-                      an index-scaled delay would stall rows further down the
-                      list long after they are already on screen. */}
-                  <div className="flex flex-col items-center shrink-0 w-6">
-                    <div className={`w-px flex-1 ${i === 0 ? 'bg-transparent' : 'bg-gray-300'}`} />
-                    <motion.div
-                      className="w-3 h-3 rounded-full bg-icgblue shrink-0"
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true, amount: 0.6 }}
-                      transition={{ type: 'spring', stiffness: 460, damping: 26, mass: 0.6 }}
-                    />
-                    <motion.div
-                      className={`w-px flex-1 origin-top ${i === timelineData.length - 1 ? 'bg-transparent' : 'bg-gray-300'}`}
-                      initial={{ scaleY: 0 }}
-                      whileInView={{ scaleY: 1 }}
-                      viewport={{ once: true, amount: 0.4 }}
-                      transition={{ duration: 0.7, ease: EASE, delay: 0.12 }}
-                    />
-                  </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-28 gap-y-0">
+              {[0, 1].map((col) => {
+                const half = Math.ceil(timelineData.length / 2);
+                const colItems = col === 0
+                  ? timelineData.slice(0, half)
+                  : timelineData.slice(half);
+                return (
+                <div key={col} className="relative ml-3 md:ml-5">
+                  {colItems
+                    .map((item, idx, arr) => {
+                      const i = col === 0 ? idx : half + idx;
+                      return (
+                        <div key={i} className="relative flex items-stretch">
+                          <div className="flex flex-col items-center shrink-0 w-6">
+                            <div className={`w-px flex-1 ${idx === 0 ? 'bg-transparent' : 'bg-gray-300'}`} />
+                            <motion.div
+                              className="w-3 h-3 rounded-full bg-icgblue shrink-0"
+                              initial={{ scale: 0 }}
+                              whileInView={{ scale: 1 }}
+                              viewport={{ once: true, amount: 0.6 }}
+                              transition={{ type: 'spring', stiffness: 460, damping: 26, mass: 0.6 }}
+                            />
+                            <motion.div
+                              className={`w-px flex-1 origin-top ${idx === arr.length - 1 ? 'bg-transparent' : 'bg-gray-300'}`}
+                              initial={{ scaleY: 0 }}
+                              whileInView={{ scaleY: 1 }}
+                              viewport={{ once: true, amount: 0.4 }}
+                              transition={{ duration: 0.7, ease: EASE, delay: 0.12 }}
+                            />
+                          </div>
 
-                  {/* Card */}
-                  <motion.div
-                    className="flex-1 ml-6 md:ml-10 mb-8"
-                    initial={{ opacity: 0, x: 22 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, amount: 0.3, margin: '0px 0px -6% 0px' }}
-                    transition={{ duration: DUR.base, ease: EASE, delay: 0.06 }}
-                  >
-                    <div className="card-lift bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg">
-                      <div className="flex items-start justify-between gap-4 mb-2">
-                        <div>
-                          <h3 className="text-lg md:text-xl font-bold text-icgblue">
-                            {item.heading}
-                          </h3>
-                          <p className="text-sm font-medium text-[#005d97]">
-                            {item.date}
-                          </p>
-                        </div>
-                        {item.time && (
-                          <span className="shrink-0 bg-gradient-to-r from-icgblue to-[#0a2e42] text-white text-sm font-bold px-4 py-2.5 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
-                            {item.inviteOnly ? "Invite Only" : item.time}
-                          </span>
-                        )}
-                        {item.button && !item.button.disabled && (
-                          <a
-                            href={item.button.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="shrink-0 bg-icgblue text-white text-sm font-bold px-5 py-2 rounded-md hover:bg-icgblue/90 hover:scale-105 transition-all duration-200"
+                          <motion.div
+                            className="flex-1 ml-6 md:ml-8 mb-8"
+                            initial={{ opacity: 0, x: 22 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, amount: 0.3, margin: '0px 0px -6% 0px' }}
+                            transition={{ duration: DUR.base, ease: EASE, delay: 0.06 }}
                           >
-                            {item.button.label}
-                          </a>
-                        )}
-                        {item.button?.disabled && !item.time && (
-                          <span className="shrink-0 bg-gray-200 text-gray-500 text-sm font-bold px-5 py-2 rounded-md cursor-not-allowed select-none">
-                            Coming soon
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-gray-600 text-sm md:text-base leading-relaxed mt-2">
-                        {item.content}
-                      </p>
-                    </div>
-                  </motion.div>
+                            <div className="card-lift bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg">
+                              <div className="flex items-start justify-between gap-4 mb-2">
+                                <div>
+                                  <h3 className="text-lg md:text-xl font-bold text-icgblue">
+                                    {item.heading}
+                                  </h3>
+                                  <p className="text-sm font-medium text-[#005d97]">
+                                    {item.date}
+                                  </p>
+                                </div>
+                                {item.time && (
+                                  <span className="shrink-0 bg-gradient-to-r from-icgblue to-[#0a2e42] text-white text-sm font-bold px-4 py-2.5 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+                                    {item.inviteOnly ? "Invite Only" : item.time}
+                                  </span>
+                                )}
+                                {item.button && !item.button.disabled && (
+                                  <a
+                                    href={item.button.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="shrink-0 bg-icgblue text-white text-sm font-bold px-5 py-2 rounded-md hover:bg-icgblue/90 hover:scale-105 transition-all duration-200"
+                                  >
+                                    {item.button.label}
+                                  </a>
+                                )}
+                                {item.button?.disabled && !item.time && (
+                                  <span className="shrink-0 bg-gray-200 text-gray-500 text-sm font-bold px-5 py-2 rounded-md cursor-not-allowed select-none">
+                                    Coming soon
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-gray-600 text-sm md:text-base leading-relaxed mt-2">
+                                {item.content}
+                              </p>
+                            </div>
+                          </motion.div>
+                        </div>
+                      );
+                    })}
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

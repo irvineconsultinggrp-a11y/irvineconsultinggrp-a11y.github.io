@@ -77,7 +77,7 @@ export default function DevelopmentCarousel() {
 
   return (
     <section className="py-16 container mx-auto px-6 bg-white overflow-hidden">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center md:items-stretch">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center md:items-stretch">
         <div className="relative w-full aspect-[8/5] overflow-hidden rounded-lg shadow-xl shrink-0 bg-gray-100">
           {SLIDES.map((slide, index) =>
             loadedSlides.has(index) ? (
@@ -99,10 +99,10 @@ export default function DevelopmentCarousel() {
 
         <div className="flex flex-col items-center md:items-start md:justify-center text-center md:text-left">
           <div className="w-full">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-icgblue leading-tight transition-opacity duration-200">
+            <h2 className="text-4xl sm:text-5xl md:text-[3.2rem] font-bold text-icgblue leading-tight transition-opacity duration-200">
               {active.title_one}
             </h2>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#035e97] leading-tight transition-opacity duration-200">
+            <h2 className="text-4xl sm:text-5xl md:text-[3.2rem] font-bold text-[#035e97] leading-tight transition-opacity duration-200">
               {active.title_two}
             </h2>
 

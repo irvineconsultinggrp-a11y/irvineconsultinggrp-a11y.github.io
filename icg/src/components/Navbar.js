@@ -43,7 +43,6 @@ function Navbar() {
       clearTimeout(navTimer.current);
       navTimer.current = setTimeout(() => {
         setNavigating(false);
-        setExpanded(false);
       }, 700);
     }
   }, [location]);
@@ -54,8 +53,7 @@ function Navbar() {
   };
 
   const handleMouseLeave = () => {
-    if (navigating) return;
-    collapseTimer.current = setTimeout(() => setExpanded(false), 120);
+    setExpanded(false);
   };
 
   useEffect(() => () => {
@@ -114,7 +112,7 @@ function Navbar() {
                 <Link
                   to={link.to}
                   aria-current={active ? 'page' : undefined}
-                  className={`relative block whitespace-nowrap px-5 py-2 rounded-full text-sm font-semibold transition-colors duration-200 ${
+                  className={`relative block whitespace-nowrap px-7 py-2.5 rounded-full text-sm font-semibold transition-colors duration-200 ${
                     active
                       ? scrolled ? 'text-white' : 'text-icgblue'
                       : scrolled
