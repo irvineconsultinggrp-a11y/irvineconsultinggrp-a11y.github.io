@@ -95,6 +95,12 @@ function Home() {
           style={reduceMotion ? undefined : { y: copyY, opacity: copyOpacity }}
         >
           <motion.div className="w-full min-w-0 text-center" {...heroMotion}>
+            <motion.img
+              src="/icg-logo-white.webp"
+              alt="ICG Logo"
+              variants={reduceMotion ? undefined : fadeUp(16, DUR.slow)}
+              className="w-20 h-20 md:w-28 md:h-28 mx-auto mb-6"
+            />
             <motion.h1
               variants={reduceMotion ? undefined : maskUp(34, 1.05)}
               className="font-extrabold text-white leading-none tracking-tight text-center text-[clamp(2.2rem,7vw,6.5rem)]"
