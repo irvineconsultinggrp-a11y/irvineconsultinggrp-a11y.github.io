@@ -109,7 +109,7 @@ function Navbar() {
                     delay: expanded ? distFromActive * 0.04 + 0.08 : 0,
                   },
                 }}
-                className="overflow-hidden"
+                className={navigating ? '' : 'overflow-hidden'}
               >
                 <Link
                   to={link.to}
