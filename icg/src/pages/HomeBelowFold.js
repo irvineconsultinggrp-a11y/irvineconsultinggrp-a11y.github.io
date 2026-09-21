@@ -176,8 +176,8 @@ function HomeBelowFold() {
       <div className="bg-white py-24 md:py-32 px-6">
         <div className="container mx-auto">
           <ScrollReveal>
-            <div className="bg-gray-50 rounded-2xl p-8 md:p-14 flex flex-col md:flex-row items-center gap-12">
-              <Stagger step={0.1} className="w-full md:w-1/2 space-y-6">
+            <div className="bg-gray-50 rounded-2xl p-8 md:p-14 flex flex-col md:flex-row items-center gap-16 md:gap-20 md:justify-between">
+              <Stagger step={0.1} className="w-full md:w-5/12 space-y-6">
                 <StaggerItem as="h2" preset="mask" className="text-3xl md:text-5xl font-bold text-icgblue">
                   What is ICG?
                 </StaggerItem>
