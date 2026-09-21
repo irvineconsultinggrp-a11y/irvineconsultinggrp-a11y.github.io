@@ -197,7 +197,7 @@ function HomeBelowFold() {
                   </Link>
                   <Link
                     to="/students"
-                    className="btn-lift inline-block bg-white text-icgblue font-semibold px-7 py-3 rounded-lg border-2 border-icgblue hover:bg-icgblue/5"
+                    className="btn-lift inline-block bg-white text-icgblue font-semibold px-7 py-3 rounded-lg border border-icgblue hover:bg-icgblue/5"
                   >
                     Join Us
                   </Link>
