@@ -101,16 +101,6 @@ function Home() {
             >
               Irvine Consulting Group
             </motion.h1>
-            <motion.p
-              variants={reduceMotion ? undefined : fadeUp(14, DUR.slow)}
-              className="mt-5 text-sm sm:text-[1.05rem] md:text-[1.3125rem] font-semibold tracking-wide bg-clip-text text-transparent leading-[1.45] pb-[0.2em] inline-block max-w-full"
-              style={{
-                backgroundImage:
-                  "linear-gradient(to right, #a8d8ff, #ffffff, #a8d8ff)",
-              }}
-            >
-              UCI&apos;s Premier Strategy Consulting Organization
-            </motion.p>
           </motion.div>
         </motion.div>
 
