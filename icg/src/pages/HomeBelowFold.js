@@ -188,12 +188,18 @@ function HomeBelowFold() {
                   Through experiential learning and mentorship, we shape the next
                   generation of leaders.
                 </StaggerItem>
-                <StaggerItem y={16}>
+                <StaggerItem y={16} className="flex flex-col sm:flex-row gap-4">
                   <Link
                     to="/contact"
                     className="btn-lift inline-block bg-icgblue text-white font-semibold px-7 py-3 rounded-lg hover:bg-icgblue/90"
                   >
                     Contact Us
+                  </Link>
+                  <Link
+                    to="/students"
+                    className="btn-lift inline-block bg-white text-icgblue font-semibold px-7 py-3 rounded-lg border border-icgblue hover:bg-icgblue/5"
+                  >
+                    Join Us
                   </Link>
                 </StaggerItem>
               </Stagger>
