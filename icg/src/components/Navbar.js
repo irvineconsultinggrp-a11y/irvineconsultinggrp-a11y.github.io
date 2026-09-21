@@ -61,7 +61,7 @@ function Navbar() {
                     initial={{ opacity: 0, width: 0 }}
                     animate={{ opacity: 1, width: 'auto' }}
                     exit={{ opacity: 0, width: 0 }}
-                    transition={{ duration: 0.35, ease: EASE }}
+                    transition={{ duration: 0.5, ease: EASE }}
                   >
                     <Link
                       to={link.to}
@@ -96,7 +96,7 @@ function Navbar() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, ease: EASE }}
+              transition={{ duration: 0.6, ease: EASE }}
               className="flex items-center"
             >
               {links.find((link) => isActive(link.to))?.label || 'Menu'}
