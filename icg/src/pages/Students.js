@@ -129,7 +129,7 @@ function Students() {
             alt=""
             fetchPriority="high"
             decoding="async"
-            className="absolute inset-0 h-full w-full origin-center object-cover object-[40%_center] md:scale-[1.18]"
+            className="absolute inset-0 h-full w-full origin-center object-cover object-[45%_center] md:scale-[1.45]"
           />
         </motion.div>
         <div className="absolute inset-0 bg-icgblue/70" />
