@@ -181,7 +181,7 @@ function HomeBelowFold() {
                 <StaggerItem as="h2" preset="mask" className="text-3xl md:text-5xl font-bold text-icgblue">
                   What is ICG?
                 </StaggerItem>
-                <StaggerItem as="p" y={16} className="text-gray-500 text-base md:text-lg leading-relaxed">
+                <StaggerItem as="p" y={16} className="text-icgblue text-lg md:text-2xl leading-relaxed font-semibold">
                   ICG is the premier strategy consulting organization at UC Irvine.
                   We partner with real clients on meaningful engagements, giving our
                   members hands-on experience in research, strategy, and execution.
