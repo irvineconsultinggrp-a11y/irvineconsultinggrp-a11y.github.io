@@ -125,11 +125,11 @@ function Students() {
           style={reduceMotion ? undefined : { y: plateY }}
         >
           <img
-            src="/W%2726%20Girls.webp"
+            src="/W27-girls-stairs.jpg"
             alt=""
             fetchPriority="high"
             decoding="async"
-            className="absolute inset-0 h-full w-full origin-center object-cover object-[45%_center] md:scale-[1.45]"
+            className="absolute inset-0 h-full w-full origin-center object-cover object-center"
           />
         </motion.div>
         <div className="absolute inset-0 bg-icgblue/70" />
