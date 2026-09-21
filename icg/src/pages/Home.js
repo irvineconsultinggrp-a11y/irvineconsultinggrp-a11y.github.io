@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import HomeBelowFold from './HomeBelowFold';
+import { DUR, EASE, fadeUp, maskUp, stagger } from '../lib/motion';
 
 const clientLogos = [
   { src: '/clientlogo/bereal-v2.png', alt: 'BeReal' },
@@ -24,7 +25,20 @@ const clientLogos = [
 function Home() {
   const [marqueeVisible, setMarqueeVisible] = useState(true);
   const marqueeRef = useRef(null);
+  const heroRef = useRef(null);
   const reduceMotion = useReducedMotion();
+
+  // Scroll-linked parallax: the plate drifts slower than the page while the
+  // headline lifts away and dims. Ranges stay inside the 1.12 scale headroom
+  // so no edge is ever exposed.
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  const plateY = useTransform(scrollYProgress, [0, 1], [0, 52]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, -64]);
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+  const marqueeOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   useEffect(() => {
     const el = marqueeRef.current;
@@ -42,9 +56,9 @@ function Home() {
   const heroMotion = reduceMotion
     ? {}
     : {
-        initial: { opacity: 0, y: 30 },
-        animate: { opacity: 1, y: 0 },
-        transition: { duration: 0.8 },
+        variants: stagger(0.14, 0.15),
+        initial: 'hidden',
+        animate: 'visible',
       };
 
   const marqueeMotion = reduceMotion
@@ -52,28 +66,43 @@ function Home() {
     : {
         initial: { opacity: 0 },
         animate: { opacity: 1 },
-        transition: { duration: 0.8 },
+        transition: { duration: DUR.slow, ease: EASE, delay: 0.75 },
       };
 
   return (
     <div className="overflow-x-hidden">
       {/* ===== HERO (eager — first viewport) ===== */}
-      <div className="relative min-h-screen flex flex-col overflow-hidden">
-        <img
-          src="/skyline.webp"
-          alt=""
-          fetchPriority="high"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-center"
-        />
+      <div ref={heroRef} className="relative min-h-screen flex flex-col overflow-hidden">
+        <motion.div
+          className="absolute inset-0"
+          initial={reduceMotion ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.4, ease: EASE }}
+        >
+          <motion.img
+            src="/skyline.webp"
+            alt=""
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 h-full w-full object-cover object-center"
+            style={reduceMotion ? undefined : { y: plateY, scale: 1.12 }}
+          />
+        </motion.div>
         <div className="absolute inset-0 bg-black/75" />
 
-        <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6">
+        <motion.div
+          className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6"
+          style={reduceMotion ? undefined : { y: copyY, opacity: copyOpacity }}
+        >
           <motion.div className="w-full min-w-0 text-center" {...heroMotion}>
-            <h1 className="font-extrabold text-white leading-none tracking-tight whitespace-nowrap text-[clamp(2.2rem,7vw,6.5rem)]">
+            <motion.h1
+              variants={reduceMotion ? undefined : maskUp(34, 1.05)}
+              className="font-extrabold text-white leading-none tracking-tight whitespace-nowrap text-[clamp(2.2rem,7vw,6.5rem)]"
+            >
               Irvine Consulting Group
-            </h1>
-            <p
+            </motion.h1>
+            <motion.p
+              variants={reduceMotion ? undefined : fadeUp(14, DUR.slow)}
               className="mt-5 text-sm sm:text-[1.05rem] md:text-[1.3125rem] font-semibold tracking-wide bg-clip-text text-transparent leading-[1.45] pb-[0.2em] inline-block max-w-full"
               style={{
                 backgroundImage:
@@ -81,29 +110,34 @@ function Home() {
               }}
             >
               UCI&apos;s Premier Strategy Consulting Organization
-            </p>
+            </motion.p>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Scrolling client logos */}
-        <motion.div className="relative z-10 pb-14" {...marqueeMotion}>
-          <div
-            ref={marqueeRef}
-            className={`overflow-hidden py-4 logo-carousel-viewport${marqueeVisible ? ' is-visible' : ''}`}
-          >
-            <div className={`logo-carousel-track-hero flex items-center gap-16 md:gap-24${marqueeVisible ? '' : ' is-paused'}`}>
-              {doubledLogos.map((logo, i) => (
-                <img
-                  key={i}
-                  src={logo.src}
-                  alt={logo.alt}
-                  loading={i < clientLogos.length ? 'eager' : 'lazy'}
-                  decoding="async"
-                  className={`${logo.size ? logo.size : logo.small ? 'w-[112px] md:w-[175px] h-auto max-h-[56px] md:max-h-[84px]' : 'w-[160px] md:w-[250px] h-auto max-h-[80px] md:max-h-[120px]'} object-contain brightness-0 invert opacity-70 shrink-0`}
-                />
-              ))}
+        <motion.div
+          className="relative z-10 pb-14"
+          style={reduceMotion ? undefined : { opacity: marqueeOpacity }}
+        >
+          <motion.div {...marqueeMotion}>
+            <div
+              ref={marqueeRef}
+              className={`overflow-hidden py-4 logo-carousel-viewport${marqueeVisible ? ' is-visible' : ''}`}
+            >
+              <div className={`logo-carousel-track-hero flex items-center gap-16 md:gap-24${marqueeVisible ? '' : ' is-paused'}`}>
+                {doubledLogos.map((logo, i) => (
+                  <img
+                    key={i}
+                    src={logo.src}
+                    alt={logo.alt}
+                    loading={i < clientLogos.length ? 'eager' : 'lazy'}
+                    decoding="async"
+                    className={`${logo.size ? logo.size : logo.small ? 'w-[112px] md:w-[175px] h-auto max-h-[56px] md:max-h-[84px]' : 'w-[160px] md:w-[250px] h-auto max-h-[80px] md:max-h-[120px]'} object-contain brightness-0 invert opacity-70 shrink-0 marquee-logo`}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
 

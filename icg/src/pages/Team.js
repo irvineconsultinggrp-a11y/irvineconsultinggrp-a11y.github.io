@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { GrLinkedin } from "react-icons/gr";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { Reveal, Stagger, StaggerItem } from "../components/Motion";
+import { maskUp, stagger } from "../lib/motion";
 import {
   getAllMembers,
   getMembersByCategory,
@@ -12,7 +15,7 @@ function MemberCard({ id, name, role, image, linkedin }) {
   const objectPositionClass =
     id === "andrew" ? "object-[50%_38%]" : "object-center";
   return (
-    <div className="flex flex-col items-center">
+    <StaggerItem y={18} duration={0.55} className="flex flex-col items-center">
       <div
         className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 lg:w-44 lg:h-44 mb-3 rounded-full overflow-hidden bg-gray-200 shadow-md ring-0 ring-icgblue/15 transition-all duration-300 ease-out hover:scale-[1.07] hover:-translate-y-1.5 hover:shadow-xl hover:ring-4 hover:z-10 cursor-default"
       >
@@ -43,17 +46,19 @@ function MemberCard({ id, name, role, image, linkedin }) {
           </a>
         )}
       </div>
-    </div>
+    </StaggerItem>
   );
 }
 
 function TabButton({ label, isActive, onClick }) {
+  const reduceMotion = useReducedMotion();
   return (
     <button
       onClick={onClick}
+      aria-pressed={isActive}
       className={`
-        px-4 py-2 text-sm md:text-base font-medium
-        border transition-all duration-200
+        relative px-4 py-2 text-sm md:text-base font-medium
+        border transition-colors duration-200
         ${
           isActive
             ? "border-gray-900 text-gray-900 font-bold"
@@ -61,7 +66,14 @@ function TabButton({ label, isActive, onClick }) {
         }
       `}
     >
-      {label}
+      {isActive && !reduceMotion && (
+        <motion.span
+          layoutId="team-tab-fill"
+          className="absolute inset-0 bg-gray-900/[0.05]"
+          transition={{ type: "spring", stiffness: 420, damping: 36, mass: 0.7 }}
+        />
+      )}
+      <span className="relative z-10">{label}</span>
     </button>
   );
 }
@@ -120,6 +132,16 @@ export default function Team() {
   const advisors = getMembersByCategory("advisors");
   const members = getDisplayMembers();
 
+  const heroRef = useRef(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const plateY = useTransform(scrollYProgress, [0, 1], [0, 44]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, -58]);
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+
   return (
     <div className="overflow-x-hidden">
       <link
@@ -129,28 +151,46 @@ export default function Team() {
         fetchPriority="high"
       />
       {/* ===== Hero ===== */}
-      <div className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden">
-        <img
-          src="/icg-team.webp"
-          alt=""
-          fetchPriority="high"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-center"
-        />
+      <div ref={heroRef} className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden">
+        <motion.div
+          className="absolute inset-x-0 -top-14 h-[calc(100%+7rem)]"
+          style={reduceMotion ? undefined : { y: plateY }}
+        >
+          <img
+            src="/icg-team.webp"
+            alt=""
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 h-full w-full object-cover object-center scale-[1.06]"
+          />
+        </motion.div>
         <div className="absolute inset-0 bg-icgblue/60" />
-        <div className="relative z-10 text-center px-6">
-          <h1 className="text-4xl sm:text-5xl md:text-7xl text-white font-extrabold leading-[1.08] tracking-tighter pb-1">
-            A collaborative and intuitive
-          </h1>
-          <h1
-            className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.08] tracking-tighter bg-clip-text text-transparent mt-0 pb-1"
-            style={{
-              backgroundImage: "linear-gradient(to right, #a8d8ff, #ffffff, #a8d8ff)",
-            }}
+        <motion.div
+          className="relative z-10 text-center px-6"
+          style={reduceMotion ? undefined : { y: copyY, opacity: copyOpacity }}
+        >
+          <motion.div
+            variants={reduceMotion ? undefined : stagger(0.13, 0.15)}
+            initial={reduceMotion ? undefined : "hidden"}
+            animate={reduceMotion ? undefined : "visible"}
           >
-            team you can count on
-          </h1>
-        </div>
+            <motion.h1
+              variants={reduceMotion ? undefined : maskUp(30, 1)}
+              className="text-4xl sm:text-5xl md:text-7xl text-white font-extrabold leading-[1.08] tracking-tighter pb-1"
+            >
+              A collaborative and intuitive
+            </motion.h1>
+            <motion.h1
+              variants={reduceMotion ? undefined : maskUp(30, 1)}
+              className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.08] tracking-tighter bg-clip-text text-transparent mt-0 pb-1"
+              style={{
+                backgroundImage: "linear-gradient(to right, #a8d8ff, #ffffff, #a8d8ff)",
+              }}
+            >
+              team you can count on
+            </motion.h1>
+          </motion.div>
+        </motion.div>
       </div>
 
       {/* ===== Floating Content Panel ===== */}
@@ -168,9 +208,14 @@ export default function Team() {
           ))}
         </div>
 
-        {/* Member Grid */}
+        {/* Member Grid — keyed on the tab so switching re-runs the cascade */}
         <div className="container mx-auto max-w-6xl px-2 md:px-6">
-          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-10 md:gap-x-10 md:gap-y-14 place-items-center">
+          <Stagger
+            key={activeTab}
+            step={0.035}
+            amount={0.02}
+            className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-10 md:gap-x-10 md:gap-y-14 place-items-center"
+          >
             {members &&
               members.map((member) => (
                 <MemberCard
@@ -182,15 +227,22 @@ export default function Team() {
                   linkedin={member.linkedinUrl}
                 />
               ))}
-          </div>
+          </Stagger>
         </div>
 
         {/* Advisors */}
         <div className="container mx-auto max-w-6xl px-2 md:px-6 pt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-10">
+          <Reveal
+            as="h2"
+            preset="mask"
+            className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-10"
+          >
             Advisors
-          </h2>
-          <div className="flex flex-wrap items-center justify-center gap-10">
+          </Reveal>
+          <Stagger
+            step={0.08}
+            className="flex flex-wrap items-center justify-center gap-10"
+          >
             {advisors.map((advisor) => (
               <MemberCard
                 key={advisor.id}
@@ -201,7 +253,7 @@ export default function Team() {
                 linkedin={advisor.linkedinUrl}
               />
             ))}
-          </div>
+          </Stagger>
         </div>
 
       </div>

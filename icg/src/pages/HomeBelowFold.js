@@ -4,6 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import FAQItem from '../components/FaqItem';
 import ScrollReveal from '../components/ScrollReveal';
 import ProofSections from '../components/ProofSections';
+import CountUp from '../components/CountUp';
+import { Reveal, Stagger, StaggerItem, ImageReveal } from '../components/Motion';
+import { EASE } from '../lib/motion';
 import { ArrowUpRight } from 'lucide-react';
 
 const testimonials = [
@@ -93,7 +96,8 @@ function TestimonialCard({ testimonial, position, direction, onClick }) {
       initial="enter"
       animate={position}
       exit="exit"
-      transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+      transition={{ duration: 0.72, ease: EASE }}
+      whileHover={isClickable ? { scale: 0.89, opacity: 0.72 } : undefined}
       style={{ pointerEvents: isClickable || position === 'center' ? 'auto' : 'none' }}
       onClick={isClickable ? onClick : undefined}
     >
@@ -173,31 +177,36 @@ function HomeBelowFold() {
         <div className="container mx-auto">
           <ScrollReveal>
             <div className="bg-gray-50 rounded-2xl p-8 md:p-14 flex flex-col md:flex-row items-center gap-12">
-              <div className="w-full md:w-1/2 space-y-6">
-                <h2 className="text-3xl md:text-5xl font-bold text-icgblue">
+              <Stagger step={0.1} className="w-full md:w-1/2 space-y-6">
+                <StaggerItem as="h2" preset="mask" className="text-3xl md:text-5xl font-bold text-icgblue">
                   What is ICG?
-                </h2>
-                <p className="text-gray-500 text-base md:text-lg leading-relaxed">
+                </StaggerItem>
+                <StaggerItem as="p" y={16} className="text-gray-500 text-base md:text-lg leading-relaxed">
                   ICG is the premier strategy consulting organization at UC Irvine,
                   dedicated to shaping the future leaders in consulting through
                   experiential learning and development opportunities.
-                </p>
-                <Link
-                  to="/contact"
-                  className="inline-block bg-icgblue text-white font-semibold px-7 py-3 rounded-lg hover:bg-icgblue/90 transition-colors"
-                >
-                  Contact Us
-                </Link>
-              </div>
+                </StaggerItem>
+                <StaggerItem y={16}>
+                  <Link
+                    to="/contact"
+                    className="btn-lift inline-block bg-icgblue text-white font-semibold px-7 py-3 rounded-lg hover:bg-icgblue/90"
+                  >
+                    Contact Us
+                  </Link>
+                </StaggerItem>
+              </Stagger>
               <div className="w-full md:w-1/2">
-                <div className="overflow-hidden rounded-xl shadow-md aspect-[4/3] w-full bg-gray-200">
+                <ImageReveal
+                  className="overflow-hidden rounded-xl shadow-md aspect-[4/3] w-full bg-gray-200"
+                  innerClassName="h-full w-full"
+                >
                   <img
                     src="/W%2726%20Group.webp"
                     alt="ICG team — Winter 2026 group"
                     decoding="async"
                     className="h-full w-full object-cover object-[38%_center] scale-[1.22] origin-center"
                   />
-                </div>
+                </ImageReveal>
               </div>
             </div>
           </ScrollReveal>
@@ -207,31 +216,29 @@ function HomeBelowFold() {
       {/* ===== STATS ===== */}
       <div className="bg-white pb-4 md:pb-6 px-6">
         <div className="container mx-auto max-w-6xl">
-          <ScrollReveal>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-[5.25rem] text-center">
-              {[
-                { number: '20+', label: 'Clients Served' },
-                { number: '$300M+', label: 'Value Served', numberNowrap: true },
-                { number: '1000+', label: 'Hours of Service' },
-              ].map((stat) => (
-                <div
-                  key={stat.label}
-                  className="min-w-0 text-center"
+          <Stagger
+            step={0.12}
+            className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-[5.25rem] text-center"
+          >
+            {[
+              { number: '20+', label: 'Clients Served' },
+              { number: '$300M+', label: 'Value Served', numberNowrap: true },
+              { number: '1000+', label: 'Hours of Service' },
+            ].map((stat) => (
+              <StaggerItem key={stat.label} y={24} className="min-w-0 text-center">
+                <p
+                  className={`inline-block text-[3.94rem] md:text-[5.25rem] font-bold text-icgblue tracking-tight leading-none transition-transform duration-300 hover:scale-110 cursor-default ${
+                    stat.numberNowrap ? 'whitespace-nowrap' : ''
+                  }`}
                 >
-                  <p
-                    className={`inline-block text-[3.94rem] md:text-[5.25rem] font-bold text-icgblue tracking-tight leading-none transition-transform duration-300 hover:scale-110 cursor-default ${
-                      stat.numberNowrap ? 'whitespace-nowrap' : ''
-                    }`}
-                  >
-                    {stat.number}
-                  </p>
-                  <p className="mt-4 text-black text-[1.75rem] font-light leading-snug">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </ScrollReveal>
+                  <CountUp value={stat.number} />
+                </p>
+                <p className="mt-4 text-black text-[1.75rem] font-light leading-snug">
+                  {stat.label}
+                </p>
+              </StaggerItem>
+            ))}
+          </Stagger>
         </div>
       </div>
 
@@ -241,12 +248,21 @@ function HomeBelowFold() {
       <div className="bg-[#f0f4f8] py-24 md:py-28 px-6">
         <ScrollReveal>
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-3xl md:text-5xl font-bold text-icgblue text-center">
+          <Reveal
+            as="h2"
+            preset="mask"
+            className="text-3xl md:text-5xl font-bold text-icgblue text-center"
+          >
             What Our Clients Say
-          </h2>
-          <p className="text-center text-gray-600 mt-2 mb-16 font-light">
+          </Reveal>
+          <Reveal
+            as="p"
+            y={12}
+            delay={0.12}
+            className="text-center text-gray-600 mt-2 mb-16 font-light"
+          >
             Trusted by Professionals
-          </p>
+          </Reveal>
 
           <div
             className="relative flex items-center justify-center min-h-[29rem] sm:min-h-[28rem] md:min-h-[27rem] lg:min-h-[26rem]"
@@ -271,32 +287,47 @@ function HomeBelowFold() {
           </div>
 
           <div className="flex items-center justify-center gap-6 mt-10">
-            <button
+            <motion.button
               onClick={prevTestimonial}
               className="text-gray-400 hover:text-icgblue transition-colors text-2xl"
               aria-label="Previous"
+              whileHover={{ x: -4 }}
+              whileTap={{ scale: 0.88 }}
+              transition={{ duration: 0.28, ease: EASE }}
             >
               &larr;
-            </button>
+            </motion.button>
             <div className="flex gap-2">
               {testimonials.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => goTo(i)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                    currentTestimonial === i ? 'bg-icgblue w-7' : 'bg-gray-300'
-                  }`}
+                  className="group relative h-2.5 rounded-full"
                   aria-label={`Testimonial ${i + 1}`}
-                />
+                  aria-current={currentTestimonial === i}
+                >
+                  <motion.span
+                    className={`block h-2.5 rounded-full ${
+                      currentTestimonial === i
+                        ? 'bg-icgblue'
+                        : 'bg-gray-300 group-hover:bg-gray-400'
+                    }`}
+                    animate={{ width: currentTestimonial === i ? 28 : 10 }}
+                    transition={{ duration: 0.45, ease: EASE }}
+                  />
+                </button>
               ))}
             </div>
-            <button
+            <motion.button
               onClick={nextTestimonial}
               className="text-gray-400 hover:text-icgblue transition-colors text-2xl"
               aria-label="Next"
+              whileHover={{ x: 4 }}
+              whileTap={{ scale: 0.88 }}
+              transition={{ duration: 0.28, ease: EASE }}
             >
               &rarr;
-            </button>
+            </motion.button>
           </div>
         </div>
         </ScrollReveal>
@@ -305,47 +336,54 @@ function HomeBelowFold() {
       {/* ===== FAQ ===== */}
       <div className="bg-white py-24 md:py-28 px-6">
         <div className="container mx-auto max-w-3xl">
-          <ScrollReveal>
-            <h2 className="text-3xl md:text-5xl font-bold text-icgblue mb-12">
-              Frequently asked Questions
-            </h2>
+          <Reveal
+            as="h2"
+            preset="mask"
+            className="text-3xl md:text-5xl font-bold text-icgblue mb-12"
+          >
+            Frequently asked Questions
+          </Reveal>
+          <Stagger step={0.08}>
             {faqs.map((faq, index) => (
-              <FAQItem
-                key={index}
-                question={faq.question}
-                answer={faq.answer}
-                isLast={index === faqs.length - 1}
-              />
+              <StaggerItem key={index} y={18}>
+                <FAQItem
+                  question={faq.question}
+                  answer={faq.answer}
+                  isLast={index === faqs.length - 1}
+                />
+              </StaggerItem>
             ))}
-          </ScrollReveal>
+          </Stagger>
         </div>
       </div>
 
       {/* ===== CTA ===== */}
       <div className="bg-white pb-28 px-6">
-        <ScrollReveal>
-        <div className="container mx-auto max-w-3xl">
-          <h2 className="text-3xl md:text-5xl font-bold text-icgblue leading-tight">
+        <Stagger step={0.1} className="container mx-auto max-w-3xl">
+          <StaggerItem
+            as="h2"
+            preset="mask"
+            className="text-3xl md:text-5xl font-bold text-icgblue leading-tight"
+          >
             Enough about us.
             <br />
             <span className="font-light">What can we do for you?</span>
-          </h2>
-          <div className="flex flex-col sm:flex-row gap-4 mt-10">
+          </StaggerItem>
+          <StaggerItem y={18} className="flex flex-col sm:flex-row gap-4 mt-10">
             <Link
               to="/students"
-              className="inline-flex items-center gap-2 bg-icgblue text-white font-bold px-7 py-3.5 rounded-full hover:bg-icgblue/90 transition-colors"
+              className="btn-lift group inline-flex items-center gap-2 bg-icgblue text-white font-bold px-7 py-3.5 rounded-full hover:bg-icgblue/90"
             >
-              I am a STUDENT <ArrowUpRight className="w-4 h-4" />
+              I am a STUDENT <ArrowUpRight className="w-4 h-4 arrow-nudge" />
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 bg-icgblue text-white font-bold px-7 py-3.5 rounded-full hover:bg-icgblue/90 transition-colors"
+              className="btn-lift group inline-flex items-center gap-2 bg-icgblue text-white font-bold px-7 py-3.5 rounded-full hover:bg-icgblue/90"
             >
-              I am a BUSINESS <ArrowUpRight className="w-4 h-4" />
+              I am a BUSINESS <ArrowUpRight className="w-4 h-4 arrow-nudge" />
             </Link>
-          </div>
-        </div>
-        </ScrollReveal>
+          </StaggerItem>
+        </Stagger>
       </div>
     </>
   );

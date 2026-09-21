@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import EventRsvpDialog from "../components/RSVP";
+import { Stagger, StaggerItem } from "../components/Motion";
+import { EASE } from "../lib/motion";
 
 const upcomingEvents = [
   {
@@ -135,11 +138,15 @@ export default function Events() {
               />
             </div>
             <div className="max-w-6xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <Stagger
+                step={0.09}
+                amount={0.05}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              >
                 {upcomingEvents.map((event, i) => (
                   <EventCard key={event.id} event={event} index={i} />
                 ))}
-              </div>
+              </Stagger>
             </div>
           </div>
 
@@ -173,16 +180,20 @@ export default function Events() {
               />
             </div>
             <div className="max-w-6xl mx-auto">
-              <div className="flex justify-center mb-12">
+              <Stagger className="flex justify-center mb-12">
                 <div className="w-full max-w-sm">
                   <EventCard key={pastEvents[0].id} event={pastEvents[0]} index={0} />
                 </div>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              </Stagger>
+              <Stagger
+                step={0.09}
+                amount={0.05}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              >
                 {pastEvents.slice(1).map((event, i) => (
                   <EventCard key={event.id} event={event} index={i + 1} />
                 ))}
-              </div>
+              </Stagger>
             </div>
           </div>
 
@@ -210,14 +221,21 @@ function EventCard({ event, index, showRsvp = false }) {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+    <StaggerItem
+      y={24}
+      className="card-lift bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg"
+    >
       <div className="aspect-[16/9] bg-gray-100 overflow-hidden relative group">
-        <img
+        <motion.img
+          key={images[currentImageIndex]}
           src={images[currentImageIndex]}
           alt={event.title}
           loading="lazy"
           decoding="async"
           className="w-full h-full object-cover"
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.55, ease: EASE }}
         />
         {hasMultipleImages && (
           <>
@@ -274,6 +292,6 @@ function EventCard({ event, index, showRsvp = false }) {
           </div>
         )}
       </div>
-    </div>
+    </StaggerItem>
   );
 }

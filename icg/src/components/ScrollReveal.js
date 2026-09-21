@@ -1,15 +1,18 @@
 import { motion, useReducedMotion } from 'framer-motion';
-
-const variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-};
+import { DUR, EASE, VIEWPORT_LOOSE } from '../lib/motion';
 
 /**
- * Enter-once fade for below-fold sections. Opacity only — no translate,
- * so scrolling never fights layout near section boundaries.
+ * Enter-once reveal for below-fold sections. Short rise on the shared expo
+ * curve — the translate is a transform, so it never reflows content near a
+ * section boundary.
  */
-export default function ScrollReveal({ children, className = '', delay = 0 }) {
+export default function ScrollReveal({
+  children,
+  className = '',
+  delay = 0,
+  y = 16,
+  duration = DUR.base,
+}) {
   const reduceMotion = useReducedMotion();
 
   if (reduceMotion) {
@@ -19,18 +22,10 @@ export default function ScrollReveal({ children, className = '', delay = 0 }) {
   return (
     <motion.div
       className={className}
-      initial="hidden"
-      whileInView="visible"
-      variants={variants}
-      viewport={{
-        once: true,
-        amount: 0.15,
-      }}
-      transition={{
-        duration: 0.45,
-        delay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={VIEWPORT_LOOSE}
+      transition={{ duration, delay, ease: EASE }}
     >
       {children}
     </motion.div>

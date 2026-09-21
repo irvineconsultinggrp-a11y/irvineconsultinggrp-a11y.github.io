@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   Search,
   BarChart2,
@@ -9,9 +9,11 @@ import {
   Mail,
   Linkedin,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useForm, ValidationError } from "@formspree/react";
 import ScrollReveal from "../components/ScrollReveal";
+import { Reveal, Stagger, StaggerItem } from "../components/Motion";
+import { maskUp, stagger } from "../lib/motion";
 import { headshotV2 } from "../data/teamMembers";
 
 const services = [
@@ -316,48 +318,83 @@ export default function Contact() {
     setCurrentClient((p) => (p - 1 + totalClients) % totalClients);
   };
 
+  const heroRef = useRef(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const plateY = useTransform(scrollYProgress, [0, 1], [0, 44]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, -58]);
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+
   return (
     <div className="overflow-x-hidden">
       {/* ===== Hero ===== */}
-      <div className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden">
-        <img
-          src="/icg-work-with-us.webp"
-          alt=""
-          fetchPriority="high"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-center"
-        />
+      <div ref={heroRef} className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden">
+        <motion.div
+          className="absolute inset-x-0 -top-14 h-[calc(100%+7rem)]"
+          style={reduceMotion ? undefined : { y: plateY }}
+        >
+          <img
+            src="/icg-work-with-us.webp"
+            alt=""
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 h-full w-full object-cover object-center scale-[1.06]"
+          />
+        </motion.div>
         <div className="absolute inset-0 bg-icgblue/70" />
-        <div className="relative z-10 text-center px-6">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl text-white font-extrabold leading-[1.08] tracking-tighter md:whitespace-nowrap">
-            Trusted by Fortune 500 companies
-          </h1>
-          <h1
-            className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-extrabold leading-[1.08] tracking-tighter bg-clip-text text-transparent mt-0 md:whitespace-nowrap"
-            style={{
-              backgroundImage:
-                "linear-gradient(to right, #a8d8ff, #ffffff, #a8d8ff)",
-            }}
+        <motion.div
+          className="relative z-10 text-center px-6"
+          style={reduceMotion ? undefined : { y: copyY, opacity: copyOpacity }}
+        >
+          <motion.div
+            variants={reduceMotion ? undefined : stagger(0.13, 0.15)}
+            initial={reduceMotion ? undefined : "hidden"}
+            animate={reduceMotion ? undefined : "visible"}
           >
-            from concept to completion
-          </h1>
-        </div>
+            <motion.h1
+              variants={reduceMotion ? undefined : maskUp(30, 1)}
+              className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl text-white font-extrabold leading-[1.08] tracking-tighter md:whitespace-nowrap"
+            >
+              Trusted by Fortune 500 companies
+            </motion.h1>
+            <motion.h1
+              variants={reduceMotion ? undefined : maskUp(30, 1)}
+              className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-extrabold leading-[1.08] tracking-tighter bg-clip-text text-transparent mt-0 md:whitespace-nowrap"
+              style={{
+                backgroundImage:
+                  "linear-gradient(to right, #a8d8ff, #ffffff, #a8d8ff)",
+              }}
+            >
+              from concept to completion
+            </motion.h1>
+          </motion.div>
+        </motion.div>
       </div>
 
       {/* ===== Floating Content Panel ===== */}
       <div className="relative z-10 -mt-10 md:-mt-16 bg-white rounded-t-[28px] md:rounded-t-[40px] px-4 md:px-8 pt-12 md:pt-20 pb-16">
         {/* ===== Our Services ===== */}
-        <ScrollReveal>
         <section className="max-w-6xl mx-auto mb-24 md:mb-32">
-          <h2 className="text-4xl md:text-6xl font-extrabold text-icgblue text-center mb-12 md:mb-16">
+          <Reveal
+            as="h2"
+            preset="mask"
+            className="text-4xl md:text-6xl font-extrabold text-icgblue text-center mb-12 md:mb-16"
+          >
             Our Services.
-          </h2>
+          </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((svc, i) => (
-              <div
+          <Stagger
+            step={0.07}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {services.map((svc) => (
+              <StaggerItem
                 key={svc.title}
-                className="border border-gray-200 rounded-xl p-8 flex flex-col items-center text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-300 bg-white"
+                y={22}
+                className="card-lift border border-gray-200 rounded-xl p-8 flex flex-col items-center text-center hover:shadow-lg bg-white"
               >
                 <div className="mb-4">{svc.icon}</div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">
@@ -366,11 +403,10 @@ export default function Contact() {
                 <p className="text-gray-600 text-sm leading-relaxed">
                   {svc.description}
                 </p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         </section>
-        </ScrollReveal>
 
         {/* ===== Our Clients ===== */}
         <ScrollReveal>

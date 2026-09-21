@@ -1,7 +1,9 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import DevelopmentCarousel from "../components/DevelopmentCarousel";
 import ScrollReveal from "../components/ScrollReveal";
+import { Reveal, Stagger, StaggerItem } from "../components/Motion";
+import { DUR, EASE, maskUp, stagger } from "../lib/motion";
 import { headshotV2 } from "../data/teamMembers";
 
 const APPLY_URL = "https://apply.irvineconsultinggroup.com";
@@ -102,28 +104,52 @@ const timelineData = [
 ];
 
 function Students() {
+  const heroRef = useRef(null);
+  const reduceMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  // Plate sits in an over-sized frame so the drift never exposes an edge.
+  const plateY = useTransform(scrollYProgress, [0, 1], [0, 44]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, -58]);
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+
   return (
     <div className="overflow-x-hidden">
       {/* ===== HERO ===== */}
-      <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-        <img
-          src="/W%2726%20Girls.webp"
-          alt=""
-          fetchPriority="high"
-          decoding="async"
-          className="absolute inset-0 h-full w-full origin-center object-cover object-[40%_center] md:scale-[1.18]"
-        />
+      <div ref={heroRef} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+        <motion.div
+          className="absolute inset-x-0 -top-14 h-[calc(100%+7rem)]"
+          style={reduceMotion ? undefined : { y: plateY }}
+        >
+          <img
+            src="/W%2726%20Girls.webp"
+            alt=""
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 h-full w-full origin-center object-cover object-[40%_center] md:scale-[1.18]"
+          />
+        </motion.div>
         <div className="absolute inset-0 bg-icgblue/70" />
-        <div className="relative z-10 text-center px-6">
+        <motion.div
+          className="relative z-10 text-center px-6"
+          style={reduceMotion ? undefined : { y: copyY, opacity: copyOpacity }}
+        >
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            variants={reduceMotion ? undefined : stagger(0.13, 0.15)}
+            initial={reduceMotion ? undefined : 'hidden'}
+            animate={reduceMotion ? undefined : 'visible'}
           >
-            <h1 className="text-4xl sm:text-5xl md:text-7xl text-white font-extrabold leading-[1.08] tracking-tighter pb-1">
+            <motion.h1
+              variants={reduceMotion ? undefined : maskUp(30, 1)}
+              className="text-4xl sm:text-5xl md:text-7xl text-white font-extrabold leading-[1.08] tracking-tighter pb-1"
+            >
               Join UCI&apos;s
-            </h1>
-            <h1
+            </motion.h1>
+            <motion.h1
+              variants={reduceMotion ? undefined : maskUp(30, 1)}
               className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.08] tracking-tighter bg-clip-text text-transparent mt-0 pb-1"
               style={{
                 backgroundImage:
@@ -131,9 +157,9 @@ function Students() {
               }}
             >
               Premier Strategy Consulting Organization
-            </h1>
+            </motion.h1>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
 
       {/* ===== FLOATING CONTENT PANEL ===== */}
@@ -143,9 +169,13 @@ function Students() {
         <ScrollReveal>
         <div className="pt-16 pb-10 px-2 md:px-6">
           <div className="container mx-auto">
-            <h2 className="text-5xl md:text-7xl font-extrabold text-icgblue mb-4 text-center">
+            <Reveal
+              as="h2"
+              preset="mask"
+              className="text-5xl md:text-7xl font-extrabold text-icgblue mb-4 text-center"
+            >
               Your ICG Experience
-            </h2>
+            </Reveal>
           </div>
           <div className="text-icgblue">
             <DevelopmentCarousel />
@@ -154,14 +184,17 @@ function Students() {
         </ScrollReveal>
 
         {/* ===== TESTIMONIALS ===== */}
-        <ScrollReveal>
         <div className="pt-8 pb-24 px-2 md:px-6">
           <div className="container mx-auto max-w-6xl">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:items-stretch">
+            <Stagger
+              step={0.12}
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 md:items-stretch"
+            >
               {testimonials.map((t, i) => (
-                <div
+                <StaggerItem
                   key={i}
-                  className="bg-white border border-gray-200 rounded-2xl p-8 md:p-10 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col h-full"
+                  y={26}
+                  className="card-lift bg-white border border-gray-200 rounded-2xl p-8 md:p-10 shadow-sm hover:shadow-lg flex flex-col h-full"
                 >
                   <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-8 flex-1">
                     &ldquo;{t.quote}&rdquo;
@@ -181,52 +214,58 @@ function Students() {
                       <p className="text-sm text-gray-500">{t.role}</p>
                     </div>
                   </div>
-                </div>
+                </StaggerItem>
               ))}
-            </div>
+            </Stagger>
           </div>
         </div>
-        </ScrollReveal>
 
         {/* ===== RECRUITMENT TIMELINE ===== */}
         <ScrollReveal>
         <div className="py-24 px-2 md:px-6">
           <div className="container mx-auto max-w-3xl">
-            <h2 className="text-5xl md:text-7xl font-extrabold text-icgblue mb-40 text-center">
+            <Reveal
+              as="h2"
+              preset="mask"
+              className="text-5xl md:text-7xl font-extrabold text-icgblue mb-14 md:mb-16 text-center"
+            >
               Recruitment Timeline
-            </h2>
+            </Reveal>
 
             <div className="relative ml-3 md:ml-5">
               {timelineData.map((item, i) => (
                 <div key={i} className="relative flex items-stretch">
-                  {/* Left column: dot + connector line */}
+                  {/* Left column: dot + connector line. Each row animates off
+                      its own viewport entry, so delays are within-row only —
+                      an index-scaled delay would stall rows further down the
+                      list long after they are already on screen. */}
                   <div className="flex flex-col items-center shrink-0 w-6">
                     <div className={`w-px flex-1 ${i === 0 ? 'bg-transparent' : 'bg-gray-300'}`} />
                     <motion.div
                       className="w-3 h-3 rounded-full bg-icgblue shrink-0"
                       initial={{ scale: 0 }}
                       whileInView={{ scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: i * 0.15, type: 'spring', stiffness: 300 }}
+                      viewport={{ once: true, amount: 0.6 }}
+                      transition={{ type: 'spring', stiffness: 460, damping: 26, mass: 0.6 }}
                     />
                     <motion.div
                       className={`w-px flex-1 origin-top ${i === timelineData.length - 1 ? 'bg-transparent' : 'bg-gray-300'}`}
                       initial={{ scaleY: 0 }}
                       whileInView={{ scaleY: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: i * 0.15 + 0.2 }}
+                      viewport={{ once: true, amount: 0.4 }}
+                      transition={{ duration: 0.7, ease: EASE, delay: 0.12 }}
                     />
                   </div>
 
                   {/* Card */}
                   <motion.div
                     className="flex-1 ml-6 md:ml-10 mb-8"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.15 }}
+                    initial={{ opacity: 0, x: 22 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.3, margin: '0px 0px -6% 0px' }}
+                    transition={{ duration: DUR.base, ease: EASE, delay: 0.06 }}
                   >
-                    <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div className="card-lift bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg">
                       <div className="flex items-start justify-between gap-4 mb-2">
                         <div>
                           <h3 className="text-lg md:text-xl font-bold text-icgblue">
