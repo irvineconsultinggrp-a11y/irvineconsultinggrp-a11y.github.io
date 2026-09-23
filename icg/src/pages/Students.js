@@ -41,7 +41,7 @@ const timelineData = [
   {
     date: "Sep 24 - Sep 30, 2026",
     heading: "Coffee Chats",
-    content: "Schedule a 1-on-1 conversation with an ICG member to learn more about the organization and ask any questions you have.",
+    content: "Schedule a 1-on-1 conversation with an ICG member to learn more about the organization and ask any questions you have. You must create an account on the ATS before scheduling.",
     button: { label: "Schedule Now", href: COFFEE_CHAT_URL, disabled: false },
   },
   {
