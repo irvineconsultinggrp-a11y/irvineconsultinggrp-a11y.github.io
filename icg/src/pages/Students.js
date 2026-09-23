@@ -34,17 +34,15 @@ const testimonials = [
 const timelineData = [
   {
     date: "Sep 22, 2026",
-    time: "8:00 PM",
     heading: "Applications Open",
     content: "Apply to join ICG and take the first step toward a hands-on consulting experience. Stay connected on LinkedIn, Instagram, and our website for updates.",
-    button: { label: "Apply", href: APPLY_URL, disabled: true },
+    button: { label: "Apply Now", href: APPLY_URL, disabled: false },
   },
   {
     date: "Sep 24 - Sep 30, 2026",
-    time: "TBD",
     heading: "Coffee Chats",
     content: "Schedule a 1-on-1 conversation with an ICG member to learn more about the organization and ask any questions you have.",
-    button: { label: "Sign Up", href: COFFEE_CHAT_URL, disabled: true },
+    button: { label: "Schedule Now", href: COFFEE_CHAT_URL, disabled: false },
   },
   {
     date: "Sep 25, 2026",

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { EASE, EASE_IN_OUT, EASE_SOFT } from '../lib/motion';
+import { EASE, EASE_IN_OUT } from '../lib/motion';
 
 const links = [
   { to: '/', label: 'Home' },
@@ -19,13 +19,8 @@ const isActivePath = (path, pathname) => {
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [expanded, setExpanded] = useState(false);
-  const [navigating, setNavigating] = useState(false);
-  const collapseTimer = useRef(null);
-  const navTimer = useRef(null);
   const location = useLocation();
   const reduceMotion = useReducedMotion();
-  const prevPathname = useRef(location.pathname);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -35,36 +30,9 @@ function Navbar() {
 
   useEffect(() => {
     setIsOpen(false);
-
-    if (prevPathname.current !== location.pathname) {
-      prevPathname.current = location.pathname;
-      setNavigating(true);
-      setExpanded(true);
-      clearTimeout(navTimer.current);
-      navTimer.current = setTimeout(() => {
-        setNavigating(false);
-      }, 700);
-    }
   }, [location]);
 
-  const handleMouseEnter = () => {
-    clearTimeout(collapseTimer.current);
-    setExpanded(true);
-  };
-
-  const handleMouseLeave = () => {
-    setExpanded(false);
-  };
-
-  useEffect(() => () => {
-    clearTimeout(collapseTimer.current);
-    clearTimeout(navTimer.current);
-  }, []);
-
   const pillSpring = { type: 'spring', stiffness: 420, damping: 36, mass: 0.7 };
-
-  const activeLink = links.find((l) => isActivePath(l.to, location.pathname));
-  const activeIndex = links.indexOf(activeLink);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent">
@@ -74,41 +42,18 @@ function Navbar() {
           initial={reduceMotion ? false : { opacity: 0, y: -16, scale: 0.92 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          className={`hidden md:flex items-center rounded-full py-1.5 transition-all duration-500 cursor-pointer ${
+          className={`hidden md:flex items-center rounded-full py-1.5 transition-all duration-500 ${
             scrolled
               ? 'bg-white/90 backdrop-blur-md shadow-lg shadow-black/[0.06]'
               : 'bg-white/15 backdrop-blur-sm'
           }`}
           style={{ paddingLeft: 8, paddingRight: 8 }}
         >
-          {links.map((link, i) => {
+          {links.map((link) => {
             const active = isActivePath(link.to, location.pathname);
-            const distFromActive = Math.abs(i - activeIndex);
 
             return (
-              <motion.div
-                key={link.to}
-                initial={false}
-                animate={{
-                  width: expanded || active ? 'auto' : 0,
-                  opacity: expanded || active ? 1 : 0,
-                }}
-                transition={{
-                  width: {
-                    duration: expanded ? 0.45 : 0.35,
-                    ease: EASE_SOFT,
-                    delay: expanded ? distFromActive * 0.04 : (links.length - 1 - distFromActive) * 0.03,
-                  },
-                  opacity: {
-                    duration: expanded ? 0.3 : 0.2,
-                    ease: EASE,
-                    delay: expanded ? distFromActive * 0.04 + 0.08 : 0,
-                  },
-                }}
-                className={navigating ? '' : 'overflow-hidden'}
-              >
+              <div key={link.to}>
                 <Link
                   to={link.to}
                   aria-current={active ? 'page' : undefined}
@@ -131,9 +76,21 @@ function Navbar() {
                   )}
                   <span className="relative z-10">{link.label}</span>
                 </Link>
-              </motion.div>
+              </div>
             );
           })}
+          <a
+            href="https://apply.irvineconsultinggroup.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`ml-2 whitespace-nowrap px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
+              scrolled
+                ? 'bg-icgblue text-white hover:bg-icgblue/90'
+                : 'bg-white text-icgblue hover:bg-white/90'
+            }`}
+          >
+            Apply Now
+          </a>
         </motion.div>
 
         {/* Mobile menu button */}

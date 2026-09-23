@@ -189,12 +189,14 @@ function HomeBelowFold() {
                   generation of leaders.
                 </StaggerItem>
                 <StaggerItem y={16} className="flex flex-col sm:flex-row gap-4 w-full sm:w-3/4">
-                  <Link
-                    to="/contact"
+                  <a
+                    href="https://apply.irvineconsultinggroup.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="btn-lift block text-center w-full sm:flex-1 bg-icgblue text-white font-semibold px-7 py-3 rounded-lg hover:bg-icgblue/90"
                   >
-                    Contact Us
-                  </Link>
+                    Apply Now
+                  </a>
                   <Link
                     to="/students"
                     className="btn-lift block text-center w-full sm:flex-1 bg-white text-icgblue font-semibold px-7 py-3 rounded-lg border border-icgblue hover:bg-icgblue/5"
