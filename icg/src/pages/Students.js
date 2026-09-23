@@ -7,7 +7,7 @@ import { DUR, EASE, maskUp, stagger } from "../lib/motion";
 import { headshotV2 } from "../data/teamMembers";
 
 const APPLY_URL = "https://apply.irvineconsultinggroup.com";
-const COFFEE_CHAT_URL = "https://apply.irvineconsultinggroup.com/coffee-chat";
+const COFFEE_CHAT_URL = "https://apply.irvineconsultinggroup.com/applicant/dashboard/coffee-chats";
 
 const testimonials = [
   {
